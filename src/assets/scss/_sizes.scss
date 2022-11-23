@@ -1,0 +1,6 @@
+$outside-corner: 45px;
+
+$gap: 4px;
+@function gap($num) {
+  @return $gap * $num;
+}

@@ -1,0 +1,91 @@
+// device colors
+$off-white: #fafafa;
+$console-grey: #323538;
+$light-grey: #808080;
+$lightest-grey: lighten($light-grey, 43%);
+$medium-grey: #666666;
+$dark-grey: #404040;
+$darker-grey: #262626;
+$arrow-grey: #1a1a1a;
+$off-black: #0d0d0d;
+$blue: #00c3e3;
+$light-blue: #abdfed;
+$lightest-blue: lighten($light-blue, 12%);
+$dark-blue: #0094ad;
+$darker-blue: #03687a;
+$red: #ff4757;
+$light-red: #ffadb4;
+$dark-red: #c23642;
+
+// UI colors
+$pokemon-fire: #ef271a;
+$pokemon-fire-light: lighten($pokemon-fire, 43%);
+$pokemon-fire-dark: darken($pokemon-fire, 43%);
+
+$pokemon-grass: #15c171;
+$pokemon-grass-light: lighten($pokemon-grass, 45%);
+$pokemon-grass-dark: darken($pokemon-grass, 30%);
+
+$pokemon-water: #4460ee;
+$pokemon-water-light: lighten($pokemon-water, 30%);
+$pokemon-water-dark: darken($pokemon-water, 30%);
+
+$pokemon-normal: #c18cba;
+$pokemon-normal-light: lighten($pokemon-normal, 30%);
+$pokemon-normal-dark: darken($pokemon-normal, 30%);
+
+$pokemon-poison: #6e44ff;
+$pokemon-poison-light: lighten($pokemon-poison, 30%);
+$pokemon-poison-dark: darken($pokemon-poison, 30%);
+
+$pokemon-bug: #059669;
+$pokemon-bug-light: lighten($pokemon-bug, 50%);
+$pokemon-bug-dark: darken($pokemon-bug, 20%);
+
+$pokemon-ground: #88562a;
+$pokemon-ground-light: lighten($pokemon-ground, 30%);
+$pokemon-ground-dark: darken($pokemon-ground, 30%);
+
+$pokemon-fighting: #c75000;
+$pokemon-fighting-light: lighten($pokemon-fighting, 30%);
+$pokemon-fighting-dark: darken($pokemon-fighting, 30%);
+
+$pokemon-rock: #63330b;
+$pokemon-rock-light: lighten($pokemon-rock, 30%);
+$pokemon-rock-dark: darken($pokemon-rock, 30%);
+
+$pokemon-electric: #ffbf00;
+$pokemon-electric-light: lighten($pokemon-electric, 30%);
+$pokemon-electric-dark: darken($pokemon-electric, 30%);
+
+$pokemon-fairy: #ee4268;
+$pokemon-fairy-light: lighten($pokemon-fairy, 30%);
+$pokemon-fairy-dark: darken($pokemon-fairy, 30%);
+
+$pokemon-psychic: #db0ab6;
+$pokemon-psychic-light: lighten($pokemon-psychic, 30%);
+$pokemon-psychic-dark: darken($pokemon-psychic, 30%);
+
+$pokemon-ghost: #9a54a1;
+$pokemon-ghost-light: lighten($pokemon-ghost, 30%);
+$pokemon-ghost-dark: darken($pokemon-ghost, 30%);
+
+$pokemon-ice: #90e0ef;
+$pokemon-ice-light: lighten($pokemon-ice, 30%);
+$pokemon-ice-dark: darken($pokemon-ice, 30%);
+
+$pokemon-dragon: #2ec4b6;
+$pokemon-dragon-light: lighten($pokemon-dragon, 30%);
+$pokemon-dragon-dark: darken($pokemon-dragon, 30%);
+
+$pokemon-steel: #73e2a7;
+$pokemon-steel-light: lighten($pokemon-steel, 30%);
+$pokemon-steel-dark: darken($pokemon-steel, 30%);
+
+$pokemon-dark: #434549;
+$pokemon-dark-light: lighten($pokemon-dark, 30%);
+$pokemon-dark-dark: darken($pokemon-dark, 30%);
+
+$pokemon-flying: #8b9cad;
+$pokemon-flying-light: lighten($pokemon-flying, 30%);
+$pokemon-flying-dark: darken($pokemon-flying, 30%);
