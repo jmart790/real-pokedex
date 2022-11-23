@@ -11,7 +11,7 @@
     <div class="pokemon-tile__sprite">
       <img :src="spriteImage" alt="pokemon sprite" />
     </div>
-    {{ name }}
+    <span class="pokemon-tile__name">{{ name }}</span>
   </article>
 </template>
 
@@ -41,13 +41,16 @@ onMounted(async () => {
   border-radius: 30px 0 30px 0;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: gap(3);
   text-transform: capitalize;
   background: $lightest-grey;
   color: $medium-grey;
+  img {
+    transition: transform 200ms ease, opacity 200ms ease;
+  }
   &--active {
-    font-weight: 500;
     img {
+      transform: scale(1.2);
       filter: drop-shadow(1px 2px 4px rgba(black, 0.4));
       opacity: 1 !important;
     }
@@ -90,7 +93,7 @@ onMounted(async () => {
   }
   &--active#{&}--electric {
     background: $pokemon-electric-light;
-    color: $pokemon-water-dark;
+    color: $pokemon-electric-dark;
   }
   &--active#{&}--fairy {
     background: $pokemon-fairy-light;
@@ -122,10 +125,11 @@ onMounted(async () => {
   }
 
   &__sprite {
+    flex-shrink: 0;
     position: relative;
     height: 50px;
     width: 50px;
-    border-radius: 50% 50% 50% 0;
+    border-radius: 50%;
     background-color: $off-white;
     img {
       position: absolute;
