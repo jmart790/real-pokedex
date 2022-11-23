@@ -143,7 +143,7 @@ watch(listPosition, (newPosition) => {
 
   ul {
     height: 100%;
-    padding: gap(9) gap(4);
+    padding: gap(9) gap(5);
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: gap(3) gap(4);
