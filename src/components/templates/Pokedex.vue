@@ -8,6 +8,7 @@
         <!-- turns on, shows intro,  -->
         <PokemonIntro v-if="currentView === 'INTRO'" />
         <PokemonList v-else-if="currentView === 'LIST'" />
+        <PokemonDetails v-else-if="currentView === 'POKEMON'" />
         <!-- shows pokemon individual -->
       </Window>
       <LeftControls />
