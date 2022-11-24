@@ -8,8 +8,19 @@
       `pokemon-tile--${pokemonType}`,
     ]"
   >
-    <div class="pokemon-tile__sprite">
-      <img :src="spriteImage" alt="pokemon sprite" />
+    <div class="pokemon-tile__image-container">
+      <img
+        v-if="isActive"
+        :src="gifImage"
+        alt="gif image"
+        class="pokemon-tile__gif"
+      />
+      <img
+        v-else
+        :src="spriteImage"
+        alt="pokemon sprite"
+        class="pokemon-tile__sprite"
+      />
     </div>
     <span class="pokemon-tile__name">{{ name }}</span>
   </article>
@@ -26,6 +37,11 @@ interface IPokemonTile {
 const props = defineProps<IPokemonTile>();
 const pokemon = ref<IPokemon>();
 const spriteImage = computed(() => pokemon?.value?.sprites?.front_default);
+const gifImage = computed(
+  () =>
+    pokemon?.value?.sprites?.versions["generation-v"]["black-white"].animated
+      .front_default
+);
 const pokemonType = computed(() => pokemon?.value?.types[0].type.name);
 
 onMounted(async () => {
@@ -48,13 +64,31 @@ onMounted(async () => {
   img {
     transition: transform 200ms ease, opacity 200ms ease;
   }
-  &--active {
-    img {
-      transform: scale(1.2);
-      filter: drop-shadow(1px 2px 4px rgba(black, 0.4));
-      opacity: 1 !important;
-    }
+  &__image-container {
+    flex-shrink: 0;
+    position: relative;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: $off-white;
   }
+  &__sprite {
+    position: absolute;
+    height: 150%;
+    width: 150%;
+    top: -25%;
+    left: -25%;
+    opacity: 0.5;
+  }
+
+  &__gif {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 1;
+  }
+
   &--active#{&}--fire {
     background: $pokemon-fire-light;
     color: $pokemon-fire-dark;
@@ -122,23 +156,6 @@ onMounted(async () => {
   &--active#{&}--flying {
     background: $pokemon-flying-light;
     color: $pokemon-flying-dark;
-  }
-
-  &__sprite {
-    flex-shrink: 0;
-    position: relative;
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    background-color: $off-white;
-    img {
-      position: absolute;
-      height: 150%;
-      width: 150%;
-      top: -25%;
-      left: -25%;
-      opacity: 0.5;
-    }
   }
 }
 </style>
