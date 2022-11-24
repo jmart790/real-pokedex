@@ -11,7 +11,9 @@ const { handleMainControl } = useMainControls();
 
 function handleKeyDown(event: KeyboardEvent) {
   event.preventDefault();
-  handleMainControl(event.key);
+  const command = event.key.toLowerCase().replace("arrow", "");
+  const keysToBtnMap = { a: "y", s: "x", z: "b", x: "a", p: "power" };
+  handleMainControl(keysToBtnMap[command] || command);
 }
 
 onMounted(() => {
