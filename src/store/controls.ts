@@ -44,7 +44,11 @@ export const useControlsStore = defineStore("controls", () => {
     const position = listPosition.value;
     const end = listLength.value - 1;
     if (type === "SUB") return position >= num ? position - num : 0;
-    else return position >= (end - num) ? end : position + num;
+    else return position >= end - num ? end : position + num;
+  }
+
+  function setMainView(view: CurrentView) {
+    currentView.value = view;
   }
 
   return {
@@ -54,5 +58,6 @@ export const useControlsStore = defineStore("controls", () => {
     isPokedexOn,
     currentView,
     setListLength,
+    setMainView,
   };
 });
