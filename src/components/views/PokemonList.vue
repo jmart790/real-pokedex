@@ -26,12 +26,12 @@ import { usePokeStore } from "@/store/pokemon";
 import { useControlsStore } from "@/store/controls";
 import { storeToRefs } from "pinia";
 
+// move some state to store so we can track the lazy loaded and go back with everything loaded
+
 const pokeStore = usePokeStore();
 const controlsStore = useControlsStore();
-
 const { pokemonList, genNum } = storeToRefs(pokeStore);
 const { listPosition } = storeToRefs(controlsStore);
-
 const pokelist = ref<HTMLUListElement | null>(null);
 const isLazyLoaded = ref<{ [index: string]: boolean }>({ 1: true });
 
@@ -56,21 +56,30 @@ function lazyLoadPokemon(newPosition: number) {
   }
 }
 
-onMounted(() => {
+function handlePokemonHighlighted(pos = 0) {
+  if (!pokemonList?.value?.length) return;
+  const { name } = pokemonList.value[pos];
+  pokeStore.setActivePokemonName(name);
+}
+
+function initializeLazyLoad() {
   let initialObject = {};
   for (let i = 0; i <= Number(pokemonList?.value?.length); i++) {
-    if (i < 20) {
-      initialObject[i] = true;
-    } else {
-      initialObject[i] = false;
-    }
+    if (i < 20) initialObject[i] = true;
+    else initialObject[i] = false;
     isLazyLoaded.value = { ...initialObject };
   }
+}
+
+onMounted(() => {
+  initializeLazyLoad();
+  handlePokemonHighlighted();
 });
 
 watch(listPosition, (newPosition) => {
   lazyLoadPokemon(newPosition);
   scrollInto(pokelist.value);
+  handlePokemonHighlighted(newPosition);
 });
 </script>
 
