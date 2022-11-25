@@ -17,8 +17,6 @@
   </section>
 </template>
 
-<script setup lang="ts"></script>
-
 <style scoped lang="scss">
 .pokedex-left {
   position: relative;
