@@ -31,14 +31,14 @@ const controlsStore = useControlsStore();
 const { pokemonList, genNum } = storeToRefs(pokeStore);
 const { listPosition } = storeToRefs(controlsStore);
 const pokelist = ref<HTMLUListElement | null>(null);
-const isLazyLoaded = ref<{ [index: string]: boolean }>({ 1: true });
+const isLazyLoaded = ref<{ [index: string]: boolean }>({ 0: true });
 
 function handleScrollInto(parent: HTMLUListElement | null) {
   if (!parent) return;
-  console.log({ parent });
   const activeChild = parent.getElementsByClassName(
     'pokemon-list__active-tile'
   )[0];
+  if (!activeChild) return;
   activeChild.scrollIntoView({
     behavior: 'smooth',
     block: 'center',
@@ -47,11 +47,25 @@ function handleScrollInto(parent: HTMLUListElement | null) {
 }
 
 function lazyLoadPokemon(newPosition: number) {
+  console.log(
+    '🚀 ~ file: PokemonList.vue ~ line 50 ~ lazyLoadPokemon ~ newPosition',
+    newPosition
+  );
   const buffer = 20;
-  const indexToLoad = buffer + newPosition;
-  if (indexToLoad <= Number(pokemonList.value?.length)) {
-    isLazyLoaded.value[indexToLoad] = true;
-    isLazyLoaded.value[indexToLoad - 1] = true;
+
+  // check for list checkpoint to batch load buffer amount
+  // do this once to avoid loading again
+
+  if (newPosition === 10 || newPosition === 9) {
+    const startPosition = 20;
+    for (let i = 20; i <= startPosition + buffer; i++) {
+      isLazyLoaded.value[i] = true;
+    }
+  } else if (newPosition === 30 || newPosition === 29) {
+    const startPosition = 50;
+    for (let i = 30; i <= startPosition + buffer; i++) {
+      isLazyLoaded.value[i] = true;
+    }
   }
 }
 
@@ -63,6 +77,7 @@ function handlePokemonHighlighted(pos = 0) {
 
 function initializeLazyLoad() {
   let initialObject = {};
+
   for (let i = 0; i <= Number(pokemonList?.value?.length); i++) {
     if (i < 20) initialObject[i] = true;
     else initialObject[i] = false;
