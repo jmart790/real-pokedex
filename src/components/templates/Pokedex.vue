@@ -5,15 +5,14 @@
         <Radar />
       </template>
       <Window class="pokedex__left-window">
-        <Toast
-          v-show="isToastVisible"
-          v-bind="toastProps.header[currentView]"
-        />
+        <Toast v-if="isToastVisible" v-bind="toastProps.header[currentView]" />
         <PokemonIntro v-if="currentView === 'INTRO'" />
-        <PokemonList v-else-if="currentView === 'LIST'" />
-        <PokemonDetails v-else-if="currentView === 'POKEMON'" />
+        <template v-else>
+          <PokemonList v-show="currentView === 'LIST'" />
+          <PokemonDetails v-show="currentView === 'POKEMON'" />
+        </template>
         <Toast
-          v-show="isToastVisible"
+          v-if="isToastVisible"
           v-bind="{ ...toastProps.footer[currentView] }"
         />
       </Window>
@@ -76,7 +75,7 @@ const toastProps = computed(() => {
 
 onMounted(async () => {
   await pokeStore.getGeneration();
-  setListLength(pokemonListLength.value || 0);
+  setListLength(pokemonListLength.value || 1);
   togglePower();
 });
 </script>
