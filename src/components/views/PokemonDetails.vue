@@ -25,6 +25,7 @@ async function getPokemon(payload: string) {
   if (!payload) return;
   await PokeAPI.Pokemon.resolve(payload).then((res) => {
     pokemon.value = res;
+    pokeStore.setActivePokemon(res);
   });
 }
 
@@ -85,7 +86,7 @@ watch(activePokemonName, (name) => {
   }
   &--rock {
     background: $pokemon-rock-light;
-    background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2fb2821a-1406-4a1d-9b04-6668f278e944/d847n4j-323b7cc8-d3a1-4031-a6a5-a2fa3fafcb96.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzJmYjI4MjFhLTE0MDYtNGExZC05YjA0LTY2NjhmMjc4ZTk0NFwvZDg0N240ai0zMjNiN2NjOC1kM2ExLTQwMzEtYTZhNS1hMmZhM2ZhZmNiOTYucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.xc');
+    background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2fb2821a-1406-4a1d-9b04-6668f278e944/d84cayh-8e1b25c5-7112-445a-b383-e8899331b45c.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzJmYjI4MjFhLTE0MDYtNGExZC05YjA0LTY2NjhmMjc4ZTk0NFwvZDg0Y2F5aC04ZTFiMjVjNS03MTEyLTQ0NWEtYjM4My1lODg5OTMzMWI0NWMucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.aMDt_zr3UoWrG0m5Ta3gOcQ1OUcmpiTtKa1pG_AoDD4');
   }
   &--electric {
     background: $pokemon-electric-light;
