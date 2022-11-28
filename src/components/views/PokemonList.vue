@@ -1,13 +1,13 @@
 <template>
   <article class="pokemon-list">
-    <ul ref="pokelist">
+    <ul ref="listElement">
       <li
-        v-for="({ name }, index) in pokemonList"
+        v-for="({ name, isLoaded }, index) in pokemonList"
         :key="`pokemon-${name}`"
         :class="{ 'pokemon-list__active-tile': listPosition === index }"
       >
         <PokemonTile
-          v-if="isLazyLoaded[index]"
+          v-if="isLoaded"
           v-bind="{
             name,
             isActive: listPosition === index
@@ -30,8 +30,7 @@ const pokeStore = usePokeStore();
 const controlsStore = useControlsStore();
 const { pokemonList, genNum } = storeToRefs(pokeStore);
 const { listPosition } = storeToRefs(controlsStore);
-const pokelist = ref<HTMLUListElement | null>(null);
-const isLazyLoaded = ref<{ [index: string]: boolean }>({ 0: true });
+const listElement = ref<HTMLUListElement | null>(null);
 
 function handleScrollInto(parent: HTMLUListElement | null) {
   if (!parent) return;
@@ -46,26 +45,15 @@ function handleScrollInto(parent: HTMLUListElement | null) {
   });
 }
 
-function lazyLoadPokemon(newPosition: number) {
-  console.log(
-    '🚀 ~ file: PokemonList.vue ~ line 50 ~ lazyLoadPokemon ~ newPosition',
-    newPosition
-  );
-  const buffer = 20;
+function lazyLoadPokemon(pos: number) {
+  if (!pokemonList.value?.length) return;
 
-  // check for list checkpoint to batch load buffer amount
-  // do this once to avoid loading again
+  const loadBuffer = 20;
+  const posToLoad = pos + loadBuffer;
 
-  if (newPosition === 10 || newPosition === 9) {
-    const startPosition = 20;
-    for (let i = 20; i <= startPosition + buffer; i++) {
-      isLazyLoaded.value[i] = true;
-    }
-  } else if (newPosition === 30 || newPosition === 29) {
-    const startPosition = 50;
-    for (let i = 30; i <= startPosition + buffer; i++) {
-      isLazyLoaded.value[i] = true;
-    }
+  if (posToLoad < pokemonList.value.length) {
+    pokeStore.setPokemonLoaded(posToLoad);
+    pokeStore.setPokemonLoaded(posToLoad - 1);
   }
 }
 
@@ -75,25 +63,14 @@ function handlePokemonHighlighted(pos = 0) {
   pokeStore.setActivePokemonName(name);
 }
 
-function initializeLazyLoad() {
-  let initialObject = {};
-
-  for (let i = 0; i <= Number(pokemonList?.value?.length); i++) {
-    if (i < 20) initialObject[i] = true;
-    else initialObject[i] = false;
-    isLazyLoaded.value = { ...initialObject };
-  }
-}
-
 onMounted(() => {
-  initializeLazyLoad();
-  handleScrollInto(pokelist.value);
+  handleScrollInto(listElement.value);
   handlePokemonHighlighted();
 });
 
 watch(listPosition, (newPosition) => {
   lazyLoadPokemon(newPosition);
-  handleScrollInto(pokelist.value);
+  handleScrollInto(listElement.value);
   handlePokemonHighlighted(newPosition);
 });
 </script>
