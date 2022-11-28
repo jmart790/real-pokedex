@@ -8,11 +8,10 @@
 
 <script setup lang="ts">
 interface Props {
-  variant?: "sm" | "md" | "lg";
+  variant?: 'sm' | 'md' | 'lg';
 }
-const defaultProp = { variant: "lg" };
 withDefaults(defineProps<Props>(), {
-  variant: "lg",
+  variant: 'lg'
 });
 </script>
 
