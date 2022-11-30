@@ -59,7 +59,6 @@ const copy = computed(() => {
 .mini-views {
   margin: 25px 0;
   &__windows {
-    margin-top: 120px;
     display: flex;
     justify-content: space-between;
     gap: 50px;
