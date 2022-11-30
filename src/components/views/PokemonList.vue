@@ -41,7 +41,7 @@ function handleScrollInto(parent: HTMLUListElement | null) {
   activeChild.scrollIntoView({
     behavior: 'smooth',
     block: 'center',
-    inline: 'center'
+    inline: 'end'
   });
 }
 
@@ -77,12 +77,7 @@ watch(listPosition, (newPosition) => {
 
 <style scoped lang="scss">
 .pokemon-list {
-  position: absolute;
-  inset: 0 -2px 0 -2px;
-  width: 100%;
-  height: 100%;
-  background: $off-white;
-
+  @include cool-bg;
   ul {
     height: 100%;
     padding: gap(9) gap(5);
