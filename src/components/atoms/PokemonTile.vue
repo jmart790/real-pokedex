@@ -3,9 +3,9 @@
     class="pokemon-tile"
     :class="[
       {
-        'pokemon-tile--active': isActive,
+        'pokemon-tile--active': isActive
       },
-      `pokemon-tile--${pokemonType}`,
+      `pokemon-tile--${pokemonType}`
     ]"
   >
     <div class="pokemon-tile__image-container">
@@ -27,8 +27,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
-import PokeAPI, { type IPokemon } from "pokeapi-typescript";
+import { computed, onMounted, ref } from 'vue';
+import PokeAPI, { type IPokemon } from 'pokeapi-typescript';
 
 interface IPokemonTile {
   name: string;
@@ -39,7 +39,7 @@ const pokemon = ref<IPokemon>();
 const spriteImage = computed(() => pokemon?.value?.sprites?.front_default);
 const gifImage = computed(
   () =>
-    pokemon?.value?.sprites?.versions["generation-v"]["black-white"].animated
+    pokemon?.value?.sprites?.versions['generation-v']['black-white'].animated
       .front_default
 );
 const pokemonType = computed(() => pokemon?.value?.types[0].type.name);
@@ -53,16 +53,40 @@ onMounted(async () => {
 
 <style scoped lang="scss">
 .pokemon-tile {
-  border: 4px solid $lightest-grey;
-  border-radius: 30px 0 30px 0;
+  $bg-opacity: 0.45;
+  @mixin active($light, $dark) {
+    background: rgba($light, 0.45);
+    color: $dark;
+    .pokemon-tile__image-container {
+      background-color: rgba($light, 0.75);
+    }
+  }
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   gap: gap(3);
   text-transform: capitalize;
-  background: $lightest-grey;
-  color: $medium-grey;
+  border-radius: 30px 0 30px 0;
+  color: white;
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(5px);
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+    border-radius: inherit;
+  }
   img {
     transition: transform 200ms ease, opacity 200ms ease;
+  }
+  &__name {
+    color: inherit;
   }
   &__image-container {
     flex-shrink: 0;
@@ -70,7 +94,8 @@ onMounted(async () => {
     height: 50px;
     width: 50px;
     border-radius: 50%;
-    background-color: $off-white;
+    background-color: rgba(white, 0.4);
+    backdrop-filter: blur(10px);
   }
   &__sprite {
     position: absolute;
@@ -78,7 +103,7 @@ onMounted(async () => {
     width: 150%;
     top: -25%;
     left: -25%;
-    opacity: 0.5;
+    opacity: 0.8;
   }
 
   &__gif {
@@ -90,72 +115,55 @@ onMounted(async () => {
   }
 
   &--active#{&}--fire {
-    background: $pokemon-fire-light;
-    color: $pokemon-fire-dark;
+    @include active($pokemon-fire-light, $pokemon-fire-dark);
   }
   &--active#{&}--grass {
-    background: $pokemon-grass-light;
-    color: $pokemon-grass-dark;
+    @include active($pokemon-grass-light, $pokemon-grass-dark);
   }
   &--active#{&}--water {
-    background: $pokemon-water-light;
-    color: $pokemon-water-dark;
+    @include active($pokemon-water-light, $pokemon-water-dark);
   }
   &--active#{&}--normal {
-    background: $pokemon-normal-light;
-    color: $pokemon-normal-dark;
+    @include active($pokemon-normal-light, $pokemon-normal-dark);
   }
   &--active#{&}--poison {
-    background: $pokemon-poison-light;
-    color: $pokemon-poison-dark;
+    @include active($pokemon-poison-light, $pokemon-poison-dark);
   }
   &--active#{&}--bug {
-    background: $pokemon-bug-light;
-    color: $pokemon-bug-dark;
+    @include active($pokemon-bug-light, $pokemon-bug-dark);
   }
   &--active#{&}--ground {
-    background: $pokemon-ground-light;
-    color: $pokemon-ground-dark;
+    @include active($pokemon-ground-light, $pokemon-ground-dark);
   }
   &--active#{&}--fighting {
-    background: $pokemon-fighting-light;
-    color: $pokemon-fighting-dark;
+    @include active($pokemon-fighting-light, $pokemon-fighting-dark);
   }
   &--active#{&}--rock {
-    background: $pokemon-rock-light;
-    color: $pokemon-rock-dark;
+    @include active($pokemon-rock-light, $pokemon-rock-dark);
   }
   &--active#{&}--electric {
-    background: $pokemon-electric-light;
-    color: $pokemon-electric-dark;
+    @include active($pokemon-electric-light, $pokemon-electric-dark);
   }
   &--active#{&}--fairy {
-    background: $pokemon-fairy-light;
-    color: $pokemon-fairy-dark;
+    @include active($pokemon-fairy-light, $pokemon-fairy-dark);
   }
   &--active#{&}--psychic {
-    background: $pokemon-psychic-light;
-    color: $pokemon-psychic-dark;
+    @include active($pokemon-psychic-light, $pokemon-psychic-dark);
   }
   &--active#{&}--ghost {
-    background: $pokemon-ghost-light;
-    color: $pokemon-ghost-dark;
+    @include active($pokemon-ghost-light, $pokemon-ghost-dark);
   }
   &--active#{&}--ice {
-    background: $pokemon-ice-light;
-    color: $pokemon-ice-dark;
+    @include active($pokemon-ice-light, $pokemon-ice-dark);
   }
   &--active#{&}--dragon {
-    background: $pokemon-dragon-light;
-    color: $pokemon-dragon-dark;
+    @include active($pokemon-dragon-light, $pokemon-dragon-dark);
   }
   &--active#{&}--steel {
-    background: $pokemon-steel-light;
-    color: $pokemon-steel-dark;
+    @include active($pokemon-steel-light, $pokemon-steel-dark);
   }
   &--active#{&}--flying {
-    background: $pokemon-flying-light;
-    color: $pokemon-flying-dark;
+    @include active($pokemon-flying-light, $pokemon-flying-dark);
   }
 }
 </style>
