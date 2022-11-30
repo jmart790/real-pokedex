@@ -3,3 +3,30 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+@mixin cool-bg {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(73, 133, 124);
+  background: linear-gradient(
+    163deg,
+    rgba(73, 133, 124, 1) 35%,
+    rgba(117, 203, 156, 1) 100%
+  );
+  &::after {
+    content: '';
+    z-index: -1;
+    position: absolute;
+    top: -20%;
+    left: -20%;
+    width: 150%;
+    height: 150%;
+    background-image: url('@/assets/images/pokeball.svg');
+    background-size: 7%;
+    background-repeat: repeat;
+    transform: rotate(-25deg);
+    opacity: 0.15;
+  }
+}
