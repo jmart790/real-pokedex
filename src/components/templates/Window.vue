@@ -20,16 +20,16 @@ withDefaults(defineProps<Props>(), {
   height: 385px;
   width: 100%;
   background: $off-black;
-  padding: 15px 25px;
+  padding: gap(4);
   border-radius: 15px;
 
   &--md {
-    height: 180px;
+    height: 285px;
   }
 
   &--sm {
     height: 50px;
-    padding: 5px 10px;
+    padding: gap(1) gap(2);
     border-radius: 5px;
   }
 
