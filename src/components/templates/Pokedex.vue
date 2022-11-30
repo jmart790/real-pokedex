@@ -19,7 +19,9 @@
       <LeftControls />
     </PokedexLeft>
     <PokedexRight>
-      <Window variant="md" class="pokedex__right-window"></Window>
+      <Window variant="md" class="pokedex__right-window">
+        <component v-if="currentView !== 'INTRO'" :is="secondaryView" />
+      </Window>
       <RightControls />
       <MiniViews />
     </PokedexRight>
@@ -36,7 +38,8 @@ import { computed } from '@vue/reactivity';
 const pokeStore = usePokeStore();
 const controlsStore = useControlsStore();
 
-const { pokemonListLength, genNum, activePokemonName } = storeToRefs(pokeStore);
+const { pokemonListLength, genNum, activePokemonName, region } =
+  storeToRefs(pokeStore);
 const { currentView } = storeToRefs(controlsStore);
 const { setListLength, togglePower } = controlsStore;
 
@@ -46,12 +49,20 @@ const isToastVisible = computed(() => {
   return allowedViews.includes(currentView.value);
 });
 
+const secondaryView = computed(() => {
+  const options = {
+    LIST: 'Region',
+    POKEMON: 'BaseDetails'
+  };
+  return options[currentView.value];
+});
+
 const toastProps = computed(() => {
   return {
     header: {
       LIST: {
         isHeader: true,
-        copy: `Gen ${genNum.value} Pokemon`
+        copy: `Pokemon`
       },
       POKEMON: {
         isHeader: true,
