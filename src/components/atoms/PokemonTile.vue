@@ -66,7 +66,7 @@ onMounted(async () => {
   align-items: center;
   gap: gap(3);
   text-transform: capitalize;
-  border-radius: 30px 0 30px 0;
+  border-radius: $cool-border-radius;
   color: white;
   @include frost-bg;
 
