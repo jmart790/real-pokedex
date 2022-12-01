@@ -1,16 +1,21 @@
 <template>
   <section class="base-details">
-    <h2>#{{ activePokemon?.id }}</h2>
-    <p class="base-details__copy" v-if="currentView === 'POKEMON'">
-      {{ description }}. {{ flavorText }}
-    </p>
-    <p>{{ encounter }}, {{ location }}</p>
+    <p v-if="isLoading">loading....</p>
+    <template v-else>
+      <h2>#{{ entryNumber }}</h2>
+      <div class="base-details__card">
+        <p class="base-details__copy" v-if="currentView === 'POKEMON'">
+          <span v-if="description"> {{ description }}. </span> {{ flavorText }}
+        </p>
+        <p>Located {{ encounter?.toLowerCase() }} near {{ location }}</p>
+      </div>
+    </template>
   </section>
 </template>
 
 <script setup lang="ts">
 import PokeAPI from 'pokeapi-typescript';
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { usePokeStore } from '@/store/pokemon';
 import { storeToRefs } from 'pinia';
 import { useControlsStore } from '@/store/controls';
@@ -21,22 +26,19 @@ const controlsStore = useControlsStore();
 const { activePokemon } = storeToRefs(pokeStore);
 const { currentView } = storeToRefs(controlsStore);
 
+const isLoading = ref(false);
 const description = ref<string>('');
 const flavorText = ref<string>('');
 const location = ref<string>('');
 const encounter = ref<string>('');
 
 // 1- description, location areas, id
-// 2- types/ weak against
-// 3- Moves learned by level up
-// 4- moves learned by tm
-// 4- base stats,
-// 5- evolutions
-// 6-
-// 7-
-// 8-
-// 9-
-// 10-
+
+const entryNumber = computed(() => {
+  let num = String(activePokemon.value?.id || 0);
+  while (num.length < 3) num = '0' + num;
+  return num;
+});
 
 async function getSpecies(payload: number) {
   await PokeAPI.PokemonSpecies.resolve(payload)
@@ -68,21 +70,23 @@ async function getLocation(payload: number) {
 
 async function getEncounter(payload: number) {
   await PokeAPI.EncounterMethod.resolve(payload)
-    .then((res) => {
-      encounter.value =
-        res.names.find(({ language }) => language.name == 'en')?.name || '';
+    .then(({ names }) => {
+      const data = names?.find(({ language }) => language.name == 'en');
+      encounter.value = data?.name || '';
     })
     .catch((e) => console.log({ e }));
 }
 
 async function getData(payload: number) {
   if (!payload) return;
-  return await Promise.all([
+  isLoading.value = true;
+  await Promise.all([
     getDescription(payload),
     getSpecies(payload),
     getLocation(payload),
     getEncounter(payload)
   ]);
+  isLoading.value = false;
 }
 
 watch(
@@ -98,15 +102,34 @@ watch(
 <style scoped lang="scss">
 .base-details {
   display: grid;
-  grid-template-rows: 1fr auto;
-  background-color: $off-white;
-  height: 100%;
-  width: 100%;
+  padding: gap(2) gap(4);
+  // grid-template-rows: 1fr auto;
+  @include cool-bg;
 
+  &__card {
+    padding: gap(1) gap(2);
+    color: $dark-grey;
+    border-radius: 5px;
+    @include frost-bg;
+  }
+
+  h2 {
+    justify-self: end;
+    display: flex;
+    align-items: center;
+    border-radius: 50%;
+    text-align: right;
+    margin-bottom: gap(2);
+    padding: gap(2);
+    color: $dark-grey;
+    font-weight: 700;
+    font-size: rem(24);
+    width: fit-content;
+    aspect-ratio: 1 / 1;
+    background-color: rgba($pokemon-grass-light, 0.75);
+  }
   &__copy {
-    padding: gap(2) gap(4);
-    background: $pokemon-water-light;
-    width: 100%;
+    margin-bottom: gap(4);
   }
 }
 </style>
