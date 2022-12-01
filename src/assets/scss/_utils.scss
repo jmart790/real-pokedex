@@ -1,3 +1,10 @@
+@use 'sass:math';
+
+@function rem($size) {
+  $rem-size: math.div($size, 14);
+  @return #{$rem-size}rem;
+}
+
 @mixin position-center {
   top: 50%;
   left: 50%;
@@ -28,5 +35,23 @@
     background-repeat: repeat;
     transform: rotate(-25deg);
     opacity: 0.15;
+  }
+}
+
+@mixin frost-bg() {
+  position: relative;
+  z-index: 0;
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+    border-radius: inherit;
+    backdrop-filter: blur(5px);
   }
 }
