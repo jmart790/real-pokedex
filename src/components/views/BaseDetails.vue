@@ -1,13 +1,29 @@
 <template>
-  <section class="base-details">
+  <section class="base-details" :class="`base-details--${pokemonTypes[0]}`">
     <p v-if="isLoading">loading....</p>
     <template v-else>
-      <h2>#{{ entryNumber }}</h2>
       <div class="base-details__card">
-        <p class="base-details__copy" v-if="currentView === 'POKEMON'">
-          <span v-if="description"> {{ description }}. </span> {{ flavorText }}
+        <section class="base-details__species-num">
+          <p>{{ genus }}</p>
+          <p class="base-details__national-num">{{ entryNumber }}</p>
+        </section>
+
+        <section class="base-details__copy" v-if="currentView === 'POKEMON'">
+          <template v-if="description">
+            <span class="base-details__copy-name">
+              {{ activePokemon?.name }}
+            </span>
+            {{ description.toLowerCase() }}.
+          </template>
+          {{ flavorText }}
+        </section>
+        <p class="base-details__location">
+          Located {{ encounter?.toLowerCase() }} near {{ location }}.
         </p>
-        <p>Located {{ encounter?.toLowerCase() }} near {{ location }}</p>
+
+        <div class="base-details__types">
+          <TypePill v-for="type in pokemonTypes" :key="type" :type="type" />
+        </div>
       </div>
     </template>
   </section>
@@ -29,6 +45,7 @@ const { currentView } = storeToRefs(controlsStore);
 const isLoading = ref(false);
 const description = ref<string>('');
 const flavorText = ref<string>('');
+const genus = ref<string>('');
 const location = ref<string>('');
 const encounter = ref<string>('');
 
@@ -40,12 +57,18 @@ const entryNumber = computed(() => {
   return num;
 });
 
+const pokemonTypes = computed(() => {
+  return activePokemon.value?.types.map(({ type }) => type.name) || ['normal'];
+});
+
 async function getSpecies(payload: number) {
   await PokeAPI.PokemonSpecies.resolve(payload)
     .then((res) => {
       flavorText.value =
         res?.flavor_text_entries?.find(({ language }) => language.name == 'en')
           ?.flavor_text || '';
+      genus.value =
+        res?.genera?.find(({ language }) => language.name == 'en')?.genus || '';
     })
     .catch((e) => console.log({ e }));
 }
@@ -102,34 +125,109 @@ watch(
 <style scoped lang="scss">
 .base-details {
   display: grid;
-  padding: gap(2) gap(4);
-  // grid-template-rows: 1fr auto;
+  padding: gap(3) gap(4);
   @include cool-bg;
 
   &__card {
-    padding: gap(1) gap(2);
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    padding: gap(2) gap(3);
     color: $dark-grey;
-    border-radius: 5px;
+    color: white;
+    border-radius: $cool-border-radius;
     @include frost-bg;
   }
-
-  h2 {
-    justify-self: end;
-    display: flex;
-    align-items: center;
-    border-radius: 50%;
-    text-align: right;
-    margin-bottom: gap(2);
-    padding: gap(2);
-    color: $dark-grey;
-    font-weight: 700;
-    font-size: rem(24);
-    width: fit-content;
-    aspect-ratio: 1 / 1;
-    background-color: rgba($pokemon-grass-light, 0.75);
-  }
-  &__copy {
+  &__species-num {
     margin-bottom: gap(4);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__national-num {
+    padding: gap(1) gap(3);
+    background-color: $pokemon-grass-light;
+    color: $pokemon-grass-dark;
+    border-radius: $cool-border-radius;
+    font-weight: 500;
+  }
+
+  &__copy {
+    margin-bottom: gap(3);
+  }
+  &__copy-name {
+    text-transform: capitalize;
+    color: $pokemon-grass-light;
+    font-size: rem(18);
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 8px rgba(black, 0.2);
+  }
+
+  &__types {
+    display: flex;
+    gap: gap(2);
+  }
+
+  @mixin type-styles($light, $dark) {
+    .base-details__national-num {
+      background: $light;
+      color: $dark;
+    }
+    .base-details__copy-name {
+      color: $light;
+    }
+  }
+
+  &--fire {
+    @include type-styles($pokemon-fire-light, $pokemon-fire-dark);
+  }
+  &--grass {
+    @include type-styles($pokemon-grass-light, $pokemon-grass-dark);
+  }
+  &--water {
+    @include type-styles($pokemon-water-light, $pokemon-water-dark);
+  }
+  &--normal {
+    @include type-styles($pokemon-normal-light, $pokemon-normal-dark);
+  }
+  &--poison {
+    @include type-styles($pokemon-poison-light, $pokemon-poison-dark);
+  }
+  &--bug {
+    @include type-styles($pokemon-bug-light, $pokemon-bug-dark);
+  }
+  &--ground {
+    @include type-styles($pokemon-ground-light, $pokemon-ground-dark);
+  }
+  &--fighting {
+    @include type-styles($pokemon-fighting-light, $pokemon-fighting-dark);
+  }
+  &--rock {
+    @include type-styles($pokemon-rock-light, $pokemon-rock-dark);
+  }
+  &--electric {
+    @include type-styles($pokemon-electric-light, $pokemon-electric-dark);
+  }
+  &--fairy {
+    @include type-styles($pokemon-fairy-light, $pokemon-fairy-dark);
+  }
+  &--psychic {
+    @include type-styles($pokemon-psychic-light, $pokemon-psychic-dark);
+  }
+  &--ghost {
+    @include type-styles($pokemon-ghost-light, $pokemon-ghost-dark);
+  }
+  &--ice {
+    @include type-styles($pokemon-ice-light, $pokemon-ice-dark);
+  }
+  &--dragon {
+    @include type-styles($pokemon-dragon-light, $pokemon-dragon-dark);
+  }
+  &--steel {
+    @include type-styles($pokemon-steel-light, $pokemon-steel-dark);
+  }
+  &--flying {
+    @include type-styles($pokemon-flying-light, $pokemon-flying-dark);
   }
 }
 </style>
