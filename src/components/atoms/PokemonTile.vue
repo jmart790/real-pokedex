@@ -53,7 +53,6 @@ onMounted(async () => {
 
 <style scoped lang="scss">
 .pokemon-tile {
-  $bg-opacity: 0.45;
   @mixin active($light, $dark) {
     background: rgba($light, 0.45);
     color: $dark;
@@ -69,22 +68,8 @@ onMounted(async () => {
   text-transform: capitalize;
   border-radius: 30px 0 30px 0;
   color: white;
-  &::before {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(5px);
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
-    border-radius: inherit;
-  }
-  img {
-    transition: transform 200ms ease, opacity 200ms ease;
-  }
+  @include frost-bg;
+
   &__name {
     color: inherit;
   }
