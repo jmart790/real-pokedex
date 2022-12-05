@@ -8,7 +8,7 @@
           <p class="base-details__national-num">{{ entryNumber }}</p>
         </section>
 
-        <section class="base-details__copy" v-if="currentView === 'POKEMON'">
+        <section class="base-details__copy">
           <template v-if="description">
             <span class="base-details__copy-name">
               {{ activePokemon?.name }}
@@ -34,13 +34,10 @@ import PokeAPI from 'pokeapi-typescript';
 import { computed, ref, watch } from 'vue';
 import { usePokeStore } from '@/store/pokemon';
 import { storeToRefs } from 'pinia';
-import { useControlsStore } from '@/store/controls';
 
 const pokeStore = usePokeStore();
-const controlsStore = useControlsStore();
 
 const { activePokemon } = storeToRefs(pokeStore);
-const { currentView } = storeToRefs(controlsStore);
 
 const isLoading = ref(false);
 const description = ref<string>('');
@@ -131,8 +128,7 @@ watch(
   &__card {
     display: grid;
     grid-template-rows: auto auto 1fr auto;
-    padding: gap(2) gap(3);
-    color: $dark-grey;
+    padding: $card-padding;
     color: white;
     border-radius: $cool-border-radius;
     @include frost-bg;
