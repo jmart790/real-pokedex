@@ -52,7 +52,8 @@ const isToastVisible = computed(() => {
 const secondaryView = computed(() => {
   const options = {
     LIST: 'Region',
-    POKEMON: 'BaseDetails'
+    // POKEMON: 'BaseDetails'
+    POKEMON: 'BaseStats'
   };
   return options[currentView.value];
 });
