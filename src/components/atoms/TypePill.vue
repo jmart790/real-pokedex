@@ -22,9 +22,10 @@ defineProps<{ type: string }>();
     fill: rgba(white, 0.85);
   }
   &__copy {
-    line-height: 1.3;
+    line-height: 1.2;
     text-transform: capitalize;
     color: rgba(white, 0.85);
+    font-size: rem(14);
   }
 
   &--fire {
