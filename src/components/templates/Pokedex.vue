@@ -53,7 +53,8 @@ const secondaryView = computed(() => {
   const options = {
     LIST: 'Region',
     // POKEMON: 'BaseDetails'
-    POKEMON: 'BaseStats'
+    // POKEMON: 'BaseStats'
+    POKEMON: 'TypeDefenses'
   };
   return options[currentView.value];
 });
