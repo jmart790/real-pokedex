@@ -1,8 +1,8 @@
 <template>
   <component
+    :class="`toast--${isHeader ? 'title' : 'instructions'}`"
     :is="isHeader ? 'h1' : 'p'"
     class="toast"
-    :class="`toast--${isHeader ? 'title' : 'instructions'}`"
   >
     <span v-if="btnCopy && !isHeader">{{ btnCopy }}</span>
     {{ copy }}
@@ -44,13 +44,14 @@ defineProps<Props>();
     border-bottom-right-radius: 10px;
     font-weight: 700;
     &::before {
-      top: 0;
+      top: 0px;
       right: -30px;
-      transform: skew(-64deg);
+      transform: skew(-40deg);
       border-bottom-right-radius: 5px;
     }
   }
   &--instructions {
+    height: fit-content;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -59,9 +60,10 @@ defineProps<Props>();
     border-top-left-radius: 10px;
 
     &::before {
-      bottom: 0;
+      height: 100%;
+      bottom: 0px;
       left: -30px;
-      transform: skew(-64deg);
+      transform: skew(-40deg);
       border-top-left-radius: 5px;
     }
     span {
