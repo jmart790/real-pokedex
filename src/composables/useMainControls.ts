@@ -1,28 +1,44 @@
-import { useControlsStore } from "@/store/controls";
+import { useControlsStore } from '@/store/controls';
 
 export default function useMainControls() {
   const controlsStore = useControlsStore();
 
+  const {
+    currentView,
+    navigatePokemonList,
+    togglePower,
+    setMainView,
+    setSecondaryView
+  } = controlsStore;
+
   function handleMainControl(command: string) {
-    const { currentView, navigatePokemonList, togglePower, setMainView } =
-      controlsStore;
     switch (command) {
-      case "power":
+      case 'power':
         togglePower();
         break;
-      case "up":
-      case "down":
-      case "left":
-      case "right":
+      case 'up':
+      case 'down':
+      case 'left':
+      case 'right':
         navigatePokemonList(command);
         break;
-      case "a":
+      case 'a':
         // enter/go command
-        setMainView("POKEMON");
+        setMainView('POKEMON');
         break;
-      case "b":
+      case 'b':
         // back comman
-        setMainView("LIST");
+        setMainView('LIST');
+        break;
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+      case '6':
+      case '7':
+      case '8':
+        setSecondaryView(command);
         break;
       default:
         break;
@@ -30,6 +46,6 @@ export default function useMainControls() {
   }
 
   return {
-    handleMainControl,
+    handleMainControl
   };
 }
