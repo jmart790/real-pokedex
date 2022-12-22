@@ -17,7 +17,7 @@
   animation-delay: 2s;
 
   &:before {
-    content: "";
+    content: '';
     position: absolute;
     z-index: 5;
     top: 50%;
@@ -31,7 +31,7 @@
   }
 
   &:after {
-    content: "";
+    content: '';
     position: absolute;
     z-index: 4;
     top: 50%;
