@@ -40,6 +40,9 @@ withDefaults(defineProps<{ type: string; mode: Mode }>(), { mode: 'normal' });
   &--normal {
     padding: gap(1) gap(4) gap(1) gap(3);
   }
+  &--copy {
+    padding: gap(1) gap(3);
+  }
   &--icon {
     border-radius: 50%;
     #{$self}__icon {
