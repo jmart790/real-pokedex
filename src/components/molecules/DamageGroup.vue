@@ -16,10 +16,10 @@
     >
       <TypePill
         class="damage-group__item"
-        :type="type"
+        v-for="item in types"
+        :key="`damage-group--${item}`"
         mode="icon"
-        v-for="type in types"
-        :key="`damage-group--${type}`"
+        :type="item"
       />
     </div>
   </article>
@@ -101,7 +101,7 @@ const groupLabel = computed(
   }
 
   &--half_damage_from {
-    background: rgba($pokemon-fire, 60%);
+    // background: rgba($pokemon-fire, 60%);
     &::before {
       top: 0;
       left: -75px;
@@ -115,7 +115,7 @@ const groupLabel = computed(
     }
   }
   &--double_damage_from {
-    background: rgba(white, 60%);
+    // background: rgba(white, 60%);
     border-left: 8px solid $off-black;
     &::before {
       bottom: 0;
