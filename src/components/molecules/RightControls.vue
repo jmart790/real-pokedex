@@ -1,12 +1,25 @@
 <template>
   <section class="right-controls">
     <div class="blue-btns">
-      <BlueButton v-for="i in 8" :key="`blue-btn-${i}`">{{ i }}</BlueButton>
+      <BlueButton
+        v-for="i in 8"
+        :key="`blue-btn-${i}`"
+        @click="handleBtnClick(i)"
+      >
+        {{ i }}
+      </BlueButton>
     </div>
   </section>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import useMainControls from '@/composables/useMainControls';
+const { handleMainControl } = useMainControls();
+
+function handleBtnClick(command: number) {
+  handleMainControl(String(command));
+}
+</script>
 
 <style scoped lang="scss">
 .right-controls {
