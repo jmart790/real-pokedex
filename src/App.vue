@@ -5,23 +5,24 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted } from "vue";
-import useMainControls from "@/composables/useMainControls";
+import { onBeforeUnmount, onMounted } from 'vue';
+import useMainControls from '@/composables/useMainControls';
 const { handleMainControl } = useMainControls();
 
 function handleKeyDown(event: KeyboardEvent) {
   event.preventDefault();
-  const command = event.key.toLowerCase().replace("arrow", "");
-  const keysToBtnMap = { a: "y", s: "x", z: "b", x: "a", p: "power" };
+  const command = event.key.toLowerCase().replace('arrow', '');
+  console.log({ command });
+  const keysToBtnMap = { a: 'y', s: 'x', z: 'b', x: 'a', p: 'power' };
   handleMainControl(keysToBtnMap[command] || command);
 }
 
 onMounted(() => {
-  document.addEventListener("keydown", handleKeyDown);
+  document.addEventListener('keydown', handleKeyDown);
 });
 
 onBeforeUnmount(() => {
-  document.removeEventListener("keydown", handleKeyDown);
+  document.removeEventListener('keydown', handleKeyDown);
 });
 </script>
 
