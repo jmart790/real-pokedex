@@ -16,6 +16,12 @@ $gap: 4px;
   transform: translate(-50%, -50%);
 }
 
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @mixin cool-bg {
   position: relative;
   z-index: 0;
