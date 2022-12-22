@@ -20,7 +20,10 @@
     </PokedexLeft>
     <PokedexRight>
       <Window variant="md" class="pokedex__right-window">
-        <component v-if="currentView !== 'INTRO'" :is="secondaryView" />
+        <component
+          v-if="currentView !== 'INTRO'"
+          :is="secondaryViewComponent"
+        />
       </Window>
       <RightControls />
       <MiniViews />
@@ -33,14 +36,14 @@ import { onMounted } from 'vue';
 import { usePokeStore } from '@/store/pokemon';
 import { useControlsStore } from '@/store/controls';
 import { storeToRefs } from 'pinia';
-import { computed } from '@vue/reactivity';
+import { computed } from 'vue';
 
 const pokeStore = usePokeStore();
 const controlsStore = useControlsStore();
 
 const { pokemonListLength, genNum, activePokemonName, region } =
   storeToRefs(pokeStore);
-const { currentView } = storeToRefs(controlsStore);
+const { currentView, secondaryView } = storeToRefs(controlsStore);
 const { setListLength, togglePower } = controlsStore;
 
 const isToastVisible = computed(() => {
@@ -49,14 +52,17 @@ const isToastVisible = computed(() => {
   return allowedViews.includes(currentView.value);
 });
 
-const secondaryView = computed(() => {
-  const options = {
-    LIST: 'Region',
-    // POKEMON: 'BaseDetails'
-    // POKEMON: 'BaseStats'
-    POKEMON: 'DamageRelations'
+const secondaryViewComponent = computed(() => {
+  if (currentView.value === 'LIST') return 'Region';
+  const secondaryOptions = {
+    1: 'BaseDetails',
+    2: 'BaseStats',
+    3: 'DamageRelations'
   };
-  return options[currentView.value];
+  if (currentView.value === 'POKEMON') {
+    return secondaryOptions[secondaryView.value];
+  }
+  return null;
 });
 
 const toastProps = computed(() => {
