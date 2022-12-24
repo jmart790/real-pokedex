@@ -13,7 +13,7 @@
 <script setup lang="ts">
 import { usePokeStore } from '@/store/pokemon';
 import { storeToRefs } from 'pinia';
-import { onMounted, ref } from 'vue';
+import { watch, ref } from 'vue';
 import PokeAPI, {
   type INamedApiResource,
   type IType,
@@ -24,6 +24,10 @@ interface IDamageRelation {
   group: string;
   types: string[];
 }
+
+const props = defineProps<{
+  relation: 'from' | 'to';
+}>();
 
 const pokeStore = usePokeStore();
 
@@ -36,7 +40,7 @@ function transformData(data: ITypeRelations): IDamageRelation[] {
     const types = data[groupName].map(
       (item: INamedApiResource<IType>) => item.name
     );
-    if (types?.length && groupName.includes('from')) {
+    if (types?.length && groupName.includes(props.relation)) {
       relations.push({ group: groupName, types: types });
     }
     return relations;
@@ -53,10 +57,14 @@ async function getDamageRelations(type: string) {
   isLoading.value = false;
 }
 
-onMounted(() => {
-  const type = activePokemon.value?.types[0]?.type?.name || '';
-  getDamageRelations(type);
-});
+watch(
+  () => props.relation,
+  () => {
+    const type = activePokemon.value?.types[0]?.type?.name || '';
+    getDamageRelations(type);
+  },
+  { immediate: true }
+);
 </script>
 
 <style scoped lang="scss">
@@ -71,7 +79,8 @@ onMounted(() => {
   &__groups {
     height: 100%;
     width: 100%;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     @include frost-bg;
     border-radius: $cool-border-radius;
     overflow: hidden;
