@@ -1,9 +1,9 @@
 <template>
-  <article class="damage-group" :class="`damage-group--${group}`">
+  <article class="damage-group" :class="`damage-group--${groupClass}`">
     <Icon
       class="damage-group__icon"
-      v-if="group === 'double_damage_from'"
-      name="shield-icon"
+      v-if="groupClass === 'double'"
+      :name="group.includes('from') ? 'shield-icon' : 'swords-icon'"
     />
     <Toast
       class="damage-group__label"
@@ -12,7 +12,7 @@
     />
     <div
       class="damage-group__groups"
-      :class="`damage-group__groups--${types.length}`"
+      :class="{ 'damage-group__groups--lg': types.length >= 5 }"
     >
       <TypePill
         class="damage-group__item"
@@ -42,17 +42,23 @@ const groupLabel = computed(
       half_damage_to: '1/2 DMG'
     }[props.group])
 );
+
+const groupClass = computed(() => {
+  return props.group.includes('double') ? 'double' : 'half';
+});
 </script>
 
 <style scoped lang="scss">
 .damage-group {
   $self: &;
+  $body-skew: -30deg;
+  $label-skew: -8deg;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   gap: gap(2);
-  transform: skew(-30deg);
+  transform: skew($body-skew);
   padding: gap(2);
   &::before {
     content: '';
@@ -63,27 +69,23 @@ const groupLabel = computed(
   }
 
   &__label {
-    background: $off-black;
-    transform: skew(30deg);
+    background: rgba(black, 0.5);
+    transform: skew($label-skew);
     font-weight: bold;
+    ::v-deep .toast__content {
+      transform: skew(-1 * ($body-skew + $label-skew));
+    }
   }
 
   &__groups {
     height: min-content;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    max-width: 100px;
+    @include flex-center;
     flex-wrap: wrap;
     gap: gap(2);
-    transform: skew(30deg);
-
-    &--3,
-    &--4 {
-      width: 60%;
-    }
-    &--5,
-    &--6 {
-      width: 80%;
+    transform: skew(-1 * $body-skew);
+    &--lg {
+      max-width: 150px;
     }
   }
   &__item {
@@ -92,31 +94,28 @@ const groupLabel = computed(
   &__icon {
     position: absolute;
     left: -30px;
-    transform: skew(30deg);
+    transform: skew(-1 * $body-skew);
     width: 60px;
     height: 60px;
-    fill: #cddeda;
-    stroke: $off-black;
-    stroke-width: 14px;
+    fill: $off-white;
+    stroke: rgba(black, 0.5);
+    stroke-width: 8px;
   }
 
-  &--half_damage_from {
-    // background: rgba($pokemon-fire, 60%);
+  &--half {
     &::before {
       top: 0;
       left: -75px;
     }
     #{$self}__label {
-      padding-left: 25px;
       left: -60px;
-    }
-    #{$self}__groups {
-      margin-right: 20px;
+      padding-left: 25px;
+      background-color: rgba(white, 0.6);
+      color: $off-black;
     }
   }
-  &--double_damage_from {
-    // background: rgba(white, 60%);
-    border-left: 8px solid $off-black;
+  &--double {
+    border-left: 4px solid rgba(black, 0.5);
     &::before {
       bottom: 0;
       right: -75px;
@@ -124,9 +123,7 @@ const groupLabel = computed(
     #{$self}__label {
       right: -60px;
       padding-right: 25px;
-    }
-    #{$self}__groups {
-      margin-left: 20px;
+      background-color: rgba($pokemon-fire, 0.6);
     }
   }
 }
