@@ -23,6 +23,7 @@
         <component
           v-if="currentView !== 'INTRO'"
           :is="secondaryViewComponent"
+          v-bind="secondaryViewProps"
         />
       </Window>
       <RightControls />
@@ -57,12 +58,20 @@ const secondaryViewComponent = computed(() => {
   const secondaryOptions = {
     1: 'BaseDetails',
     2: 'BaseStats',
-    3: 'DamageRelations'
+    3: 'DamageRelations',
+    4: 'DamageRelations'
   };
   if (currentView.value === 'POKEMON') {
     return secondaryOptions[secondaryView.value];
   }
   return null;
+});
+
+const secondaryViewProps = computed(() => {
+  const { value } = secondaryView;
+  if (value === '3') return { relation: 'from' };
+  else if (value === '4') return { relation: 'to' };
+  else return null;
 });
 
 const toastProps = computed(() => {
