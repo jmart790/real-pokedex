@@ -59,7 +59,8 @@ const secondaryViewComponent = computed(() => {
     1: 'BaseDetails',
     2: 'BaseStats',
     3: 'DamageRelations',
-    4: 'DamageRelations'
+    4: 'DamageRelations',
+    5: 'EvolutionChain'
   };
   if (currentView.value === 'POKEMON') {
     return secondaryOptions[secondaryView.value];
