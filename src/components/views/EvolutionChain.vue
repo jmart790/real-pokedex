@@ -1,0 +1,137 @@
+<template>
+  <article class="evo-chain">
+    <div class="evo-chain__card">
+      <h1 v-if="isLoading">loading...</h1>
+      <div
+        v-else-if="evoChain"
+        class="evo-chain__pokemons"
+        :class="{
+          'evo-chain__pokemons--single': totalEvolutions === 1
+        }"
+      >
+        <PokemonCard
+          v-for="pokemon in evoChain"
+          :key="pokemon.name"
+          v-bind="{ ...pokemon, totalEvolutions }"
+          class="evo-chain__pokemon"
+        />
+      </div>
+    </div>
+  </article>
+</template>
+
+<script setup lang="ts">
+import { usePokeStore } from '@/store/pokemon';
+import { storeToRefs } from 'pinia';
+import { watch, ref, computed } from 'vue';
+import PokeAPI, {
+  type IChainLink,
+  type IEvolutionDetail,
+  type IPokemon
+} from 'pokeapi-typescript';
+
+interface IPokeEvolution {
+  name: string;
+  url: string;
+  details: IEvolutionDetail[];
+  pokemon: IPokemon;
+  isNonLinear?: boolean;
+}
+
+const pokeStore = usePokeStore();
+const { activePokemonId } = storeToRefs(pokeStore);
+const evoChain = ref<IPokeEvolution[]>();
+const isLoading = ref(false);
+
+const totalEvolutions = computed(() => {
+  return evoChain.value?.length || 0;
+});
+
+async function mapEvolutionsRecursively(
+  chain: IChainLink,
+  evolutions: IPokeEvolution[]
+) {
+  const { species, evolution_details, evolves_to } = chain;
+  const pokemon = await PokeAPI.Pokemon.resolve(species.name);
+  evolutions.push({ ...species, details: evolution_details, pokemon });
+  if (!evolves_to.length) return evolutions;
+  const nextChain = evolves_to[0];
+  await mapEvolutionsRecursively(nextChain, evolutions);
+  return evolutions;
+}
+
+async function mapEvolutionsLinearly(
+  chain: IChainLink,
+  evolutions: IPokeEvolution[]
+) {
+  chain.evolves_to.forEach(async (evo) => {
+    const { species, evolution_details } = evo;
+    const pokemon = await PokeAPI.Pokemon.resolve(species.name);
+    evolutions.push({
+      ...species,
+      details: evolution_details,
+      pokemon,
+      isNonLinear: true
+    });
+  });
+  return evolutions;
+}
+
+async function getEvoChain(id: number) {
+  isLoading.value = true;
+  const evolutions: IPokeEvolution[] = [];
+  const chainId = await PokeAPI.PokemonSpecies.resolve(id).then((res) => {
+    return Number(res.evolution_chain.url.split('/')[6]);
+  });
+  try {
+    // hacky test, meowth has a weird evo chain and it breaks the view
+    evoChain.value = await PokeAPI.EvolutionChain.resolve(chainId).then(
+      async ({ chain }) =>
+        chain.evolves_to.length > 2
+          ? await mapEvolutionsLinearly(chain, evolutions)
+          : await mapEvolutionsRecursively(chain, evolutions)
+    );
+  } catch (e) {
+    // do something meaningfull
+    console.log({ e });
+  } finally {
+    isLoading.value = false;
+  }
+}
+
+watch(
+  activePokemonId,
+  async (id = 1) => {
+    await getEvoChain(id);
+  },
+  { immediate: true }
+);
+</script>
+
+<style scoped lang="scss">
+.evo-chain {
+  @include cool-bg;
+  padding: $medium-window-padding;
+  &__card {
+    height: 100%;
+  }
+  &__pokemons {
+    position: relative;
+    z-index: 5;
+    height: inherit;
+    // @include frost-bg;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    align-content: center;
+    gap: gap(2);
+    border-radius: $cool-border-radius;
+    &--single {
+      max-width: 50%;
+      margin-inline: auto;
+    }
+  }
+  &__pokemon {
+    width: 100%;
+  }
+}
+</style>
