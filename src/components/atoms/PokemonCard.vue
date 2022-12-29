@@ -1,7 +1,10 @@
 <template>
   <article
     class="pokemon-card"
-    :class="{ 'pokemon-card--non-linear': isNonLinear }"
+    :class="[
+      { 'pokemon-card--non-linear': isNonLinear },
+      `pokemon-card--${totalEvolutions}`
+    ]"
   >
     <div class="pokemon-card__img-wrapper">
       <img :src="sprite.url" alt="" :class="`${sprite.type}`" />
@@ -9,13 +12,10 @@
     <h4>
       {{ name }}
     </h4>
-    <p
-      v-if="trigger"
-      class="pokemon-card__trigger"
-      :class="`pokemon-card__trigger--${totalEvolutions}`"
-    >
-      {{ trigger }} {{ triggerSuffix }}
+    <p v-if="trigger" class="pokemon-card__trigger">
+      {{ trigger }}
     </p>
+    <span v-if="isArrowVis" class="pokemon-card__arrow">→</span>
   </article>
 </template>
 
@@ -33,28 +33,19 @@ interface IProps {
 }
 const props = defineProps<IProps>();
 
-const pokemonType = computed(() => {
-  return props.pokemon.types[0].type.name;
-});
-
 const sprite = computed(() => {
   const { other, front_default } = props.pokemon.sprites;
-  // return {
-  //   type: 'default',
-  //   url: front_default
-  // };
-  if (other.home.front_default) {
-    return { type: 'home', url: other.home.front_default };
-  } else {
-    return {
-      type: 'default',
-      url: front_default
-    };
-  }
+  return other.home.front_default
+    ? { type: 'home', url: other.home.front_default }
+    : { type: 'default', url: front_default };
 });
 
-const triggerSuffix = computed(() => {
-  return props.totalEvolutions >= 2 && props.totalEvolutions <= 4 ? '→' : '';
+const isArrowVis = computed(() => {
+  return (
+    props.totalEvolutions >= 2 &&
+    props.totalEvolutions <= 4 &&
+    trigger.value !== 'base'
+  );
 });
 
 function getTrigger(details) {
@@ -80,7 +71,7 @@ function getTrigger(details) {
 const trigger = computed(() => {
   const detailsLength = props.details.length;
   if (props.totalEvolutions === 1) return 'no evolutions';
-  if (!detailsLength) return null;
+  if (!detailsLength) return 'base';
   const firstDetails = props.details[0];
   const lastDetails = props.details[detailsLength - 1];
   return getTrigger(firstDetails) || getTrigger(lastDetails);
@@ -115,24 +106,15 @@ const trigger = computed(() => {
     text-align: center;
     border-radius: $cool-border-radius;
   }
-  &__trigger {
-    left: -30%;
-    top: -15%;
+  &__arrow {
     position: absolute;
-    max-width: 120px;
-    width: fit-content;
-    text-transform: capitalize;
-    font-size: rem(14);
-    &--1 {
-      top: -5%;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-    &--2 {
-      top: -5%; // for 2 pokemon
-      left: -25%;
-    }
-
+    // bottom: 30%;
+    top: -15%;
+    left: -15%;
+    font-size: rem(24);
+  }
+  &__trigger {
+    position: absolute;
     top: -10%;
     left: 50%;
     transform: translateX(-50%);
@@ -140,6 +122,7 @@ const trigger = computed(() => {
     width: 100%;
     font-size: rem(12);
     text-align: center;
+    text-transform: capitalize;
   }
   &--non-linear {
     transform: scale(0.8);
@@ -154,6 +137,21 @@ const trigger = computed(() => {
       width: 100%;
       font-size: rem(12);
       text-align: center;
+    }
+  }
+
+  &--1 {
+    #{$self}__trigger {
+      top: -2%;
+    }
+  }
+
+  &--2 {
+    #{$self}__trigger {
+      top: -5%;
+    }
+    #{$self}__arrow {
+      top: -8%;
     }
   }
 }
