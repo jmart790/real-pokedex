@@ -11,8 +11,8 @@
 
 <script setup lang="ts">
 // correct type type
-type Mode = 'normal' | 'copy' | 'icon';
-withDefaults(defineProps<{ type: string; mode: Mode }>(), { mode: 'normal' });
+type Mode = 'default' | 'copy' | 'icon';
+withDefaults(defineProps<{ type: string; mode: Mode }>(), { mode: 'default' });
 </script>
 
 <style scoped lang="scss">
@@ -30,14 +30,14 @@ withDefaults(defineProps<{ type: string; mode: Mode }>(), { mode: 'normal' });
     filter: drop-shadow(0px 0px 4px rgba(black, 0.5));
   }
   &__copy {
-    line-height: 1.2;
+    line-height: 1;
     text-transform: capitalize;
     color: rgba(white, 0.85);
     font-size: rem(14);
     text-shadow: 0px 0px 4px rgba(black, 0.5);
   }
 
-  &--normal {
+  &--default {
     padding: gap(1) gap(4) gap(1) gap(3);
   }
   &--copy {
