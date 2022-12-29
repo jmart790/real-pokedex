@@ -6,7 +6,8 @@
         v-else-if="evoChain"
         class="evo-chain__pokemons"
         :class="{
-          'evo-chain__pokemons--single': totalEvolutions === 1
+          'evo-chain__pokemons--single': totalEvolutions === 1,
+          'evo-chain__pokemons--multiple-rows': totalEvolutions > 4
         }"
       >
         <PokemonCard
@@ -123,11 +124,14 @@ watch(
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
     align-content: center;
-    gap: gap(2);
+    gap: gap(4);
     border-radius: $cool-border-radius;
     &--single {
       max-width: 50%;
       margin-inline: auto;
+    }
+    &--multiple-rows {
+      gap: gap(1);
     }
   }
   &__pokemon {
