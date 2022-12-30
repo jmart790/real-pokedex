@@ -1,11 +1,26 @@
 <template>
   <section class="damage-relations">
-    <p v-if="isLoading">loading...</p>
-    <div v-else-if="damageRelations" class="damage-relations__groups-wrapper">
-      <div class="damage-relations__groups">
-        <DamageGroup v-bind="{ ...damageRelations[1] }" />
-        <DamageGroup v-bind="{ ...damageRelations[0] }" />
-      </div>
+    <!-- <p v-if="isLoading">loading...</p> -->
+    <div
+      class="damage-relations__groups"
+      :class="{ 'damage-relations__groups--loaded': !isLoading }"
+    >
+      <DamageGroup
+        class="damage-relations__group"
+        v-bind="{
+          group: 'half',
+          types: damageRelations?.half.types || [],
+          isLoading
+        }"
+      />
+      <DamageGroup
+        class="damage-relations__group"
+        v-bind="{
+          group: 'double',
+          types: damageRelations?.double.types || [],
+          isLoading
+        }"
+      />
     </div>
   </section>
 </template>
@@ -13,7 +28,7 @@
 <script setup lang="ts">
 import { usePokeStore } from '@/store/pokemon';
 import { storeToRefs } from 'pinia';
-import { watch, ref } from 'vue';
+import { watch, ref, computed } from 'vue';
 import PokeAPI, {
   type INamedApiResource,
   type IType,
@@ -24,6 +39,10 @@ interface IDamageRelation {
   group: string;
   types: string[];
 }
+interface IDamageRelations {
+  half: IDamageRelation;
+  double: IDamageRelation;
+}
 
 const props = defineProps<{
   relation: 'from' | 'to';
@@ -31,20 +50,30 @@ const props = defineProps<{
 
 const pokeStore = usePokeStore();
 
-const { activePokemon } = storeToRefs(pokeStore);
-const damageRelations = ref<IDamageRelation[]>();
+const { activePokemonType } = storeToRefs(pokeStore);
+const damageRelations = ref<IDamageRelations>();
 const isLoading = ref(false);
 
-function transformData(data: ITypeRelations): IDamageRelation[] {
+const gridColumns = computed(() => {
+  if (!damageRelations?.value) return '1fr 1fr';
+  const { half, double } = damageRelations.value;
+  const total = half.types.length + double.types.length;
+  const halfCount = (half.types.length / total) * 10;
+  const doubleCount = (double.types.length / total) * 10;
+  return `${halfCount}fr ${doubleCount}fr`;
+});
+
+function transformData(data: ITypeRelations) {
   return Object.keys(data).reduce((relations, groupName) => {
     const types = data[groupName].map(
       (item: INamedApiResource<IType>) => item.name
     );
     if (types?.length && groupName.includes(props.relation)) {
-      relations.push({ group: groupName, types: types });
+      const key = groupName.includes('half') ? 'half' : 'double';
+      relations[key] = { group: groupName, types: types };
     }
     return relations;
-  }, [] as IDamageRelation[]);
+  }, {} as IDamageRelations);
 }
 
 async function getDamageRelations(type: string) {
@@ -59,61 +88,33 @@ async function getDamageRelations(type: string) {
 
 watch(
   () => props.relation,
-  () => {
-    const type = activePokemon.value?.types[0]?.type?.name || '';
-    getDamageRelations(type);
-  },
+  () => getDamageRelations(activePokemonType.value),
   { immediate: true }
 );
+
+watch(activePokemonType, (type) => getDamageRelations(type));
 </script>
 
 <style scoped lang="scss">
 .damage-relations {
   @include cool-bg;
   padding: $medium-window-padding;
-  &__groups-wrapper {
-    height: 100%;
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
-    border-radius: $cool-border-radius;
-  }
   &__groups {
     height: 100%;
     width: 100%;
+    // display: flex;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    @include frost-bg;
-    border-radius: $cool-border-radius;
-    overflow: hidden;
+    grid-auto-flow: column;
+    grid-template-columns: v-bind(gridColumns);
+    border-top: 1px solid $off-white;
+    transition: 1s;
+    will-change: grid-template-columns;
   }
-  &__guide {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    padding: $medium-window-padding;
-    p {
-      position: absolute;
-      width: fit-content;
-      background-color: rgba(black, 0.5);
-      border-radius: 20px;
-      padding: 2px gap(2);
-      color: rgba(white, 0.8);
-    }
-    p:nth-of-type(1),
-    p:nth-of-type(2) {
-      left: 50%;
-      transform: translateX(-50%);
-    }
-    p:nth-of-type(2) {
-      bottom: 12px;
-    }
-    p:nth-of-type(3),
-    p:nth-of-type(4) {
-      top: 50%;
-      transform: translateY(-50%);
-    }
-    p:nth-of-type(4) {
-      right: 14px;
-    }
+  &__group:first-of-type {
+    border-right: 1px solid $off-white;
+  }
+  &__group {
+    flex-shrink: 1;
   }
 }
 </style>
