@@ -30,6 +30,9 @@ export const usePokeStore = defineStore('pokemon', () => {
   const activePokemon = ref<IPokemon>();
   const activePokemonId = computed(() => activePokemon.value?.id);
   const activePokemonName = ref<string>('');
+  const activePokemonType = computed(
+    () => activePokemon.value?.types[0]?.type?.name || ''
+  );
 
   function setActivePokemon(pokemon: IPokemon) {
     activePokemon.value = pokemon;
@@ -55,6 +58,7 @@ export const usePokeStore = defineStore('pokemon', () => {
     activePokemon,
     setActivePokemonName,
     activePokemonName,
+    activePokemonType,
     activePokemonId,
     setPokemonLoaded
   };
