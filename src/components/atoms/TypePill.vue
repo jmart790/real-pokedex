@@ -53,6 +53,11 @@ withDefaults(defineProps<{ type: string; mode: Mode }>(), { mode: 'default' });
 
   &--fire {
     background: $pokemon-fire;
+    background: radial-gradient(
+      ellipse at center,
+      $pokemon-fire 40%,
+      $pokemon-fire-light 100%
+    );
   }
   &--grass {
     background: $pokemon-grass;
