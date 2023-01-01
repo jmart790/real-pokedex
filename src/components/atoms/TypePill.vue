@@ -23,6 +23,7 @@ withDefaults(defineProps<{ type: string; mode: Mode }>(), { mode: 'default' });
   align-items: center;
   background-color: $pokemon-grass;
   border-radius: 20px;
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2);
   &__icon {
     width: 25px;
     height: 25px;
@@ -34,7 +35,6 @@ withDefaults(defineProps<{ type: string; mode: Mode }>(), { mode: 'default' });
     text-transform: capitalize;
     color: rgba(white, 0.85);
     font-size: rem(14);
-    text-shadow: 0px 0px 4px rgba(black, 0.5);
   }
 
   &--default {
@@ -51,61 +51,60 @@ withDefaults(defineProps<{ type: string; mode: Mode }>(), { mode: 'default' });
     }
   }
 
+  @mixin radiant-bg($color-1, $color-2) {
+    background: $color-1;
+    background: radial-gradient(ellipse at center, $color-1 0%, $color-2 150%);
+  }
   &--fire {
-    background: $pokemon-fire;
-    background: radial-gradient(
-      ellipse at center,
-      $pokemon-fire 40%,
-      $pokemon-fire-light 100%
-    );
+    @include radiant-bg($pokemon-fire, $pokemon-fire-light);
   }
   &--grass {
-    background: $pokemon-grass;
+    @include radiant-bg($pokemon-grass, $pokemon-grass-light);
   }
   &--water {
-    background: $pokemon-water;
+    @include radiant-bg($pokemon-water, $pokemon-water-light);
   }
   &--normal {
-    background: $pokemon-normal;
+    @include radiant-bg($pokemon-normal, $pokemon-normal-light);
   }
   &--poison {
-    background: $pokemon-poison;
+    @include radiant-bg($pokemon-poison, $pokemon-poison-light);
   }
   &--bug {
-    background: $pokemon-bug;
+    @include radiant-bg($pokemon-bug, $pokemon-bug-light);
   }
   &--ground {
-    background: $pokemon-ground;
+    @include radiant-bg($pokemon-ground, $pokemon-ground-light);
   }
   &--fighting {
-    background: $pokemon-fighting;
+    @include radiant-bg($pokemon-fighting, $pokemon-fighting-light);
   }
   &--rock {
-    background: $pokemon-rock;
+    @include radiant-bg($pokemon-rock, $pokemon-rock-light);
   }
   &--electric {
-    background: $pokemon-electric;
+    @include radiant-bg($pokemon-electric, $pokemon-electric-light);
   }
   &--fairy {
-    background: $pokemon-fairy;
+    @include radiant-bg($pokemon-fairy, $pokemon-fairy-light);
   }
   &--psychic {
-    background: $pokemon-psychic;
+    @include radiant-bg($pokemon-psychic, $pokemon-psychic-light);
   }
   &--ghost {
-    background: $pokemon-ghost;
+    @include radiant-bg($pokemon-ghost, $pokemon-ghost-light);
   }
   &--ice {
-    background: $pokemon-ice;
+    @include radiant-bg($pokemon-ice, $pokemon-ice-light);
   }
   &--dragon {
-    background: $pokemon-dragon;
+    @include radiant-bg($pokemon-dragon, $pokemon-dragon-light);
   }
   &--steel {
-    background: $pokemon-steel;
+    @include radiant-bg($pokemon-steel, $pokemon-steel-light);
   }
   &--flying {
-    background: $pokemon-flying;
+    @include radiant-bg($pokemon-flying, $pokemon-flying-light);
   }
 }
 </style>
