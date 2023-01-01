@@ -6,13 +6,15 @@
         :key="`pokemon-${name}`"
         :class="{ 'pokemon-list__active-tile': listPosition === index }"
       >
-        <PokemonTile
-          v-if="isLoaded"
-          v-bind="{
-            name,
-            isActive: listPosition === index
-          }"
-        />
+        <FrostCard>
+          <PokemonTile
+            v-if="isLoaded"
+            v-bind="{
+              name,
+              isActive: listPosition === index
+            }"
+          />
+        </FrostCard>
       </li>
     </ul>
   </article>

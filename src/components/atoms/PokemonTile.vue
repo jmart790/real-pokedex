@@ -53,22 +53,19 @@ onMounted(async () => {
 
 <style scoped lang="scss">
 .pokemon-tile {
-  @mixin active($light, $dark) {
-    background: rgba($light, 0.45);
-    color: $dark;
+  @mixin active($color) {
+    background: rgba($color, 0.45);
     .pokemon-tile__image-container {
-      background-color: rgba($light, 0.75);
+      background-color: rgba($color, 0.75);
     }
   }
-  position: relative;
-  z-index: 1;
   display: flex;
   align-items: center;
   gap: gap(3);
   text-transform: capitalize;
-  border-radius: $cool-border-radius;
-  color: white;
-  @include frost-bg;
+  border-radius: inherit;
+  color: rgba(black, 0.9);
+  letter-spacing: 1px;
 
   &__name {
     color: inherit;
@@ -100,55 +97,55 @@ onMounted(async () => {
   }
 
   &--active#{&}--fire {
-    @include active($pokemon-fire-light, $pokemon-fire-dark);
+    @include active($pokemon-fire-light);
   }
   &--active#{&}--grass {
-    @include active($pokemon-grass-light, $pokemon-grass-dark);
+    @include active($pokemon-grass-light);
   }
   &--active#{&}--water {
-    @include active($pokemon-water-light, $pokemon-water-dark);
+    @include active($pokemon-water-light);
   }
   &--active#{&}--normal {
-    @include active($pokemon-normal-light, $pokemon-normal-dark);
+    @include active($pokemon-normal-light);
   }
   &--active#{&}--poison {
-    @include active($pokemon-poison-light, $pokemon-poison-dark);
+    @include active($pokemon-poison-light);
   }
   &--active#{&}--bug {
-    @include active($pokemon-bug-light, $pokemon-bug-dark);
+    @include active($pokemon-bug-light);
   }
   &--active#{&}--ground {
-    @include active($pokemon-ground-light, $pokemon-ground-dark);
+    @include active($pokemon-ground-light);
   }
   &--active#{&}--fighting {
-    @include active($pokemon-fighting-light, $pokemon-fighting-dark);
+    @include active($pokemon-fighting-light);
   }
   &--active#{&}--rock {
-    @include active($pokemon-rock-light, $pokemon-rock-dark);
+    @include active($pokemon-rock-light);
   }
   &--active#{&}--electric {
-    @include active($pokemon-electric-light, $pokemon-electric-dark);
+    @include active($pokemon-electric-light);
   }
   &--active#{&}--fairy {
-    @include active($pokemon-fairy-light, $pokemon-fairy-dark);
+    @include active($pokemon-fairy-light);
   }
   &--active#{&}--psychic {
-    @include active($pokemon-psychic-light, $pokemon-psychic-dark);
+    @include active($pokemon-psychic-light);
   }
   &--active#{&}--ghost {
-    @include active($pokemon-ghost-light, $pokemon-ghost-dark);
+    @include active($pokemon-ghost-light);
   }
   &--active#{&}--ice {
-    @include active($pokemon-ice-light, $pokemon-ice-dark);
+    @include active($pokemon-ice-light);
   }
   &--active#{&}--dragon {
-    @include active($pokemon-dragon-light, $pokemon-dragon-dark);
+    @include active($pokemon-dragon-light);
   }
   &--active#{&}--steel {
-    @include active($pokemon-steel-light, $pokemon-steel-dark);
+    @include active($pokemon-steel-light);
   }
   &--active#{&}--flying {
-    @include active($pokemon-flying-light, $pokemon-flying-dark);
+    @include active($pokemon-flying-light);
   }
 }
 </style>

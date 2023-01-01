@@ -1,10 +1,10 @@
 <template>
   <article class="damage-group">
-    <h4>{{ groupLabel }}</h4>
+    <h4>{{ groupLabel }} {{ relation }}</h4>
     <Icon
       class="damage-group__icon"
       v-if="group === 'double'"
-      :name="group.includes('from') ? 'shield-icon' : 'swords-icon'"
+      :name="relation === 'from' ? 'shield-icon' : 'swords-icon'"
     />
     <div class="damage-group__groups">
       <TransitionGroup name="special">
@@ -26,7 +26,7 @@ import { computed } from 'vue';
 const props = defineProps<{
   group: string;
   types: string[];
-  isLoading: boolean;
+  relation: string;
 }>();
 
 const groupLabel = computed(() =>
@@ -37,12 +37,6 @@ const groupLabel = computed(() =>
 <style scoped lang="scss">
 .damage-group {
   $self: &;
-  // display: flex;
-  // align-items: center;
-  // justify-content: center;
-  // flex-direction: column;
-  // gap: gap(2);
-  // padding: gap(2);
 
   h4 {
     margin-bottom: gap(4);
@@ -71,15 +65,15 @@ const groupLabel = computed(() =>
     stroke-width: 8px;
   }
 }
-.special-enter-from {
-  opacity: 0;
-  transform: scale(0.6);
-}
-.special-enter-to {
-  opacity: 1;
-  transform: scale(1);
-}
-.special-enter-active {
-  transition: all 1s ease;
-}
+// .special-enter-from {
+//   // opacity: 0;
+//   transform: scale(0.6);
+// }
+// .special-enter-to {
+//   // opacity: 1;
+//   transform: scale(1);
+// }
+// .special-enter-active {
+//   transition: transform 1s ease;
+// }
 </style>

@@ -9,9 +9,9 @@
     <div class="pokemon-card__img-wrapper">
       <img :src="sprite.url" alt="" :class="`${sprite.type}`" />
     </div>
-    <h4>
-      {{ name }}
-    </h4>
+    <FrostCard>
+      <h4>{{ name }}</h4>
+    </FrostCard>
     <p v-if="trigger" class="pokemon-card__trigger">
       {{ trigger }}
     </p>
@@ -98,13 +98,11 @@ const trigger = computed(() => {
   }
 
   h4 {
-    @include frost-bg;
     width: 100%;
     padding-inline: gap(1);
     line-height: 1.5;
     text-transform: capitalize;
     text-align: center;
-    border-radius: $cool-border-radius;
   }
   &__arrow {
     position: absolute;

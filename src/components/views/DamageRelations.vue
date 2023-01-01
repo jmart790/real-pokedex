@@ -10,7 +10,7 @@
         v-bind="{
           group: 'half',
           types: damageRelations?.half.types || [],
-          isLoading
+          relation
         }"
       />
       <DamageGroup
@@ -18,7 +18,7 @@
         v-bind="{
           group: 'double',
           types: damageRelations?.double.types || [],
-          isLoading
+          relation
         }"
       />
     </div>
@@ -107,7 +107,7 @@ watch(activePokemonType, (type) => getDamageRelations(type));
     grid-auto-flow: column;
     grid-template-columns: v-bind(gridColumns);
     border-top: 1px solid $off-white;
-    transition: 1s;
+    transition: grid-template-columns 1s;
     will-change: grid-template-columns;
   }
   &__group:first-of-type {
