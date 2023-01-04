@@ -10,7 +10,6 @@
               :name="`type-${move.type.name}`"
               :class="`poke-moves__icon--${move.type.name}`"
             />
-            <!-- <TypePill mode="icon" :type="move.type.name" /> -->
             <p class="poke-moves__move-name">
               {{ move.name.replace('-', ' ') }}
             </p>
