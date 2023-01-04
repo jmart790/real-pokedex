@@ -1,33 +1,34 @@
 <template>
   <section class="base-details" :class="`base-details--${pokemonTypes[0]}`">
     <p v-if="isLoading">loading....</p>
-    <FrostCard v-else>
-      <div class="base-details__card">
-        <section class="base-details__species-num">
-          <p>{{ genus }}</p>
+
+    <div v-else class="base-details__card">
+      <section class="base-details__species-num">
+        <p>{{ genus }}</p>
+        <FrostCard>
           <p class="base-details__national-num">
             <span>#</span>{{ entryNumber }}
           </p>
-        </section>
+        </FrostCard>
+      </section>
 
-        <section class="base-details__copy">
-          <template v-if="description">
-            <span class="base-details__copy-name">
-              {{ activePokemon?.name }}
-            </span>
-            {{ description.toLowerCase() }}.
-          </template>
-          {{ flavorText }}
-        </section>
-        <p class="base-details__location">
-          Located {{ encounter?.toLowerCase() }} near {{ location }}.
-        </p>
+      <section class="base-details__copy">
+        <span class="base-details__copy-name">
+          {{ activePokemon?.name }}
+        </span>
+        <template v-if="description">
+          {{ description.toLowerCase() }}.
+        </template>
+        {{ flavorText }}
+      </section>
+      <p class="base-details__location">
+        Located {{ encounter?.toLowerCase() }} near {{ location }}.
+      </p>
 
-        <div class="base-details__types">
-          <TypePill v-for="type in pokemonTypes" :key="type" :type="type" />
-        </div>
+      <div class="base-details__types">
+        <TypePill v-for="type in pokemonTypes" :key="type" :type="type" />
       </div>
-    </FrostCard>
+    </div>
   </section>
 </template>
 
@@ -131,7 +132,6 @@ watch(
     height: 100%;
     display: grid;
     grid-template-rows: auto auto 1fr auto;
-    padding: $card-padding;
     color: white;
   }
   &__species-num {
@@ -141,6 +141,7 @@ watch(
     align-items: center;
   }
   &__national-num {
+    padding-inline: gap(4);
     display: flex;
     align-items: center;
     gap: gap(1);
@@ -158,9 +159,11 @@ watch(
   &__copy-name {
     text-transform: capitalize;
     font-size: rem(20);
-    letter-spacing: 1px;
+    letter-spacing: 4px;
     line-height: 1;
     color: $primary;
+    font-family: $pokemon-font;
+    text-shadow: 1px 1px 0px $secondary;
   }
 
   &__types {
