@@ -1,42 +1,33 @@
 <template>
   <section class="pokemon-details" :class="`pokemon-details--${pokemonType}`">
-    {{ pokemon?.name }}
-    <img :src="spriteImage" :alt="`${pokemon?.name} sprite`" />
+    {{ activePokemonName }}
+    <img :src="spriteImage" :alt="`${activePokemonName} sprite`" />
   </section>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, watch } from 'vue';
 import { storeToRefs } from 'pinia';
-import PokeAPI, { type IPokemon } from 'pokeapi-typescript';
 import { usePokeStore } from '@/store/pokemon';
-const pokeStore = usePokeStore();
-const { activePokemonName } = storeToRefs(pokeStore);
 
-const pokemon = ref<IPokemon>();
+const pokeStore = usePokeStore();
+const { activePokemonName, activePokemon } = storeToRefs(pokeStore);
+const { getActivePokemon } = pokeStore;
+
+const pokemonType = computed(() => activePokemon?.value?.types[0].type.name);
 const spriteImage = computed(
   () =>
-    pokemon?.value?.sprites?.versions['generation-v']['black-white'].animated
-      .front_default
+    activePokemon?.value?.sprites?.versions['generation-v']['black-white']
+      .animated.front_default
 );
-const pokemonType = computed(() => pokemon?.value?.types[0].type.name);
 
-async function getPokemon(payload: string) {
-  if (!payload) return;
-  await PokeAPI.Pokemon.resolve(payload).then((res) => {
-    pokemon.value = res;
-    pokeStore.setActivePokemon(res);
-  });
-}
-
-onMounted(() => {
-  const payload = activePokemonName.value;
-  getPokemon(payload);
-});
-
-watch(activePokemonName, (name) => {
-  getPokemon(name);
-});
+watch(
+  activePokemonName,
+  (name) => {
+    getActivePokemon(name);
+  },
+  { immediate: true }
+);
 </script>
 
 <style scoped lang="scss">
