@@ -1,11 +1,9 @@
 <template>
   <section class="base-stats">
-    <FrostCard
-      class="base-stats__card"
-      v-for="(stat, key) in stats"
-      :key="`base-stat-${key}`"
-    >
-      <CircleRange :label="key" :max="stat.max" :base="stat.base" />
+    <FrostCard v-for="(stat, key) in stats" :key="`base-stat-${key}`">
+      <div class="base-stats__card">
+        <CircleRange :label="key" :max="stat.max" :base="stat.base" />
+      </div>
     </FrostCard>
   </section>
 </template>
@@ -58,6 +56,7 @@ function getMaxStat(stat: number, isHp = false) {
   gap: gap(2);
 
   &__card {
+    height: 100%;
     padding: gap(2);
     color: white;
   }
