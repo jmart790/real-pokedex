@@ -18,7 +18,11 @@ $light-red: #ffadb4;
 $dark-red: #c23642;
 
 // UI colors
-$primary: #e5c979;
+$primary: #f5d75d;
+$secondary: #00589e;
+$tertiary: #09132e;
+
+$glass-white: rgba(white, 0.5);
 
 $pokemon-fire: #ef271a;
 $pokemon-fire-light: lighten($pokemon-fire, 40%);
@@ -89,5 +93,5 @@ $pokemon-dark-light: lighten($pokemon-dark, 40%);
 $pokemon-dark-dark: darken($pokemon-dark, 40%);
 
 $pokemon-flying: #5a7894;
-$pokemon-flying-light: lighten($pokemon-flying, 20%);
+$pokemon-flying-light: lighten($pokemon-flying, 40%);
 $pokemon-flying-dark: darken($pokemon-flying, 40%);
