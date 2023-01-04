@@ -15,6 +15,8 @@ export const usePokeStore = defineStore('pokemon', () => {
   const pokemonListLength = computed(
     () => generation.value?.pokemon_species.length
   );
+  const isLoading = ref(false);
+  const hasError = ref(false);
 
   async function getGeneration(genNum = 1) {
     await PokeAPI.Generaition.resolve(genNum)
@@ -25,6 +27,19 @@ export const usePokeStore = defineStore('pokemon', () => {
         );
       })
       .catch((e) => console.log({ e }));
+  }
+
+  async function getActivePokemon(payload: string) {
+    hasError.value = false;
+    if (!payload) return;
+    isLoading.value = true;
+    await PokeAPI.Pokemon.resolve(payload)
+      .then((res) => setActivePokemon(res))
+      .catch((e) => {
+        console.log({ e });
+        hasError.value = true;
+      });
+    isLoading.value = false;
   }
 
   const activePokemon = ref<IPokemon>();
@@ -54,6 +69,9 @@ export const usePokeStore = defineStore('pokemon', () => {
     pokemonListLength,
     genNum,
     region,
+    getActivePokemon,
+    isLoading,
+    hasError,
     setActivePokemon,
     activePokemon,
     setActivePokemonName,
