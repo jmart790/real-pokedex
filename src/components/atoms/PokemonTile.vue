@@ -54,7 +54,9 @@ onMounted(async () => {
 <style scoped lang="scss">
 .pokemon-tile {
   @mixin active($color) {
-    background: rgba($color, 0.45);
+    letter-spacing: 1px;
+    color: rgba($off-black, 0.8);
+    background: rgba($color, 0.3);
     .pokemon-tile__image-container {
       background-color: rgba($color, 0.75);
     }
@@ -64,8 +66,7 @@ onMounted(async () => {
   gap: gap(3);
   text-transform: capitalize;
   border-radius: inherit;
-  color: rgba(black, 0.9);
-  letter-spacing: 1px;
+  color: rgba($off-white, 0.9);
 
   &__name {
     color: inherit;
@@ -76,8 +77,8 @@ onMounted(async () => {
     height: 50px;
     width: 50px;
     border-radius: 50%;
+
     background-color: rgba(white, 0.4);
-    backdrop-filter: blur(10px);
   }
   &__sprite {
     position: absolute;
