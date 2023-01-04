@@ -106,12 +106,12 @@ watch(activePokemonType, (type) => getDamageRelations(type));
     display: grid;
     grid-auto-flow: column;
     grid-template-columns: v-bind(gridColumns);
-    border-top: 1px solid $off-white;
+    border-top: 1px solid $glass-white;
     transition: grid-template-columns 1s;
     will-change: grid-template-columns;
   }
   &__group:first-of-type {
-    border-right: 1px solid $off-white;
+    border-right: 1px solid $glass-white;
   }
   &__group {
     flex-shrink: 1;
