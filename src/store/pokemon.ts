@@ -9,7 +9,7 @@ interface IPokemonListItem {
 }
 export const usePokeStore = defineStore('pokemon', () => {
   const generation = ref<IGeneration>();
-  const genNum = computed(() => generation.value?.id);
+  const genNum = computed(() => generation.value?.id || 1);
   const region = computed(() => generation.value?.main_region.name);
   const pokemonList = ref<IPokemonListItem[]>();
   const pokemonListLength = computed(
