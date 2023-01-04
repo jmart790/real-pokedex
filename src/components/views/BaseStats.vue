@@ -1,5 +1,7 @@
 <template>
   <section class="base-stats">
+    <p v-if="isLoading">loading...</p>
+    <ErrorCard v-else-if="hasError" />
     <FrostCard v-for="(stat, key) in stats" :key="`base-stat-${key}`">
       <div class="base-stats__card">
         <CircleRange :label="key" :max="stat.max" :base="stat.base" />
@@ -15,7 +17,7 @@ import { storeToRefs } from 'pinia';
 
 const pokeStore = usePokeStore();
 
-const { activePokemon } = storeToRefs(pokeStore);
+const { activePokemon, isLoading, hasError } = storeToRefs(pokeStore);
 
 const stats = computed(() => {
   return activePokemon.value?.stats.reduce(

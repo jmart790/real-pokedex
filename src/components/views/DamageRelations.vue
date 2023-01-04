@@ -1,7 +1,9 @@
 <template>
   <section class="damage-relations">
-    <!-- <p v-if="isLoading">loading...</p> -->
+    <p v-if="isLoading">loading...</p>
+    <ErrorCard v-else-if="hasError" />
     <div
+      v-else
       class="damage-relations__groups"
       :class="{ 'damage-relations__groups--loaded': !isLoading }"
     >
@@ -53,6 +55,7 @@ const pokeStore = usePokeStore();
 const { activePokemonType } = storeToRefs(pokeStore);
 const damageRelations = ref<IDamageRelations>();
 const isLoading = ref(false);
+const hasError = ref(false);
 
 const gridColumns = computed(() => {
   if (!damageRelations?.value) return '1fr 1fr';
@@ -63,8 +66,8 @@ const gridColumns = computed(() => {
   return `${halfCount}fr ${doubleCount}fr`;
 });
 
-function transformData(data: ITypeRelations) {
-  return Object.keys(data).reduce((relations, groupName) => {
+function handleSuccess(data: ITypeRelations) {
+  const dataTransformed = Object.keys(data).reduce((relations, groupName) => {
     const types = data[groupName].map(
       (item: INamedApiResource<IType>) => item.name
     );
@@ -74,15 +77,19 @@ function transformData(data: ITypeRelations) {
     }
     return relations;
   }, {} as IDamageRelations);
+  damageRelations.value = dataTransformed;
+}
+
+function handleFailure(e) {
+  console.log({ e });
+  hasError.value = true;
 }
 
 async function getDamageRelations(type: string) {
   isLoading.value = true;
   await PokeAPI.Type.resolve(type)
-    .then(({ damage_relations }) => {
-      damageRelations.value = transformData(damage_relations);
-    })
-    .catch((e) => console.log({ e }));
+    .then(({ damage_relations }) => handleSuccess(damage_relations))
+    .catch((e) => handleFailure(e));
   isLoading.value = false;
 }
 
