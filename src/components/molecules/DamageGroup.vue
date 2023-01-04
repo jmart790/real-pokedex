@@ -1,6 +1,7 @@
 <template>
   <article class="damage-group">
-    <h4>{{ groupLabel }} {{ relation }}</h4>
+    <h4>{{ groupLabel }}</h4>
+
     <Icon
       class="damage-group__icon"
       v-if="group === 'double'"
@@ -41,8 +42,12 @@ const groupLabel = computed(() =>
   h4 {
     margin-bottom: gap(4);
     color: $off-white;
+    letter-spacing: 1px;
     text-align: center;
-    border-bottom: 1px solid $off-white;
+    border-bottom: 1px solid $glass-white;
+    font-family: $secondary-font;
+    font-weight: 600;
+    text-transform: capitalize;
   }
 
   &__groups {
