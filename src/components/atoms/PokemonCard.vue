@@ -7,7 +7,7 @@
     ]"
   >
     <div class="pokemon-card__img-wrapper">
-      <img :src="sprite.url" alt="" :class="`${sprite.type}`" />
+      <img :src="sprite.url" alt="pokemon sprite" :class="`${sprite.type}`" />
     </div>
     <FrostCard>
       <h4>{{ name }}</h4>
