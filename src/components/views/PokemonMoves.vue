@@ -13,11 +13,12 @@
             <p class="poke-moves__move-name">
               {{ move.name.replace('-', ' ') }}
             </p>
+            <p>lvl. {{ move.levelLearnedAt }}</p>
+            <p>{{ move.damage_class.name }}</p>
             <p style="display: flex; alignitems: center; gap: 4px">
               {{ move.power || 0 }}
               <Icon name="swords-icon" class="poke-moves__sword-icon" />
             </p>
-            <p>{{ move.damage_class.name }}</p>
           </div>
         </FrostCard>
       </li>
@@ -28,39 +29,60 @@
 <script setup lang="ts">
 import { usePokeStore } from '@/store/pokemon';
 import { storeToRefs } from 'pinia';
-import { watch, ref } from 'vue';
-import PokeAPI, { type IMove } from 'pokeapi-typescript';
+import { watch, ref, computed, watchEffect } from 'vue';
+import PokeAPI, { type IMove, type IPokemonMove } from 'pokeapi-typescript';
+
+interface IPokeMove extends IMove {
+  levelLearnedAt: number;
+}
 
 const pokeStore = usePokeStore();
-const movesList = ref<IMove[]>();
+const movesList = ref<IPokeMove[]>();
 const isLoading = ref(false);
 
-const { activePokemon, genNum } = storeToRefs(pokeStore);
+const { activePokemonMoves, genNum } = storeToRefs(pokeStore);
+const genNums = ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii'];
+const genName = computed(() => `generation-${genNums[genNum.value - 1]}`);
 
-async function getMoves() {
+function filterActivePokemonMoves(moves: IPokemonMove[], filterBy: string) {
+  return moves.filter(
+    (move) => move.version_group_details[0].move_learn_method.name === filterBy
+  );
+}
+
+async function getMove({ move, version_group_details }: IPokemonMove) {
+  const levelLearnedAt = version_group_details[0]?.level_learned_at || 0;
+  return await PokeAPI.Move.resolve(move.name)
+    .then((res) => ({ ...res, levelLearnedAt }))
+    .catch((e) => {
+      console.log({ e });
+      return null;
+    });
+}
+
+async function getMoves(pokemonMoves: IPokemonMove[]) {
+  console.log('looking for moves: ', pokemonMoves?.length);
+  if (!pokemonMoves?.length) return;
   isLoading.value = true;
-  const activePokemonMoves = activePokemon.value?.moves;
-  if (!activePokemonMoves) return;
-  const levelUpMoves = activePokemonMoves.filter((move) => {
-    return move.version_group_details[0].move_learn_method.name === 'level-up';
+
+  const levelUpMoves = filterActivePokemonMoves(pokemonMoves, 'level-up');
+  if (!levelUpMoves?.length) return;
+
+  const moves: IPokeMove[] = [];
+  levelUpMoves.forEach(async (move) => {
+    const moveToAdd = await getMove(move);
+    if (moveToAdd) moves.push(moveToAdd);
   });
-  if (!levelUpMoves) return;
-  const moves: IMove[] = [];
-  for (const { move } of levelUpMoves) {
-    const response = await PokeAPI.Move.resolve(move.name);
-    moves.push(response);
-  }
-  const genNums = ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii'];
-  const genName = `generation-${genNums[genNum.value - 1]}`;
-  console.log(genNum.value);
-  console.log({ genName });
+  console.log('looking for moves again', moves.length);
+
   movesList.value = moves
-    .filter(({ generation }) => generation.name === genName)
-    .slice(0, 8);
+    .filter(({ generation }) => generation.name === genName.value)
+    .sort((a, b) => a.levelLearnedAt - b.levelLearnedAt)
+    .slice(0, 7);
   isLoading.value = false;
 }
 
-watch(() => activePokemon.value?.id, getMoves, { immediate: true });
+watchEffect(() => getMoves(activePokemonMoves.value));
 </script>
 
 <style scoped lang="scss">
@@ -74,7 +96,7 @@ watch(() => activePokemon.value?.id, getMoves, { immediate: true });
   &__move {
     padding: 1px gap(4);
     display: grid;
-    grid-template-columns: auto 2fr 1fr 1fr;
+    grid-template-columns: 7% 35% 18% 20% 15%;
     align-items: center;
     gap: gap(2);
     color: $off-white;
