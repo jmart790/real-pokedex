@@ -22,7 +22,9 @@
         {{ flavorText }}
       </section>
       <p class="base-details__location">
-        Located {{ encounter?.toLowerCase() }} near {{ location }}.
+        <span v-if="encounter && location">
+          Located {{ encounter?.toLowerCase() }} near {{ location }}.
+        </span>
       </p>
 
       <div class="base-details__types">
@@ -37,9 +39,9 @@ import PokeAPI from 'pokeapi-typescript';
 import { computed, ref, watch } from 'vue';
 import { usePokeStore } from '@/store/pokemon';
 import { storeToRefs } from 'pinia';
+``;
 
 const pokeStore = usePokeStore();
-
 const { activePokemon } = storeToRefs(pokeStore);
 
 const isLoading = ref(false);
@@ -48,8 +50,6 @@ const flavorText = ref<string>('');
 const genus = ref<string>('');
 const location = ref<string>('');
 const encounter = ref<string>('');
-
-// 1- description, location areas, id
 
 const entryNumber = computed(() => {
   let num = String(activePokemon.value?.id || 0);
@@ -80,7 +80,7 @@ async function getDescription(payload: number) {
         ({ language }) => language.name === 'en'
       )?.description;
     })
-    .catch((e) => console.log({ e }));
+    .catch(async (e) => console.log({ e }));
 }
 
 async function getLocation(payload: number) {
@@ -146,7 +146,6 @@ watch(
     align-items: center;
     gap: gap(1);
     font-weight: 500;
-    font-style: italic;
     letter-spacing: 1px;
     span {
       font-size: rem(20);
