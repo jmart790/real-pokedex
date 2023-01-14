@@ -11,7 +11,7 @@
         class="damage-relations__group"
         v-bind="{
           group: 'half',
-          types: damageRelations?.half.types || [],
+          types: damageRelations?.half?.types || [],
           relation
         }"
       />
@@ -19,9 +19,28 @@
         class="damage-relations__group"
         v-bind="{
           group: 'double',
-          types: damageRelations?.double.types || [],
+          types: damageRelations?.double?.types || [],
           relation
         }"
+      />
+    </div>
+    <div
+      class="damage-relations__icon-container"
+      :class="`damage-relations__icon-container--${
+        relation === 'from' ? 'shield' : 'sword'
+      }`"
+    >
+      <img
+        v-if="relation === 'from'"
+        src="@/assets/images/red-shield-icon.png"
+        alt="shield icon"
+        width="40px"
+      />
+      <img
+        v-else
+        src="@/assets/images/red-sword-icon.png"
+        alt="sword icon"
+        width="20px"
       />
     </div>
   </section>
@@ -60,20 +79,21 @@ const hasError = ref(false);
 const gridColumns = computed(() => {
   if (!damageRelations?.value) return '1fr 1fr';
   const { half, double } = damageRelations.value;
-  const total = half.types.length + double.types.length;
-  const halfCount = (half.types.length / total) * 10;
-  const doubleCount = (double.types.length / total) * 10;
+  const halfTotal = half?.types?.length || 1;
+  const doubleTotal = double?.types?.length || 1;
+  const total = halfTotal + doubleTotal;
+  const halfCount = (halfTotal / total) * 10;
+  const doubleCount = (doubleTotal / total) * 10;
   return `${halfCount}fr ${doubleCount}fr`;
 });
 
 function handleSuccess(data: ITypeRelations) {
   const dataTransformed = Object.keys(data).reduce((relations, groupName) => {
-    const types = data[groupName].map(
-      (item: INamedApiResource<IType>) => item.name
-    );
+    const types =
+      data[groupName].map((item: INamedApiResource<IType>) => item.name) || [];
     if (types?.length && groupName.includes(props.relation)) {
       const key = groupName.includes('half') ? 'half' : 'double';
-      relations[key] = { group: groupName, types: types };
+      relations[key] = { group: groupName, types };
     }
     return relations;
   }, {} as IDamageRelations);
@@ -109,19 +129,34 @@ watch(activePokemonType, (type) => getDamageRelations(type));
   &__groups {
     height: 100%;
     width: 100%;
-    // display: flex;
     display: grid;
     grid-auto-flow: column;
     grid-template-columns: v-bind(gridColumns);
-    border-top: 1px solid $glass-white;
     transition: grid-template-columns 1s;
     will-change: grid-template-columns;
   }
   &__group:first-of-type {
-    border-right: 1px solid $glass-white;
+    border-right: 2px solid $glass-white;
   }
   &__group {
     flex-shrink: 1;
+  }
+  &__icon-container {
+    position: absolute;
+    right: 5px;
+    bottom: 0px;
+    height: auto;
+    img {
+      height: 100%;
+      width: 100%;
+      transform: rotateY(180deg);
+    }
+    &--shield {
+      width: 40px;
+    }
+    &--sword {
+      width: 25px;
+    }
   }
 }
 </style>
