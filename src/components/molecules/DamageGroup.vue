@@ -1,12 +1,6 @@
 <template>
   <article class="damage-group">
     <h4>{{ groupLabel }}</h4>
-
-    <Icon
-      class="damage-group__icon"
-      v-if="group === 'double'"
-      :name="relation === 'from' ? 'shield-icon' : 'swords-icon'"
-    />
     <div class="damage-group__groups">
       <TransitionGroup name="special">
         <TypePill
@@ -27,7 +21,6 @@ import { computed } from 'vue';
 const props = defineProps<{
   group: string;
   types: string[];
-  relation: string;
 }>();
 
 const groupLabel = computed(() =>
@@ -40,11 +33,10 @@ const groupLabel = computed(() =>
   $self: &;
 
   h4 {
-    margin-bottom: gap(4);
+    margin-bottom: gap(1);
     color: $off-white;
     letter-spacing: 1px;
     text-align: center;
-    border-bottom: 1px solid $glass-white;
     font-family: $secondary-font;
     font-weight: 600;
     text-transform: capitalize;
@@ -52,22 +44,11 @@ const groupLabel = computed(() =>
 
   &__groups {
     height: min-content;
+    width: fit-content;
     padding: gap(2);
-    // max-width: 100px;
     display: flex;
     flex-wrap: wrap;
     gap: gap(2);
-  }
-  &__icon {
-    position: absolute;
-    left: -15px;
-    top: 10px;
-
-    width: 30px;
-    height: 30px;
-    fill: $off-white;
-    stroke: rgba(black, 0.5);
-    stroke-width: 8px;
   }
 }
 // .special-enter-from {
