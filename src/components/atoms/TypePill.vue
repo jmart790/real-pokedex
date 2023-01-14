@@ -58,8 +58,8 @@ withDefaults(defineProps<{ type: string; mode: Mode }>(), { mode: 'default' });
     // background: linear-gradient(40deg, $color-2 30%, $color-2 100%);
     background: linear-gradient(
       40deg,
-      rgba($color-1, 0.4) 30%,
-      rgba(255, 255, 255, 0.1) 100%
+      rgba($color-1, 0.8) 30%,
+      rgba(255, 255, 255, 0.3) 100%
     );
   }
   &--fire {
