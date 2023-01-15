@@ -1,6 +1,6 @@
 <template>
   <article class="poke-moves">
-    <h1 v-if="isLoading">loading...</h1>
+    <PikachuLoader v-if="isLoading" />
     <ul v-else-if="!isLoading && movesList?.length">
       <li v-for="move in movesList" :key="`pokemon-move--${move.name}`">
         <FrostCard>
@@ -29,7 +29,7 @@
 <script setup lang="ts">
 import { usePokeStore } from '@/store/pokemon';
 import { storeToRefs } from 'pinia';
-import { watch, ref, computed, watchEffect } from 'vue';
+import { ref, computed, watchEffect } from 'vue';
 import PokeAPI, { type IMove, type IPokemonMove } from 'pokeapi-typescript';
 
 interface IPokeMove extends IMove {
@@ -54,32 +54,26 @@ async function getMove({ move, version_group_details }: IPokemonMove) {
   const levelLearnedAt = version_group_details[0]?.level_learned_at || 0;
   return await PokeAPI.Move.resolve(move.name)
     .then((res) => ({ ...res, levelLearnedAt }))
-    .catch((e) => {
-      console.log({ e });
-      return null;
-    });
+    .catch((e) => console.log({ e }));
 }
 
 async function getMoves(pokemonMoves: IPokemonMove[]) {
-  console.log('looking for moves: ', pokemonMoves?.length);
   if (!pokemonMoves?.length) return;
   isLoading.value = true;
-
-  const levelUpMoves = filterActivePokemonMoves(pokemonMoves, 'level-up');
-  if (!levelUpMoves?.length) return;
-
-  const moves: IPokeMove[] = [];
-  levelUpMoves.forEach(async (move) => {
-    const moveToAdd = await getMove(move);
-    if (moveToAdd) moves.push(moveToAdd);
-  });
-  console.log('looking for moves again', moves.length);
-
-  movesList.value = moves
-    .filter(({ generation }) => generation.name === genName.value)
-    .sort((a, b) => a.levelLearnedAt - b.levelLearnedAt)
-    .slice(0, 7);
-  isLoading.value = false;
+  try {
+    const levelUpMoves = filterActivePokemonMoves(pokemonMoves, 'level-up');
+    const moves: IPokeMove[] = await Promise.all(
+      levelUpMoves.map(async (move) => await getMove(move))
+    );
+    movesList.value = moves
+      .filter(({ generation }) => generation.name === genName.value)
+      .sort((a, b) => a.levelLearnedAt - b.levelLearnedAt)
+      .slice(0, 7);
+  } catch (e) {
+    console.log({ e });
+  } finally {
+    isLoading.value = false;
+  }
 }
 
 watchEffect(() => getMoves(activePokemonMoves.value));
