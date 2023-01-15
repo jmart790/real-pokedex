@@ -1,6 +1,6 @@
 <template>
   <section class="damage-relations">
-    <p v-if="isLoading">loading...</p>
+    <PikachuLoader v-if="isLoading" />
     <ErrorCard v-else-if="hasError" />
     <div
       v-else

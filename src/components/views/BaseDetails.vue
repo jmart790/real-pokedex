@@ -1,6 +1,6 @@
 <template>
   <section class="base-details" :class="`base-details--${pokemonTypes[0]}`">
-    <p v-if="isLoading">loading....</p>
+    <PikachuLoader v-if="isLoading" />
 
     <div v-else class="base-details__card">
       <section class="base-details__species-num">
@@ -39,7 +39,6 @@ import PokeAPI from 'pokeapi-typescript';
 import { computed, ref, watch } from 'vue';
 import { usePokeStore } from '@/store/pokemon';
 import { storeToRefs } from 'pinia';
-``;
 
 const pokeStore = usePokeStore();
 const { activePokemon } = storeToRefs(pokeStore);
@@ -161,7 +160,8 @@ watch(
     letter-spacing: 4px;
     line-height: 1;
     color: $primary;
-    font-family: $pokemon-font;
+    font-family: $secondary-font;
+    font-weight: 400;
     text-shadow: 1px 1px 0px $secondary;
   }
 

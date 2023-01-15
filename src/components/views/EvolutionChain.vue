@@ -1,7 +1,7 @@
 <template>
   <article class="evo-chain">
     <div class="evo-chain__card">
-      <h1 v-if="isLoading">loading...</h1>
+      <PikachuLoader v-if="isLoading" />
       <div
         v-else-if="evoChain"
         class="evo-chain__pokemons"
