@@ -34,7 +34,12 @@ import PokeAPI, { type IMove, type IPokemonMove } from 'pokeapi-typescript';
 
 interface IPokeMove extends IMove {
   levelLearnedAt: number;
+  machineLearnedBy: string;
 }
+
+const props = defineProps<{
+  filterBy: 'level-up' | 'machine';
+}>();
 
 const pokeStore = usePokeStore();
 const movesList = ref<IPokeMove[]>();
@@ -50,25 +55,55 @@ function filterActivePokemonMoves(moves: IPokemonMove[], filterBy: string) {
   );
 }
 
+async function getMachineLearnedBy({ machines }: IMove): Promise<string> {
+  if (!machines.length) return '';
+  const urlSplit = machines[0].machine.url.split('/');
+  const payload = Number(urlSplit[urlSplit.length - 1]);
+  let machine = '';
+  try {
+    machine = (await PokeAPI.Machine.resolve(payload)).item.name;
+  } catch (e) {
+    console.log({ e });
+  }
+  return machine;
+}
+
 async function getMove({ move, version_group_details }: IPokemonMove) {
   const levelLearnedAt = version_group_details[0]?.level_learned_at || 0;
   return await PokeAPI.Move.resolve(move.name)
-    .then((res) => ({ ...res, levelLearnedAt }))
-    .catch((e) => console.log({ e }));
+    .then(async (res) => {
+      const machineLearnedBy = await getMachineLearnedBy(res);
+      return { ...res, levelLearnedAt, machineLearnedBy };
+    })
+    .catch((e) => {
+      console.log({ e });
+      return null;
+    });
 }
 
-async function getMoves(pokemonMoves: IPokemonMove[]) {
+function filterAndSort(moves: IPokeMove[], filterBy: string) {
+  return moves
+    .filter(Boolean)
+    .filter(({ generation }) => generation.name === genName.value)
+    .sort((a, b) => {
+      if (filterBy === 'machine') {
+        return a.machineLearnedBy > b.machineLearnedBy ? 1 : -1;
+      } else {
+        return a.levelLearnedAt - b.levelLearnedAt;
+      }
+    })
+    .slice(0, 7);
+}
+
+async function getMoves(pokemonMoves: IPokemonMove[], filterBy) {
   if (!pokemonMoves?.length) return;
   isLoading.value = true;
   try {
-    const levelUpMoves = filterActivePokemonMoves(pokemonMoves, 'level-up');
-    const moves: IPokeMove[] = await Promise.all(
-      levelUpMoves.map(async (move) => await getMove(move))
+    const filteredMoves = filterActivePokemonMoves(pokemonMoves, filterBy);
+    const moves = await Promise.all(
+      filteredMoves.map(async (move) => await getMove(move))
     );
-    movesList.value = moves
-      .filter(({ generation }) => generation.name === genName.value)
-      .sort((a, b) => a.levelLearnedAt - b.levelLearnedAt)
-      .slice(0, 7);
+    movesList.value = filterAndSort(moves, filterBy);
   } catch (e) {
     console.log({ e });
   } finally {
@@ -76,7 +111,7 @@ async function getMoves(pokemonMoves: IPokemonMove[]) {
   }
 }
 
-watchEffect(() => getMoves(activePokemonMoves.value));
+watchEffect(() => getMoves(activePokemonMoves.value, props.filterBy));
 </script>
 
 <style scoped lang="scss">
