@@ -61,7 +61,8 @@ const secondaryViewComponent = computed(() => {
     3: 'DamageRelations',
     4: 'DamageRelations',
     5: 'EvolutionChain',
-    6: 'PokemonMoves'
+    6: 'PokemonMoves',
+    7: 'PokemonMoves'
   };
   if (currentView.value === 'POKEMON') {
     return secondaryOptions[secondaryView.value];
@@ -73,6 +74,8 @@ const secondaryViewProps = computed(() => {
   const { value } = secondaryView;
   if (value === '3') return { relation: 'from' };
   else if (value === '4') return { relation: 'to' };
+  else if (value === '6') return { filterBy: 'level-up' };
+  else if (value === '7') return { filterBy: 'machine' };
   else return null;
 });
 
