@@ -13,7 +13,8 @@
             <p class="poke-moves__move-name">
               {{ move.name.replace('-', ' ') }}
             </p>
-            <p>lvl. {{ move.levelLearnedAt }}</p>
+            <p v-if="filterBy === 'level-up'">lvl. {{ move.levelLearnedAt }}</p>
+            <p v-else>{{ move.machineLearnedBy }}</p>
             <p>{{ move.damage_class.name }}</p>
             <p style="display: flex; alignitems: center; gap: 4px">
               {{ move.power || 0 }}
@@ -57,8 +58,10 @@ function filterActivePokemonMoves(moves: IPokemonMove[], filterBy: string) {
 
 async function getMachineLearnedBy({ machines }: IMove): Promise<string> {
   if (!machines.length) return '';
+  // todo: filter by current generation
   const urlSplit = machines[0].machine.url.split('/');
-  const payload = Number(urlSplit[urlSplit.length - 1]);
+  // we know the id is in this position because the url is always structured the same
+  const payload = Number(urlSplit[6]);
   let machine = '';
   try {
     machine = (await PokeAPI.Machine.resolve(payload)).item.name;
