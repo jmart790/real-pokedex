@@ -82,8 +82,7 @@ watch(
       background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2fb2821a-1406-4a1d-9b04-6668f278e944/d843fov-5ad2d436-789b-48f4-91ac-7a553ca26306.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzJmYjI4MjFhLTE0MDYtNGExZC05YjA0LTY2NjhmMjc4ZTk0NFwvZDg0M2Zvdi01YWQyZDQzNi03ODliLTQ4ZjQtOTFhYy03YTU1M2NhMjYzMDYucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.4WU23QrSu_7CD6c4MJIYPEeIvE5o8maEEkqYM40mwus');
     }
     &--fighting {
-      background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1064401678973018132/BonzaiYosh_in-game_mountain_area_with_dojo_background_landscape_8e7f46ce-738d-4852-8e5f-6bab94055777.png');
-      transform: scaleX(-1);
+      background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1064533387538341898/BonzaiYosh_in-game_path_leading_to_dojo_surounded_by_mountains__736edb0a-913a-4614-a2d7-ac06a84e26c4.png');
     }
     &--rock {
       background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1064404167940124682/BonzaiYosh_in-game_rocky_terrain_background_landscape_in_the_st_3253cfc9-3cf9-4068-85c1-634ad3b1fe56.png');
