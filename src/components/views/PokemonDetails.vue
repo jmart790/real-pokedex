@@ -63,6 +63,7 @@ watch(
     }
     &--grass {
       background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1064387454741790781/BonzaiYosh_in-game_forest_background_landscape_in_the_style_of__12a91c82-c63a-4349-8a95-827ddf720f5e.png');
+      transform: translateX(20px);
     }
     &--water {
       background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1064385414586175548/BonzaiYosh_in-game_beach_background_landscape_in_the_style_of_p_24cc6554-928c-490f-9a14-8c7ab7bbb499.png');
@@ -75,39 +76,39 @@ watch(
     }
     &--bug {
       background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1064396496113508392/BonzaiYosh_in-game_forests_background_landscape_in_the_style_of_620a8115-2f53-4bac-99a7-89f46cb90864.png');
-      transform: scaleX(-1);
+      transform: scaleX(-1) translateX(-20px);
     }
     &--ground {
       background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1064756522720174170/BonzaiYosh_in-game_pathway_to_cave_background_landscape_in_the__dccef69c-4a92-472f-9f72-b9ff306a141c.png');
+      transform: translateX(70px);
     }
     &--fighting {
       background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1064533387538341898/BonzaiYosh_in-game_path_leading_to_dojo_surounded_by_mountains__736edb0a-913a-4614-a2d7-ac06a84e26c4.png');
     }
     &--rock {
       background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1064404167940124682/BonzaiYosh_in-game_rocky_terrain_background_landscape_in_the_st_3253cfc9-3cf9-4068-85c1-634ad3b1fe56.png');
-      transform: scaleX(-1);
+      transform: scaleX(-1) translateX(-40px);
     }
     &--electric {
       background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1064373519309361283/BonzaiYosh_in-game_street_background_landscape_in_the_style_of__2c568057-8088-4617-92e8-2dd8a4e5a258.png');
     }
     &--fairy {
-      background: $pokemon-fairy-light;
-      background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2fb2821a-1406-4a1d-9b04-6668f278e944/d844s2l-3cc75658-1ce0-4e90-9013-7569cd4fdc8a.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzJmYjI4MjFhLTE0MDYtNGExZC05YjA0LTY2NjhmMjc4ZTk0NFwvZDg0NHMybC0zY2M3NTY1OC0xY2UwLTRlOTAtOTAxMy03NTY5Y2Q0ZmRjOGEucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.6blMWA6UJ5JGyUSgjBY3W8PNKcQE0zo7-ouenqM7zZ4');
+      background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1064904348771033208/BonzaiYosh_in-game_quiet_mountain_area_covered_with_flowers_bac_5988f45b-6f09-46ae-91d8-f5182d3a401c.png');
+      transform: scaleX(-1) translate(-45px, 20px);
     }
     &--psychic {
       background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1064750024870854736/BonzaiYosh_in-game_abandoned_temple_background_landscape_in_the_06ccd0c1-d880-40ef-ad95-55a97551ad47.png');
+      transform: translateX(20px);
     }
     &--ghost {
       background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1064753182527475783/BonzaiYosh_in-game_pathway_to_haunted_cementry_background_lands_476513f2-3637-4f6a-8eef-1225d1d9ca26.png');
-      // transform: scaleX(-1);
     }
     &--ice {
-      background: $pokemon-ice-light;
-      background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2fb2821a-1406-4a1d-9b04-6668f278e944/d83u6dm-ebaee268-2149-4d70-abad-2b9d19e4806d.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzJmYjI4MjFhLTE0MDYtNGExZC05YjA0LTY2NjhmMjc4ZTk0NFwvZDgzdTZkbS1lYmFlZTI2OC0yMTQ5LTRkNzAtYWJhZC0yYjlkMTllNDgwNmQuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.LoKoO0_A1-_AMfaUb66yFQ43XCi4aEXpk1GIFgYFC5M');
+      background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1064898348198400071/BonzaiYosh_in-game_icy_area_near_surounded_by_mountains_backgro_e2f15cbe-0235-4777-b311-fd9f361ddc4c.png');
     }
     &--dragon {
       background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1064746570886696970/BonzaiYosh_in-game_secret_Lake_background_landscape_with_an_anc_3f3b8d49-c008-4048-a2af-fcf63a014df9.png');
-      transform: scaleX(-1);
+      transform: scaleX(-1) translateX(-50px);
     }
     &--steel {
       background: $pokemon-steel-light;
