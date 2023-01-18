@@ -12,6 +12,7 @@
             v-if="isLoaded"
             v-bind="{
               name,
+              genNum,
               isActive: listPosition === index
             }"
           />
@@ -31,12 +32,13 @@ import { storeToRefs } from 'pinia';
 
 const pokeStore = usePokeStore();
 const controlsStore = useControlsStore();
-const { pokemonList, isGenLoading } = storeToRefs(pokeStore);
+const { pokemonList, isGenLoading, genNum } = storeToRefs(pokeStore);
 const { listPosition } = storeToRefs(controlsStore);
 const listElement = ref<HTMLUListElement | null>(null);
 
 function handleScrollInto(parent: HTMLUListElement | null) {
-  if (!parent) return;
+  if (!parent || !pokemonList?.value?.length) return;
+
   const activeChild = parent.getElementsByClassName(
     'pokemon-list__active-tile'
   )[0];
