@@ -17,8 +17,10 @@ export const usePokeStore = defineStore('pokemon', () => {
   );
   const isLoading = ref(false);
   const hasError = ref(false);
+  const isGenLoading = ref(false);
 
   async function getGeneration(genNum = 1) {
+    isGenLoading.value = true;
     await PokeAPI.Generaition.resolve(genNum)
       .then((res) => {
         generation.value = res;
@@ -27,6 +29,7 @@ export const usePokeStore = defineStore('pokemon', () => {
         );
       })
       .catch((e) => console.log({ e }));
+    isGenLoading.value = false;
   }
 
   async function getActivePokemon(payload: string) {
@@ -65,6 +68,7 @@ export const usePokeStore = defineStore('pokemon', () => {
   }
 
   return {
+    isGenLoading,
     getGeneration,
     pokemonList,
     pokemonListLength,
