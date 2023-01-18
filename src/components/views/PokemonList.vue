@@ -1,6 +1,7 @@
 <template>
   <article class="pokemon-list">
-    <ul ref="listElement">
+    <PikachuLoader v-if="isGenLoading" />
+    <ul v-else ref="listElement">
       <li
         v-for="({ name, isLoaded }, index) in pokemonList"
         :key="`pokemon-${name}`"
@@ -30,7 +31,7 @@ import { storeToRefs } from 'pinia';
 
 const pokeStore = usePokeStore();
 const controlsStore = useControlsStore();
-const { pokemonList, genNum } = storeToRefs(pokeStore);
+const { pokemonList, isGenLoading } = storeToRefs(pokeStore);
 const { listPosition } = storeToRefs(controlsStore);
 const listElement = ref<HTMLUListElement | null>(null);
 
