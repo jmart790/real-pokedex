@@ -118,6 +118,10 @@ watch(
       background: $pokemon-flying-light;
       background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2fb2821a-1406-4a1d-9b04-6668f278e944/d83pvei-ce2f2ee9-0720-4fcc-bd6b-d235b10a2985.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzJmYjI4MjFhLTE0MDYtNGExZC05YjA0LTY2NjhmMjc4ZTk0NFwvZDgzcHZlaS1jZTJmMmVlOS0wNzIwLTRmY2MtYmQ2Yi1kMjM1YjEwYTI5ODUucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.A1imZWriK4Xj_lKniiehh27Pp35KE7rJTgFuOz7_0pQ');
     }
+    &--dark {
+      background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1065090328807350300/BonzaiYosh_ask_in-game_pathway_to_a_lost_tower_during_a_full_mo_4042451b-56d4-46a4-b9d9-29f4c9fd308f.png');
+      transform: translateX(20px);
+    }
   }
 }
 </style>
