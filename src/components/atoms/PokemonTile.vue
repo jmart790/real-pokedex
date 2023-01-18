@@ -8,9 +8,12 @@
       `pokemon-tile--${pokemonType}`
     ]"
   >
-    <div class="pokemon-tile__image-container">
+    <div
+      class="pokemon-tile__image-container"
+      :class="{ 'pokemon-tile__image-container--loading': isLoading }"
+    >
       <img
-        v-if="isActive"
+        v-if="isActive && gifImage"
         :src="gifImage"
         alt="gif image"
         class="pokemon-tile__gif"
@@ -20,6 +23,12 @@
         :src="spriteImage"
         alt="pokemon sprite"
         class="pokemon-tile__sprite"
+        :class="{
+          'pokemon-tile__sprite--backup-active': isActive && !gifImage
+        }"
+        height="64px"
+        width="64px"
+        @load="handleLoadedImage"
       />
     </div>
     <span class="pokemon-tile__name">{{ name }}</span>
@@ -33,18 +42,27 @@ import PokeAPI, { type IPokemon } from 'pokeapi-typescript';
 interface IPokemonTile {
   name: string;
   isActive: boolean;
+  genNum: number;
 }
+
 const props = defineProps<IPokemonTile>();
 const pokemon = ref<IPokemon>();
+const isLoading = ref(false);
+
 const spriteImage = computed(() => pokemon?.value?.sprites?.front_default);
 const gifImage = computed(
   () =>
-    pokemon?.value?.sprites?.versions['generation-v']['black-white'].animated
-      .front_default
+    pokemon?.value?.sprites?.versions['generation-v']['black-white']?.animated
+      ?.front_default
 );
 const pokemonType = computed(() => pokemon?.value?.types[0].type.name);
 
+const handleLoadedImage = () => {
+  isLoading.value = false;
+};
+
 onMounted(async () => {
+  isLoading.value = true;
   await PokeAPI.Pokemon.resolve(props.name).then((res) => {
     pokemon.value = res;
   });
@@ -77,16 +95,53 @@ onMounted(async () => {
     height: 50px;
     width: 50px;
     border-radius: 50%;
-
     background-color: rgba(white, 0.4);
+    &--loading {
+      overflow: hidden;
+      img {
+        opacity: 0;
+      }
+    }
   }
   &__sprite {
     position: absolute;
     height: 150%;
     width: 150%;
-    top: -25%;
-    left: -25%;
-    opacity: 0.8;
+    @include position-center;
+    opacity: 0.9;
+    transform-origin: center;
+    &--backup-active {
+      opacity: 1;
+      height: 160%;
+      width: 160%;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+      animation-name: bounce;
+      animation-timing-function: ease;
+      @keyframes bounce {
+        0% {
+          transform: scale(1, 1) translate(-50%, -50%) translateY(0);
+        }
+        10% {
+          transform: scale(1.05, 0.9) translate(-50%, -50%) translateX(2.5%);
+        }
+        30% {
+          transform: scale(0.95, 1.1) translate(-50%, -50%) translateY(-3px) translateX(-2.5%);
+        }
+        50% {
+          transform: scale(1, 1) translate(-50%, -50%) translateY(0);
+        }
+        57% {
+          transform: scale(1, 1) translate(-50%, -50%) translateY(-1px);
+        }
+        64% {
+          transform: scale(1, 1) translate(-50%, -50%) translateY(0);
+        }
+        100% {
+          transform: scale(1, 1) translate(-50%, -50%) translateY(0);
+        }
+      }
+    }
   }
 
   &__gif {
