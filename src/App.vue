@@ -12,7 +12,7 @@ const { handleMainControl } = useMainControls();
 function handleKeyDown(event: KeyboardEvent) {
   event.preventDefault();
   const command = event.key.toLowerCase().replace('arrow', '');
-  console.log({ command });
+  // console.log({ command });
   const keysToBtnMap = { a: 'y', s: 'x', z: 'b', x: 'a', p: 'power' };
   handleMainControl(keysToBtnMap[command] || command);
 }
