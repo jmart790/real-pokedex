@@ -5,6 +5,7 @@ import type { IGeneration } from 'pokeapi-typescript';
 
 interface IPokemonListItem {
   name: string;
+  id: string;
   isLoaded: boolean;
 }
 export const usePokeStore = defineStore('pokemon', () => {
@@ -25,7 +26,10 @@ export const usePokeStore = defineStore('pokemon', () => {
       .then((res) => {
         generation.value = res;
         pokemonList.value = generation.value?.pokemon_species.map(
-          ({ name }, index) => ({ name, isLoaded: index <= 20 })
+          ({ name, url }, index) => {
+            const id = url.split('/')[6];
+            return { name, isLoaded: index <= 20, id };
+          }
         );
       })
       .catch((e) => console.log({ e }));
@@ -47,7 +51,8 @@ export const usePokeStore = defineStore('pokemon', () => {
 
   const activePokemon = ref<IPokemon>();
   const activePokemonId = computed(() => activePokemon.value?.id);
-  const activePokemonName = ref<string>('');
+  const activePokemonName = computed(() => activePokemon.value?.name);
+  const activePokemonPayload = ref<string>('');
   const activePokemonType = computed(
     () => activePokemon.value?.types[0]?.type?.name || ''
   );
@@ -57,9 +62,8 @@ export const usePokeStore = defineStore('pokemon', () => {
     activePokemon.value = pokemon;
   }
 
-  function setActivePokemonName(name: string) {
-    console.log({ name });
-    activePokemonName.value = name;
+  function setActivePokemonPayload(payload: string) {
+    activePokemonPayload.value = payload;
   }
 
   function setPokemonLoaded(index: number) {
@@ -79,8 +83,9 @@ export const usePokeStore = defineStore('pokemon', () => {
     hasError,
     setActivePokemon,
     activePokemon,
-    setActivePokemonName,
+    setActivePokemonPayload,
     activePokemonName,
+    activePokemonPayload,
     activePokemonType,
     activePokemonId,
     setPokemonLoaded,

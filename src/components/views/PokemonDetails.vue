@@ -10,12 +10,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed, watch } from 'vue';
+import { computed, watchEffect } from 'vue';
 import { storeToRefs } from 'pinia';
 import { usePokeStore } from '@/store/pokemon';
 
 const pokeStore = usePokeStore();
-const { activePokemonName, activePokemon } = storeToRefs(pokeStore);
+const { activePokemonPayload, activePokemonName, activePokemon } = storeToRefs(pokeStore);
 const { getActivePokemon } = pokeStore;
 
 const pokemonType = computed(() => activePokemon?.value?.types[0].type.name);
@@ -25,13 +25,7 @@ const spriteImage = computed(
       .animated.front_default
 );
 
-watch(
-  activePokemonName,
-  (name) => {
-    getActivePokemon(name);
-  },
-  { immediate: true }
-);
+watchEffect(() => getActivePokemon(activePokemonPayload.value));
 </script>
 
 <style scoped lang="scss">
@@ -111,16 +105,16 @@ watch(
       transform: scaleX(-1) translateX(-50px);
     }
     &--steel {
-      background: $pokemon-steel-light;
-      background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2fb2821a-1406-4a1d-9b04-6668f278e944/d88d1yo-10af7b20-6c71-4504-94bd-d31152129ec5.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzJmYjI4MjFhLTE0MDYtNGExZC05YjA0LTY2NjhmMjc4ZTk0NFwvZDg4ZDF5by0xMGFmN2IyMC02YzcxLTQ1MDQtOTRiZC1kMzExNTIxMjllYzUucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.gXLimxcUtOUcfNZBQKsrxQ9ZB92wSJuXlhd8O6lJ2K0');
+      background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1065384940256120842/BonzaiYosh_in-game_underground_full_of_crystals_background_land_bdecff41-1e84-4355-8713-c8c07a498c97.png');
+      transform: scaleX(-1) translateX(-60px);
     }
     &--flying {
-      background: $pokemon-flying-light;
-      background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2fb2821a-1406-4a1d-9b04-6668f278e944/d83pvei-ce2f2ee9-0720-4fcc-bd6b-d235b10a2985.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzJmYjI4MjFhLTE0MDYtNGExZC05YjA0LTY2NjhmMjc4ZTk0NFwvZDgzcHZlaS1jZTJmMmVlOS0wNzIwLTRmY2MtYmQ2Yi1kMjM1YjEwYTI5ODUucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.A1imZWriK4Xj_lKniiehh27Pp35KE7rJTgFuOz7_0pQ');
+      background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1065443033291706418/BonzaiYosh_in-game_a_mile_high_surrounded_by_clouds_background__d343e3da-d21d-4bd6-84f1-2a2083f3ef97.png');
+      transform: scaleX(-1) translateX(-20px);
     }
     &--dark {
       background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1065090328807350300/BonzaiYosh_ask_in-game_pathway_to_a_lost_tower_during_a_full_mo_4042451b-56d4-46a4-b9d9-29f4c9fd308f.png');
-      transform: translateX(20px);
+      transform: scaleX(-1) translateX(-80px);
     }
   }
 }

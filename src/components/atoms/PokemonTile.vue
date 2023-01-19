@@ -17,6 +17,7 @@
         :src="gifImage"
         alt="gif image"
         class="pokemon-tile__gif"
+        @load="handleLoadedImage"
       />
       <img
         v-else
@@ -43,6 +44,7 @@ interface IPokemonTile {
   name: string;
   isActive: boolean;
   genNum: number;
+  id: string;
 }
 
 const props = defineProps<IPokemonTile>();
@@ -63,7 +65,7 @@ const handleLoadedImage = () => {
 
 onMounted(async () => {
   isLoading.value = true;
-  await PokeAPI.Pokemon.resolve(props.name).then((res) => {
+  await PokeAPI.Pokemon.resolve(props.id).then((res) => {
     pokemon.value = res;
   });
 });

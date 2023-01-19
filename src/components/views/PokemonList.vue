@@ -3,7 +3,7 @@
     <PikachuLoader v-if="isGenLoading" />
     <ul v-else ref="listElement">
       <li
-        v-for="({ name, isLoaded }, index) in pokemonList"
+        v-for="({ name, isLoaded, id }, index) in pokemonList"
         :key="`pokemon-${name}`"
         :class="{ 'pokemon-list__active-tile': listPosition === index }"
       >
@@ -13,6 +13,7 @@
             v-bind="{
               name,
               genNum,
+              id,
               isActive: listPosition === index
             }"
           />
@@ -23,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { watch, ref, onMounted } from 'vue';
+import { watchEffect, ref } from 'vue';
 import { usePokeStore } from '@/store/pokemon';
 import { useControlsStore } from '@/store/controls';
 import { storeToRefs } from 'pinia';
@@ -64,19 +65,14 @@ function lazyLoadPokemon(pos: number) {
 
 function handlePokemonHighlighted(pos = 0) {
   if (!pokemonList?.value?.length) return;
-  const { name } = pokemonList.value[pos];
-  pokeStore.setActivePokemonName(name);
+  const { name, id } = pokemonList.value[pos];
+  pokeStore.setActivePokemonPayload(id);
 }
 
-onMounted(() => {
+watchEffect(() => {
+  lazyLoadPokemon(listPosition.value);
   handleScrollInto(listElement.value);
-  handlePokemonHighlighted();
-});
-
-watch(listPosition, (newPosition) => {
-  lazyLoadPokemon(newPosition);
-  handleScrollInto(listElement.value);
-  handlePokemonHighlighted(newPosition);
+  handlePokemonHighlighted(listPosition.value);
 });
 </script>
 
