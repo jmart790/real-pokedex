@@ -27,7 +27,8 @@ import { storeToRefs } from 'pinia';
 import { usePokeStore } from '@/store/pokemon';
 
 const pokeStore = usePokeStore();
-const { activePokemonPayload, activePokemonName, activePokemon } = storeToRefs(pokeStore);
+const { activePokemonPayload, activePokemonName, activePokemon } =
+  storeToRefs(pokeStore);
 const { getActivePokemon } = pokeStore;
 const isImgLoading = ref(false);
 
@@ -38,7 +39,7 @@ const spriteImage = computed(
       .animated.front_default
 );
 const handleImgLoaded = () => {
-  console.log('loaded')
+  console.log('loaded');
   isImgLoading.value = false;
 };
 
