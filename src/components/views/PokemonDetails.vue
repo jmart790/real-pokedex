@@ -5,18 +5,31 @@
       :class="`pokemon-details__bg--${pokemonType}`"
     />
     {{ activePokemonName }}
-    <img :src="spriteImage" :alt="`${activePokemonName} sprite`" />
+    <img
+      v-show="isImgLoading"
+      class="pokemon-details__pokeball"
+      src="@/assets/images/pokéball-pokémon.gif"
+      :alt="`${activePokemonName} sprite`"
+    />
+    <img
+      v-show="!isImgLoading"
+      class="pokemon-details__pokemon"
+      :src="spriteImage"
+      :alt="`${activePokemonName} sprite`"
+      @load="handleImgLoaded"
+    />
   </section>
 </template>
 
 <script setup lang="ts">
-import { computed, watchEffect } from 'vue';
+import { computed, ref, watchEffect } from 'vue';
 import { storeToRefs } from 'pinia';
 import { usePokeStore } from '@/store/pokemon';
 
 const pokeStore = usePokeStore();
 const { activePokemonPayload, activePokemonName, activePokemon } = storeToRefs(pokeStore);
 const { getActivePokemon } = pokeStore;
+const isImgLoading = ref(false);
 
 const pokemonType = computed(() => activePokemon?.value?.types[0].type.name);
 const spriteImage = computed(
@@ -24,8 +37,15 @@ const spriteImage = computed(
     activePokemon?.value?.sprites?.versions['generation-v']['black-white']
       .animated.front_default
 );
+const handleImgLoaded = () => {
+  console.log('loaded')
+  isImgLoading.value = false;
+};
 
-watchEffect(() => getActivePokemon(activePokemonPayload.value));
+watchEffect(() => {
+  isImgLoading.value = true;
+  getActivePokemon(activePokemonPayload.value);
+});
 </script>
 
 <style scoped lang="scss">
@@ -36,10 +56,17 @@ watchEffect(() => getActivePokemon(activePokemonPayload.value));
   background: $off-white;
   img {
     position: absolute;
+  }
+  &__pokemon {
     bottom: 10%;
     right: 10%;
     height: 150px;
     width: 150px;
+  }
+  &__pokeball {
+    bottom: 15%;
+    right: 15%;
+    height: 50px;
   }
   &__bg {
     position: absolute;
