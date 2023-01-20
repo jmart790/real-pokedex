@@ -132,7 +132,7 @@ watch(activePokemonType, (type) => getDamageRelations(type));
     display: grid;
     grid-auto-flow: column;
     grid-template-columns: v-bind(gridColumns);
-    transition: grid-template-columns 1s;
+    transition: grid-template-columns 500;
     will-change: grid-template-columns;
   }
   &__group:first-of-type {
@@ -143,7 +143,7 @@ watch(activePokemonType, (type) => getDamageRelations(type));
   }
   &__icon-container {
     position: absolute;
-    right: 5px;
+    left: 5px;
     bottom: 0px;
     height: auto;
     img {
