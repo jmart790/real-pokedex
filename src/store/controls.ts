@@ -19,6 +19,10 @@ export const useControlsStore = defineStore('controls', () => {
   const listPosition = ref(0);
   const listLength = ref(0);
 
+  function resetListPosition() {
+    listPosition.value = 0;
+  }
+
   function setListLength(length: number) {
     listLength.value = length;
   }
@@ -45,6 +49,7 @@ export const useControlsStore = defineStore('controls', () => {
   function getNextMove(type: 'ADD' | 'SUB', num = 1) {
     const position = listPosition.value;
     const end = listLength.value - 1;
+    console.log({ position, end, num });
     if (type === 'SUB') return position >= num ? position - num : 0;
     else return position >= end - num ? end : position + num;
   }
@@ -61,6 +66,7 @@ export const useControlsStore = defineStore('controls', () => {
     listPosition,
     togglePower,
     isPokedexOn,
+    resetListPosition,
     currentView,
     setListLength,
     setMainView,
