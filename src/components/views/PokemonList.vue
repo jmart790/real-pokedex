@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { watchEffect, ref } from 'vue';
+import { watchEffect, watch, ref } from 'vue';
 import { usePokeStore } from '@/store/pokemon';
 import { useControlsStore } from '@/store/controls';
 import { storeToRefs } from 'pinia';
@@ -35,6 +35,7 @@ const pokeStore = usePokeStore();
 const controlsStore = useControlsStore();
 const { pokemonList, isGenLoading, genNum } = storeToRefs(pokeStore);
 const { listPosition } = storeToRefs(controlsStore);
+const { resetListPosition, setListLength } = controlsStore;
 const listElement = ref<HTMLUListElement | null>(null);
 
 function handleScrollInto(parent: HTMLUListElement | null) {
@@ -68,6 +69,16 @@ function handlePokemonHighlighted(pos = 0) {
   const { name, id } = pokemonList.value[pos];
   pokeStore.setActivePokemonPayload(id);
 }
+
+function resetList() {
+  resetListPosition();
+  handleScrollInto(listElement.value);
+  setListLength(pokemonList.value?.length);
+}
+
+watch(genNum, (newVal, oldVal) => {
+  if (newVal !== oldVal) resetList();
+});
 
 watchEffect(() => {
   lazyLoadPokemon(listPosition.value);
