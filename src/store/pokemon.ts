@@ -1,13 +1,29 @@
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
-import PokeAPI, { type IPokemon } from 'pokeapi-typescript';
-import type { IGeneration } from 'pokeapi-typescript';
+import PokeAPI from 'pokeapi-typescript';
+import type { IGeneration, IPokemon } from 'pokeapi-typescript';
+import type { IPokemonSpritesUpdated } from '@/types/index';
 
 interface IPokemonListItem {
   name: string;
   id: string;
   isLoaded: boolean;
 }
+
+function transformSprites(sprites: IPokemonSpritesUpdated) {
+  if (!sprites) return null;
+  const { versions, other } = sprites;
+  const gifs = versions['generation-v']['black-white'].animated;
+  const animated = { front: gifs?.front_default, back: gifs?.back_default };
+  const animatedShiny = { front: gifs?.front_shiny, back: gifs?.back_shiny };
+  const artwork = { front: other['official-artwork']?.front_default, back: null };
+  const artworkShiny = {
+    front: other['official-artwork']?.front_shiny,
+    back: null
+  };
+  return { animated, animatedShiny, artwork, artworkShiny };
+}
+
 export const usePokeStore = defineStore('pokemon', () => {
   const generation = ref<IGeneration>();
   const genNum = computed(() => generation.value?.id || 1);
@@ -57,6 +73,9 @@ export const usePokeStore = defineStore('pokemon', () => {
     () => activePokemon.value?.types[0]?.type?.name || ''
   );
   const activePokemonMoves = computed(() => activePokemon.value?.moves || []);
+  const activePokemonSprites = computed(() =>
+    transformSprites(activePokemon.value?.sprites)
+  );
 
   function setActivePokemon(pokemon: IPokemon) {
     activePokemon.value = pokemon;
@@ -89,6 +108,7 @@ export const usePokeStore = defineStore('pokemon', () => {
     activePokemonType,
     activePokemonId,
     setPokemonLoaded,
-    activePokemonMoves
+    activePokemonMoves,
+    activePokemonSprites
   };
 });
