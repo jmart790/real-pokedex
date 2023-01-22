@@ -7,8 +7,14 @@ export default function useMainControls() {
   const controlsStore = useControlsStore();
 
   const { getGeneration } = pokeStore;
-  const { navigatePokemonList, togglePower, setMainView, setSecondaryView } =
-    controlsStore;
+  const {
+    navigatePokemonList,
+    togglePower,
+    setMainView,
+    setSecondaryView,
+    toggleActiveSpriteOrientation,
+    toggleActiveSpriteType
+  } = controlsStore;
 
   const { currentView } = storeToRefs(controlsStore);
 
@@ -61,6 +67,12 @@ export default function useMainControls() {
       case 'left':
       case 'right':
         navigatePokemonList(command);
+        break;
+      case 'x':
+        toggleActiveSpriteOrientation();
+        break;
+      case 'y':
+        toggleActiveSpriteType();
         break;
       case 'a':
         // enter/go command
