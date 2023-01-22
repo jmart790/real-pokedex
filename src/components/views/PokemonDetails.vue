@@ -2,7 +2,7 @@
   <section class="pokemon-details">
     <div
       class="pokemon-details__bg"
-      :class="`pokemon-details__bg--${pokemonType}`"
+      :class="`pokemon-details__bg--${activePokemonType}`"
     />
     {{ activePokemonName }}
     <img
@@ -25,24 +25,45 @@
 import { computed, ref, watchEffect } from 'vue';
 import { storeToRefs } from 'pinia';
 import { usePokeStore } from '@/store/pokemon';
+import { useControlsStore } from '@/store/controls';
+import type { IPokemonSprites } from 'pokeapi-typescript/dist/interfaces/Pokemon/Pokemon';
 
 const pokeStore = usePokeStore();
-const { activePokemonPayload, activePokemonName, activePokemon, genNum } =
-  storeToRefs(pokeStore);
+const controlStore = useControlsStore();
+
+const { activeSpriteSetting } = storeToRefs(controlStore);
+const {
+  activePokemonPayload,
+  activePokemonName,
+  activePokemonSprites,
+  activePokemonType,
+  genNum
+} = storeToRefs(pokeStore);
+
 const { getActivePokemon } = pokeStore;
+
 const isImgLoading = ref(false);
 
-const pokemonType = computed(() => activePokemon?.value?.types[0].type.name);
 const spriteImage = computed(() => {
-  if (!activePokemon?.value?.sprites) return null;
-  const { versions, other } = activePokemon.value.sprites;
-  if (genNum.value > 5) return other['official-artwork'].front_default;
-  return versions['generation-v']['black-white'].animated.front_default;
+  if (!activePokemonSprites.value) return null;
+
+  const sprites = activePokemonSprites.value;
+  const { type, isFront } = activeSpriteSetting.value;
+  if (genNum.value > 5) {
+    // only artwork front for gen 6 and up
+    const isShiny = type.includes('Shiny');
+    const artworkType = isShiny ? 'artworkShiny' : 'artwork';
+    return sprites[artworkType].front;
+  }
+  const orientation = isFront ? 'front' : 'back';
+  const safeOrientation = type.includes('artwork') ? 'front' : orientation;
+
+  return sprites[type][safeOrientation];
 });
-const handleImgLoaded = () => {
-  console.log('loaded');
+
+function handleImgLoaded() {
   isImgLoading.value = false;
-};
+}
 
 watchEffect(() => {
   isImgLoading.value = true;
@@ -66,7 +87,7 @@ watchEffect(() => {
     right: 10%;
     height: 150px;
     width: auto;
-    filter: drop-shadow(0px 4px 4px black);
+    filter: drop-shadow(0px 4px 4px rgba(black, 0.7));
   }
 
   &__pokeball {
