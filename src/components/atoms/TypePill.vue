@@ -1,20 +1,15 @@
 <template>
   <FrostCard>
-    <div class="type-pill" :class="`type-pill--${type} type-pill--${mode}`">
-      <Icon
-        v-if="mode !== 'copy'"
-        class="type-pill__icon"
-        :name="`type-${type}`"
-      />
-      <span v-if="mode !== 'icon'" class="type-pill__copy">{{ type }} </span>
+    <div class="type-pill" :class="`type-pill--${type}`">
+      <Icon class="type-pill__icon" :name="`type-${type}`" />
+      <span class="type-pill__copy">{{ type }} </span>
     </div>
   </FrostCard>
 </template>
 
 <script setup lang="ts">
 // correct type type
-type Mode = 'default' | 'copy' | 'icon';
-withDefaults(defineProps<{ type: string; mode: Mode }>(), { mode: 'default' });
+defineProps<{ type: string }>();
 </script>
 
 <style scoped lang="scss">
@@ -24,6 +19,7 @@ withDefaults(defineProps<{ type: string; mode: Mode }>(), { mode: 'default' });
   display: flex;
   align-items: center;
   border-radius: inherit;
+  padding: gap(1) gap(4) gap(1) gap(3);
   &__icon {
     width: 25px;
     height: 25px;
@@ -36,16 +32,6 @@ withDefaults(defineProps<{ type: string; mode: Mode }>(), { mode: 'default' });
     color: rgba(white, 0.85);
     text-shadow: 1px 1px 4px rgba(black, 0.3);
     font-size: rem(14);
-  }
-
-  &--default {
-    padding: gap(1) gap(4) gap(1) gap(3);
-  }
-  &--copy {
-    padding: gap(1) gap(3);
-  }
-  &--icon {
-    border-radius: 50%;
   }
 
   @mixin gradient-bg($color-1, $color-2) {
@@ -112,6 +98,9 @@ withDefaults(defineProps<{ type: string; mode: Mode }>(), { mode: 'default' });
   }
   &--flying {
     @include gradient-bg($pokemon-flying, $pokemon-flying-light);
+  }
+  &--dark {
+    @include gradient-bg($pokemon-dark, $pokemon-dark-light);
   }
 }
 </style>
