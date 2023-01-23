@@ -8,12 +8,15 @@
 import { onBeforeUnmount, onMounted } from 'vue';
 import useMainControls from '@/composables/useMainControls';
 const { handleMainControl } = useMainControls();
+// eslint-disable-next-line prettier/prettier
+const keysToListenTo = ['down', 'up', 'left', 'right', 'x', 'z', 'a', 's', '1', '2', '3', '4', '5', '6', '7', '8'];
+const keysToBtnMap = { a: 'y', s: 'x', z: 'b', x: 'a', p: 'power' };
+
 
 function handleKeyDown(event: KeyboardEvent) {
-  event.preventDefault();
   const command = event.key.toLowerCase().replace('arrow', '');
   // console.log({ command });
-  const keysToBtnMap = { a: 'y', s: 'x', z: 'b', x: 'a', p: 'power' };
+  if (!keysToListenTo.includes(command));
   handleMainControl(keysToBtnMap[command] || command);
 }
 
