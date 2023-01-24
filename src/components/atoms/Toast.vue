@@ -19,7 +19,7 @@ defineProps<Props>();
 <style scoped lang="scss">
 .toast {
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   width: auto;
   transform: skew(-60deg);
   padding: 4px 32px;
