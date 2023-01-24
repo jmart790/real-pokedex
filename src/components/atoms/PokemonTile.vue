@@ -18,6 +18,7 @@
         alt="gif image"
         class="pokemon-tile__gif"
         @load="handleLoadedImage"
+        loading="lazy"
       />
       <img
         v-else
@@ -30,6 +31,7 @@
         height="64px"
         width="64px"
         @load="handleLoadedImage"
+        loading="lazy"
       />
     </div>
     <span class="pokemon-tile__name">{{ name }}</span>
