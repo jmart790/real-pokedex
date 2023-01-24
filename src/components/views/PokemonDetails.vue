@@ -26,7 +26,6 @@ import { computed, ref, watchEffect } from 'vue';
 import { storeToRefs } from 'pinia';
 import { usePokeStore } from '@/store/pokemon';
 import { useControlsStore } from '@/store/controls';
-import type { IPokemonSprites } from 'pokeapi-typescript/dist/interfaces/Pokemon/Pokemon';
 
 const pokeStore = usePokeStore();
 const controlStore = useControlsStore();
