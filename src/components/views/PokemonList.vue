@@ -73,7 +73,7 @@ function handlePokemonHighlighted(pos = 0) {
 function resetList() {
   resetListPosition();
   handleScrollInto(listElement.value);
-  setListLength(pokemonList.value?.length);
+  setListLength(pokemonList.value?.length || 0);
 }
 
 watch(genNum, (newVal, oldVal) => {
