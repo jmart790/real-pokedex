@@ -29,7 +29,7 @@ $gap: 4px;
   height: 100%;
   background: rgb(73, 133, 124);
   background: linear-gradient(40deg, #18303c 30%, #79ba96 100%);
-  &::after {
+  &::before {
     content: '';
     z-index: -1;
     position: absolute;
