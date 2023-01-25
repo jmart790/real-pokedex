@@ -10,6 +10,7 @@ export const useControlsStore = defineStore('controls', () => {
   const activeSpriteType = ref(0);
   const listPosition = ref(0);
   const listLength = ref(0);
+  const lastDirection = ref('');
 
   const spriteTypeOptions = ['animated', 'animatedShiny', 'artwork', 'artworkShiny'];
   const activeSpriteSetting = computed(() => {
@@ -36,6 +37,7 @@ export const useControlsStore = defineStore('controls', () => {
   }
 
   function navigatePokemonList(command: string) {
+    lastDirection.value = command;
     switch (command) {
       case 'up':
         listPosition.value = getNextMove('SUB', 2);
@@ -91,6 +93,7 @@ export const useControlsStore = defineStore('controls', () => {
     secondaryView,
     toggleActiveSpriteType,
     toggleActiveSpriteOrientation,
-    activeSpriteSetting
+    activeSpriteSetting,
+    lastDirection
   };
 });
