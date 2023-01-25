@@ -13,7 +13,6 @@
               name,
               genNum,
               id,
-              indexNum: index,
               isActive: listPosition === index
             }"
           />

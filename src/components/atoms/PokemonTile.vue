@@ -34,7 +34,7 @@
         loading="lazy"
       />
     </div>
-    <p class="pokemon-tile__index">{{ indexNum }}</p>
+    <p class="pokemon-tile__index">{{ id }}</p>
     <span class="pokemon-tile__name">{{ name }}</span>
   </article>
 </template>
@@ -48,7 +48,6 @@ interface IPokemonTile {
   isActive: boolean;
   genNum: number;
   id: number;
-  indexNum: number;
 }
 
 const props = defineProps<IPokemonTile>();
@@ -99,13 +98,11 @@ onMounted(async () => {
   &__index {
     position: absolute;
     top: 0;
-    right: 0;
-    padding-inline: gap(1);
+    right: gap(2);
     width: fit-content;
-    background-color: rgba(black, 0.5);
     color: white;
-    border-radius: 5px;
-    border-top-right-radius: 0;
+    font-size: rem(12);
+    opacity: .5;
   }
   &__image-container {
     flex-shrink: 0;
