@@ -27,7 +27,6 @@ export const useControlsStore = defineStore('controls', () => {
     } else currentView.value = 'OFF';
   }
 
-
   function resetListPosition() {
     listPosition.value = 0;
   }

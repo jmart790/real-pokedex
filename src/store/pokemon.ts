@@ -86,7 +86,8 @@ export const usePokeStore = defineStore('pokemon', () => {
   }
 
   function setPokemonLoaded(index: number) {
-    if (!pokemonList.value?.length) return;
+    if (!pokemonList.value?.length || index >= pokemonList.value?.length) return;
+    console.log('loading index: ', index);
     pokemonList.value[index].isLoaded = true;
   }
 

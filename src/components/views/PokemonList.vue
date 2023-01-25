@@ -7,13 +7,13 @@
         :key="`pokemon-${name}`"
         :class="{ 'pokemon-list__active-tile': listPosition === index }"
       >
-        <FrostCard>
+        <FrostCard v-if="isLoaded">
           <PokemonTile
-            v-if="isLoaded"
             v-bind="{
               name,
               genNum,
               id,
+              indexNum: index,
               isActive: listPosition === index
             }"
           />
@@ -78,14 +78,15 @@ function lazyLoadPokemon(pos: number) {
   const posToLoad = pos + loadBuffer;
 
   if (posToLoad < pokemonList.value.length) {
-    pokeStore.setPokemonLoaded(posToLoad);
     pokeStore.setPokemonLoaded(posToLoad - 1);
+    pokeStore.setPokemonLoaded(posToLoad);
+    pokeStore.setPokemonLoaded(posToLoad + 1);
   }
 }
 
 function handlePokemonHighlighted(pos = 0) {
   if (!pokemonList?.value?.length) return;
-  const { name, id } = pokemonList.value[pos];
+  const id = pokemonList.value[pos]?.id || '0';
   pokeStore.setActivePokemonPayload(id);
 }
 
