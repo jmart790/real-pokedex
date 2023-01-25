@@ -1,5 +1,5 @@
 <template>
-  <div class="pokedex-container">
+  <div class="pokedex-container" @keyup="handleKeyDown">
     <Pokedex />
   </div>
 </template>
@@ -14,6 +14,7 @@ const keysToBtnMap = { a: 'y', s: 'x', z: 'b', x: 'a', p: 'power' };
 
 
 function handleKeyDown(event: KeyboardEvent) {
+  event.preventDefault();
   const command = event.key.toLowerCase().replace('arrow', '');
   // console.log({ command });
   if (!keysToListenTo.includes(command));
@@ -21,11 +22,11 @@ function handleKeyDown(event: KeyboardEvent) {
 }
 
 onMounted(() => {
-  document.addEventListener('keydown', handleKeyDown);
+  window.addEventListener('keydown', handleKeyDown);
 });
 
 onBeforeUnmount(() => {
-  document.removeEventListener('keydown', handleKeyDown);
+  window.removeEventListener('keydown', handleKeyDown);
 });
 </script>
 
