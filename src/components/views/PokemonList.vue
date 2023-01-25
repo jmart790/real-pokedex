@@ -34,22 +34,41 @@ import { storeToRefs } from 'pinia';
 const pokeStore = usePokeStore();
 const controlsStore = useControlsStore();
 const { pokemonList, isGenLoading, genNum } = storeToRefs(pokeStore);
-const { listPosition } = storeToRefs(controlsStore);
+const { listPosition, lastDirection } = storeToRefs(controlsStore);
 const { resetListPosition, setListLength } = controlsStore;
 const listElement = ref<HTMLUListElement | null>(null);
 
-function handleScrollInto(parent: HTMLUListElement | null) {
+function handleScrollInto(
+  parent: HTMLUListElement | null,
+  lastDirection: string
+) {
   if (!parent || !pokemonList?.value?.length) return;
 
   const activeChild = parent.getElementsByClassName(
     'pokemon-list__active-tile'
-  )[0];
+  )[0] as HTMLElement;
   if (!activeChild) return;
-  activeChild.scrollIntoView({
-    behavior: 'smooth',
-    block: 'center',
-    inline: 'end'
-  });
+
+  // Define threshold value (in pixels)
+  const threshold = 100;
+
+  // Check if active child is within threshold distance of top or bottom
+  if (
+    activeChild.offsetTop < parent.scrollTop + threshold &&
+    lastDirection === 'up'
+  ) {
+    parent.scrollTop = activeChild.offsetTop - threshold;
+  } else if (
+    activeChild.offsetTop + activeChild.offsetHeight >
+      parent.scrollTop + parent.offsetHeight - threshold &&
+    lastDirection === 'down'
+  ) {
+    parent.scrollTop =
+      activeChild.offsetTop +
+      activeChild.offsetHeight -
+      parent.offsetHeight +
+      threshold;
+  }
 }
 
 function lazyLoadPokemon(pos: number) {
@@ -72,7 +91,7 @@ function handlePokemonHighlighted(pos = 0) {
 
 function resetList() {
   resetListPosition();
-  handleScrollInto(listElement.value);
+  handleScrollInto(listElement.value, lastDirection.value);
   setListLength(pokemonList.value?.length || 0);
 }
 
@@ -82,7 +101,7 @@ watch(genNum, (newVal, oldVal) => {
 
 watchEffect(() => {
   lazyLoadPokemon(listPosition.value);
-  handleScrollInto(listElement.value);
+  handleScrollInto(listElement.value, lastDirection.value);
   handlePokemonHighlighted(listPosition.value);
 });
 </script>
