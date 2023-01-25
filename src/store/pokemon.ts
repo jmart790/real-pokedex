@@ -6,7 +6,7 @@ import type { IPokemonSpritesUpdated } from '@/types/index';
 
 interface IPokemonListItem {
   name: string;
-  id: string;
+  id: number;
   isLoaded: boolean;
 }
 
@@ -16,7 +16,10 @@ function transformSprites(sprites: IPokemonSpritesUpdated) {
   const gifs = versions['generation-v']['black-white'].animated;
   const animated = { front: gifs?.front_default, back: gifs?.back_default };
   const animatedShiny = { front: gifs?.front_shiny, back: gifs?.back_shiny };
-  const artwork = { front: other['official-artwork']?.front_default, back: null };
+  const artwork = {
+    front: other['official-artwork']?.front_default,
+    back: null
+  };
   const artworkShiny = {
     front: other['official-artwork']?.front_shiny,
     back: null
@@ -36,17 +39,24 @@ export const usePokeStore = defineStore('pokemon', () => {
   const hasError = ref(false);
   const isGenLoading = ref(false);
 
+  function createPokemonList(generation: IGeneration) {
+    const preSortedList = generation?.pokemon_species.map(({ name, url }) => {
+      const id = Number(url.split('/')[6]);
+      return { name, id, isLoaded: false };
+    });
+    const sortedList = preSortedList.sort((a, b) => a.id - b.id);
+    return sortedList.map((pokemon, index) => ({
+      ...pokemon,
+      isLoaded: index < 20
+    }));
+  }
+
   async function getGeneration(genNum = 1) {
     isGenLoading.value = true;
     await PokeAPI.Generaition.resolve(genNum)
       .then((res) => {
         generation.value = res;
-        pokemonList.value = generation.value?.pokemon_species.map(
-          ({ name, url }, index) => {
-            const id = url.split('/')[6];
-            return { name, isLoaded: index <= 20, id };
-          }
-        );
+        pokemonList.value = createPokemonList(res);
       })
       .catch((e) => console.log({ e }));
     isGenLoading.value = false;
@@ -86,8 +96,8 @@ export const usePokeStore = defineStore('pokemon', () => {
   }
 
   function setPokemonLoaded(index: number) {
-    if (!pokemonList.value?.length || index >= pokemonList.value?.length) return;
-    console.log('loading index: ', index);
+    if (!pokemonList.value?.length || index >= pokemonList.value?.length)
+      return;
     pokemonList.value[index].isLoaded = true;
   }
 

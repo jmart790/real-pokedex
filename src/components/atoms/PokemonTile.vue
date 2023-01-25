@@ -47,7 +47,7 @@ interface IPokemonTile {
   name: string;
   isActive: boolean;
   genNum: number;
-  id: string;
+  id: number;
   indexNum: number;
 }
 
@@ -102,7 +102,7 @@ onMounted(async () => {
     right: 0;
     padding-inline: gap(1);
     width: fit-content;
-    background-color: rgba(black, .5);
+    background-color: rgba(black, 0.5);
     color: white;
     border-radius: 5px;
     border-top-right-radius: 0;
