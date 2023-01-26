@@ -84,7 +84,7 @@ export const usePokeStore = defineStore('pokemon', () => {
   );
   const activePokemonMoves = computed(() => activePokemon.value?.moves || []);
   const activePokemonSprites = computed(() =>
-    transformSprites(activePokemon.value?.sprites)
+    transformSprites(activePokemon.value?.sprites as IPokemonSpritesUpdated)
   );
 
   function setActivePokemon(pokemon: IPokemon) {
