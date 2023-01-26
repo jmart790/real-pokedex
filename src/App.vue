@@ -17,8 +17,9 @@ function handleKeyUp(event: KeyboardEvent) {
   event.preventDefault();
   const command = event.key.toLowerCase().replace('arrow', '');
   // console.log({ command });
-  if (!keysToListenTo.includes(command));
-  handleMainControl(keysToBtnMap[command] || command);
+  if (!keysToListenTo.includes(command)) {
+    handleMainControl(keysToBtnMap[command] || command);
+  }
 }
 
 onMounted(() => {
