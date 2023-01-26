@@ -42,8 +42,7 @@ import { computed } from 'vue';
 const pokeStore = usePokeStore();
 const controlsStore = useControlsStore();
 
-const { pokemonListLength, genNum, activePokemonName, region } =
-  storeToRefs(pokeStore);
+const { pokemonListLength, activePokemonName } = storeToRefs(pokeStore);
 const { currentView, secondaryView } = storeToRefs(controlsStore);
 const { setListLength, togglePower } = controlsStore;
 
@@ -72,10 +71,10 @@ const secondaryViewComponent = computed(() => {
 
 const secondaryViewProps = computed(() => {
   const { value } = secondaryView;
-  if (value === '3') return { relation: 'from' };
-  else if (value === '4') return { relation: 'to' };
-  else if (value === '6') return { filterBy: 'level-up' };
-  else if (value === '7') return { filterBy: 'machine' };
+  if (value === 3) return { relation: 'from' };
+  else if (value === 4) return { relation: 'to' };
+  else if (value === 6) return { filterBy: 'level-up' };
+  else if (value === 7) return { filterBy: 'machine' };
   else return null;
 });
 
