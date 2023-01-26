@@ -106,7 +106,7 @@ async function getMoves(pokemonMoves: IPokemonMove[], filterBy) {
     const moves = await Promise.all(
       filteredMoves.map(async (move) => await getMove(move))
     );
-    movesList.value = filterAndSort(moves, filterBy);
+    movesList.value = filterAndSort(moves as IPokeMove[], filterBy);
   } catch (e) {
     console.log({ e });
   } finally {
