@@ -1,7 +1,7 @@
 <template>
   <article class="pokemon-list">
     <PikachuLoader v-if="isGenLoading" />
-    <ul v-else ref="listElement">
+    <ul v-else ref="listElement" @wheel.prevent>
       <li
         v-for="({ name, isLoaded, id }, index) in pokemonList"
         :key="`pokemon-${name}`"
@@ -84,7 +84,7 @@ function lazyLoadPokemon(pos: number) {
 function handlePokemonHighlighted(pos = 0) {
   if (!pokemonList?.value?.length) return;
   const id = pokemonList.value[pos]?.id || '0';
-  pokeStore.setActivePokemonPayload(id);
+  pokeStore.setActivePokemonPayload(String(id));
 }
 
 function resetList() {
@@ -113,7 +113,7 @@ watchEffect(() => {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: gap(3) gap(4);
-    overflow: hidden;
+    overflow: auto;
   }
 }
 </style>
