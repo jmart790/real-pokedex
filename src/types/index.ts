@@ -1,4 +1,4 @@
-import type { IPokemonSprites } from 'pokeapi-typescript/dist/interfaces/Pokemon/Pokemon';
+import type { IPokemon, IPokemonSprites } from 'pokeapi-typescript/dist/interfaces/Pokemon/Pokemon';
 
 export type TMainView = 'OFF' | 'INTRO' | 'LIST' | 'POKEMON';
 
@@ -50,4 +50,15 @@ export interface IPokemonSpritesUpdated extends IPokemonSprites {
       };
     };
   };
+}
+
+export interface IPokemonUpdated extends IPokemon {
+  sprites: IPokemonSpritesUpdated;
+}
+
+export interface IPokemonTile {
+  name: string;
+  isActive: boolean;
+  genNum: number;
+  id: number;
 }

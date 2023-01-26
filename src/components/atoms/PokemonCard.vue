@@ -20,6 +20,7 @@
 </template>
 
 <script setup lang="ts">
+import type { IPokemonSpritesUpdated } from '@/types';
 import type { IEvolutionDetail, IPokemon } from 'pokeapi-typescript';
 import { computed } from 'vue';
 
@@ -34,7 +35,8 @@ interface IProps {
 const props = defineProps<IProps>();
 
 const sprite = computed(() => {
-  const { other, front_default } = props.pokemon.sprites;
+  const { other, front_default } = props.pokemon
+    .sprites as IPokemonSpritesUpdated;
   return other.home.front_default
     ? { type: 'home', url: other.home.front_default }
     : { type: 'default', url: front_default };

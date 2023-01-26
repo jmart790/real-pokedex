@@ -40,25 +40,20 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
-import PokeAPI, { type IPokemon } from 'pokeapi-typescript';
-
-interface IPokemonTile {
-  name: string;
-  isActive: boolean;
-  genNum: number;
-  id: number;
-}
+import PokeAPI from 'pokeapi-typescript';
+import type { IPokemonUpdated, IPokemonTile } from '@/types';
 
 const props = defineProps<IPokemonTile>();
-const pokemon = ref<IPokemon>();
+const pokemon = ref<IPokemonUpdated>();
 const isLoading = ref(false);
 
 const spriteImage = computed(() => pokemon?.value?.sprites?.front_default);
-const gifImage = computed(
-  () =>
+const gifImage = computed(() => {
+  const gif =
     pokemon?.value?.sprites?.versions['generation-v']['black-white']?.animated
-      ?.front_default
-);
+      ?.front_default;
+  return gif;
+});
 const pokemonType = computed(() => pokemon?.value?.types[0].type.name);
 
 const handleLoadedImage = () => {
@@ -68,7 +63,7 @@ const handleLoadedImage = () => {
 onMounted(async () => {
   isLoading.value = true;
   await PokeAPI.Pokemon.resolve(props.id).then((res) => {
-    pokemon.value = res;
+    pokemon.value = res as IPokemonUpdated;
   });
 });
 </script>

@@ -74,7 +74,7 @@ async function getSpecies(payload: number) {
 
 async function getDescription(payload: number) {
   await PokeAPI.Characteristic.resolve(payload)
-    .then((res) => {
+    .then((res: any) => {
       description.value = res?.descriptions.find(
         ({ language }) => language.name === 'en'
       )?.description;
