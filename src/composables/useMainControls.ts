@@ -19,7 +19,8 @@ export default function useMainControls() {
   const { currentView } = storeToRefs(controlsStore);
 
   function handleMainControl(command: string) {
-    if (currentView.value === 'LIST') listViewControls(command);
+    if (currentView.value === 'OFF' && command === 'power') togglePower();
+    else if (currentView.value === 'LIST') listViewControls(command);
     else if (currentView.value === 'POKEMON') pokemonViewControls(command);
   }
 

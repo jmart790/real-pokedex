@@ -47,7 +47,6 @@ const { currentView, secondaryView } = storeToRefs(controlsStore);
 const { setListLength, togglePower } = controlsStore;
 
 const isToastVisible = computed(() => {
-  // will need to compute future store value so user can hide toasts
   const allowedViews = ['LIST', 'POKEMON'];
   return allowedViews.includes(currentView.value);
 });
@@ -105,10 +104,15 @@ const toastProps = computed(() => {
   };
 });
 
-onMounted(async () => {
+async function initPokedex() {
+  console.log('init pokedex');
   await pokeStore.getGeneration();
   setListLength(pokemonListLength.value || 1);
   togglePower();
+}
+
+onMounted(async () => {
+  await initPokedex();
 });
 </script>
 
