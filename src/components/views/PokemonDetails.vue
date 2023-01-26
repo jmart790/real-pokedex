@@ -8,7 +8,7 @@
     <img
       v-show="isImgLoading"
       class="pokemon-details__pokeball"
-      src="@/assets/images/pokéball-pokémon.gif"
+      src="@/assets/images/pokeball-pokemon.gif"
       :alt="`${activePokemonName} sprite`"
     />
     <img
