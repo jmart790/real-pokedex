@@ -41,7 +41,14 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import PokeAPI from 'pokeapi-typescript';
-import type { IPokemonUpdated, IPokemonTile } from '@/types';
+import type { IPokemonUpdated } from '@/types';
+
+interface IPokemonTile {
+  name: string;
+  isActive: boolean;
+  genNum: number;
+  id: number;
+}
 
 const props = defineProps<IPokemonTile>();
 const pokemon = ref<IPokemonUpdated>();
