@@ -28,8 +28,6 @@ import { usePokeStore } from '@/store/pokemon';
 import { useControlsStore } from '@/store/controls';
 import { storeToRefs } from 'pinia';
 
-// move some state to store so we can track the lazy loaded and go back with everything loaded
-
 const pokeStore = usePokeStore();
 const controlsStore = useControlsStore();
 const { pokemonList, isGenLoading, genNum } = storeToRefs(pokeStore);

@@ -34,7 +34,6 @@
         loading="lazy"
       />
     </div>
-    <p class="pokemon-tile__index">{{ id }}</p>
     <span class="pokemon-tile__name">{{ name }}</span>
   </article>
 </template>
@@ -95,15 +94,7 @@ onMounted(async () => {
   &__name {
     color: inherit;
   }
-  &__index {
-    position: absolute;
-    top: 0;
-    right: gap(2);
-    width: fit-content;
-    color: white;
-    font-size: rem(12);
-    opacity: .5;
-  }
+
   &__image-container {
     flex-shrink: 0;
     position: relative;
