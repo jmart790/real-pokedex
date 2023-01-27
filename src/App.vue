@@ -1,8 +1,8 @@
 <template>
   <div class="pokedex-container" @keyup="handleKeyUp">
-  <div class="pokedex-container__keyboard-map-wrapper">
-    <KeyboardMap class="pokedex-container__keyboard-map" />
-  </div>
+    <div class="pokedex-container__keyboard-map-wrapper">
+      <KeyboardMap class="pokedex-container__keyboard-map" />
+    </div>
     <Pokedex />
   </div>
 </template>
@@ -56,13 +56,11 @@ onBeforeUnmount(() => {
 
   &__keyboard-map-wrapper {
     position: absolute;
-    top: rem(32);
+    top: rem(16);
     left: rem(16);
-    // z-index: 100;
-    // left: 50%;
-    // transform: translateX(-50%);
     width: 256px;
-    height: max-content;
+    max-height: 90vh;
+    height: 660px;
     z-index: 100;
   }
 }

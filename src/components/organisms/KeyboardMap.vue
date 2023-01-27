@@ -1,9 +1,9 @@
 <template>
-  <section class="key-map" :class="{ 'key-map--open': isOpen }">
-    <div class="key-map__header">
+  <FrostCard class="key-map" :class="{ 'key-map--open': isOpen }">
+    <div class="key-map__header" @click="isOpen = !isOpen">
       <h4 class="key-map__title">Keyboard Controls</h4>
-      <button class="key-map__toggle" @click="isOpen = !isOpen">
-        {{ isOpen ? 'close' : 'open' }}
+      <button class="key-map__toggle">
+        {{ isOpen ? '−' : '+' }}
       </button>
     </div>
     <div class="key-map__content">
@@ -21,7 +21,7 @@
         />
       </div>
     </div>
-  </section>
+  </FrostCard>
 </template>
 
 <script setup lang="ts">
@@ -118,19 +118,32 @@ const buttons = [
 </script>
 
 <style scoped lang="scss">
+// overwrite frostcard
+:deep .frost-card__ui::before {
+  background: linear-gradient(
+    40deg,
+    rgba($primary, 0.6) 30%,
+    rgba($primary, 0.2) 100%
+  );
+  filter: none;
+  backdrop-filter: blur(4px);
+}
 .key-map {
-  border: 6px solid $off-black;
-  padding: gap(1) gap(2) gap(4) gap(2);
-  background: rgba($primary, 0.8);
-  border-radius: 2px;
+  height: 40px;
+  padding: gap(2) gap(3) gap(4) gap(3);
   overflow: hidden;
+  border: 1px solid rgba(#fff, 0.5);
+  border-radius: $rounded-1;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
   transition: all ease-in-out 300ms;
-
-  height: 45px;
 
   &--open {
     width: 100%;
     height: 100%;
+  }
+  &--open &__content {
+    opacity: 1;
+    filter: blur(0);
   }
   &__header {
     margin-bottom: gap(4);
@@ -138,40 +151,52 @@ const buttons = [
     align-items: center;
     justify-content: space-between;
     gap: gap(4);
+    cursor: pointer;
   }
   &__title {
-    font-weight: 500;
+    color: rgba(black, 0.6);
+    font-weight: 600;
     font-family: $secondary-font;
   }
   &__toggle {
-    width: 40px;
-    text-align: center;
-    background-color: white;
-    padding: gap(1);
-    border-radius: 5px;
-    font-size: rem(12);
+    height: 20px;
+    width: 20px;
+    @include flex-center;
+    line-height: 1;
+    border-radius: $rounded-circle;
+    font-size: rem(24);
+    color: rgba(black, 0.6);
     cursor: pointer;
-    box-shadow: 2px 2px 8px rgba(black, 0.3);
+    background: linear-gradient(315deg, #ffffd4, #d6d6b2);
+    box-shadow: -20px -20px 60px #cacaa8, 20px 20px 60px #ffffe4;
     &:hover {
-      background-color: darken(white, 5%);
+      // background-color: darken(white, 5%);
     }
     &:active {
-      background-color: darken(white, 10%);
+      // background-color: darken(white, 10%);
     }
   }
   &__content {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: gap(4);
+    opacity: 0;
+    filter: blur(5px);
+    transition: all ease-in-out 300ms;
   }
 
   &__legend {
     display: flex;
     align-items: center;
     gap: gap(2);
-    background-color: rgba($pokemon-ground, 0.4);
     padding: gap(2);
-    border-radius: 2px;
+    background-color: rgba($pokemon-ground, 0.4);
+    background: linear-gradient(
+      40deg,
+      rgba($pokemon-ground, 0.4) 30%,
+      rgba($pokemon-ground, 0.1) 100%
+    );
+    border-radius: $rounded-1;
   }
 
   &__button {
