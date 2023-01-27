@@ -1,12 +1,12 @@
 <template>
   <button class="blue-btn">
-    <p>
-      <slot />
-    </p>
+    {{ copy }}
   </button>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+defineProps<{ copy: number }>();
+</script>
 
 <style scoped lang="scss">
 .blue-btn {
@@ -18,6 +18,11 @@
   box-shadow: 0px 2px 1px 0px $light-blue inset, 0px -2px 1px 0px black inset,
     0px 0px 2px 0px black, 0px 0px 2px 0px black, 0px 0px 2px 0px black,
     0px 0px 2px 0px black;
+  font-weight: bold;
+  font-size: 35px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: $dark-blue;
+  text-shadow: 2px 2px 3px rgba($blue, 0.5);
 
   &:hover {
     cursor: pointer;
@@ -28,14 +33,6 @@
     box-shadow: 0px 1px 1px 0px $light-blue inset, 0px -1px 1px 0px black inset,
       0px 0px 2px 0px black, 0px 0px 2px 0px black, 0px 0px 2px 0px black,
       0px 0px 2px 0px black;
-  }
-
-  p {
-    font-weight: bold;
-    font-size: 35px;
-    font-family: Arial, Helvetica, sans-serif;
-    color: $dark-blue;
-    text-shadow: 2px 2px 3px rgba($blue, 0.5);
   }
 }
 </style>
