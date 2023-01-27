@@ -4,7 +4,7 @@
     :class="{ 'power-btn--on': isPokedexOn }"
     v-bind="$attrs"
   >
-    <div class="power-btn__icon"></div>
+    <div class="power-btn__icon" />
   </button>
 </template>
 
@@ -58,7 +58,7 @@ defineProps<{ isPokedexOn: boolean }>();
     width: 55%;
     height: 55%;
     border-radius: 50%;
-    border: 4px solid $off-black;
+    border: 4px solid black;
 
     &:after {
       content: "";
@@ -67,7 +67,7 @@ defineProps<{ isPokedexOn: boolean }>();
       top: -5%;
       width: 30%;
       height: 70%;
-      background: $off-black;
+      background: black;
       outline: 2px solid rgb(65, 65, 65);
       border-radius: 25px;
     }
