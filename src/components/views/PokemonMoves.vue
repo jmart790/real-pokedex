@@ -87,7 +87,6 @@ async function getMove({ move, version_group_details }: IPokemonMove) {
 function filterAndSort(moves: IPokeMove[], filterBy: string) {
   return moves
     .filter(Boolean)
-    .filter(({ generation }) => generation.name === genName.value)
     .sort((a, b) => {
       if (filterBy === 'machine') {
         return a.machineLearnedBy > b.machineLearnedBy ? 1 : -1;
@@ -105,7 +104,8 @@ async function getMoves(pokemonMoves: IPokemonMove[], filterBy) {
     const filteredMoves = filterActivePokemonMoves(pokemonMoves, filterBy);
     const moves = await Promise.all(
       filteredMoves.map(async (move) => await getMove(move))
-    );
+      );
+    console.log({ moves });
     movesList.value = filterAndSort(moves as IPokeMove[], filterBy);
   } catch (e) {
     console.log({ e });
