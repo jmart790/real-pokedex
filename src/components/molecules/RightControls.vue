@@ -5,6 +5,7 @@
         v-for="i in 8"
         :key="`blue-btn-${i}`"
         @click="handleBtnClick(i)"
+        :copy="i"
       >
         {{ i }}
       </BlueButton>
