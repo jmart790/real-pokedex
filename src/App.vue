@@ -12,7 +12,7 @@ import { onBeforeUnmount, onMounted } from 'vue';
 import useMainControls from '@/composables/useMainControls';
 const { handleMainControl } = useMainControls();
 // eslint-disable-next-line prettier/prettier
-const keysToListenTo = ['down', 'up', 'left', 'right', 'x', 'z', 'a', 's', '1', '2', '3', '4', '5', '6', '7', '8'];
+const keysToListenTo = ['down', 'up', 'left', 'right', 'x', 'z', 'a', 's', '1', '2', '3', '4', '5', '6', '7', '8', 'p'];
 const keysToBtnMap = { a: 'y', s: 'x', z: 'b', x: 'a', p: 'power' };
 
 
@@ -56,13 +56,13 @@ onBeforeUnmount(() => {
 
   &__keyboard-map-wrapper {
     position: absolute;
-    top: rem(16);
+    top: rem(32);
     left: rem(16);
     // z-index: 100;
     // left: 50%;
     // transform: translateX(-50%);
     width: 256px;
-    height: 325px;
+    height: max-content;
     z-index: 100;
   }
 }
