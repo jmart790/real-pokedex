@@ -122,11 +122,11 @@ onMounted(async () => {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0.55) rotate(90deg);
   width: 1000px;
   height: 700px;
   display: grid;
   grid-template-columns: 500px 500px;
+  transform: translate(-50%, -50%) scale(0.55) rotate(90deg);
 
   @media (min-width: 666px) {
     transform: translate(-50%, -50%) scale(0.65);
@@ -138,6 +138,10 @@ onMounted(async () => {
 
   @media (min-width: 888px) {
     transform: translate(-50%, -50%) scale(0.85);
+  }
+
+  @media screen and (max-device-height: 500px) and (orientation: landscape) {
+    transform: translate(-50%, -50%) scale(0.55);
   }
 
   &__left-window,

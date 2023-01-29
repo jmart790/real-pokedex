@@ -104,6 +104,9 @@ onBeforeUnmount(() => {
     @media (min-width: 666px) {
       display: block;
     }
+    @media screen and (max-device-height: 500px) and (orientation: landscape) {
+      display: none;
+    }
     position: absolute;
     top: rem(16);
     left: rem(16);

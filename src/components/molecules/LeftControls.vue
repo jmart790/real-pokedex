@@ -58,7 +58,13 @@ const { isPokedexOn } = storeToRefs(controlsStore);
       '. bottom .';
     column-gap: 3px;
     row-gap: 1px;
-    @media (min-width: 666px) {
+    @media (min-width: 666px) and (orientation: portrait) {
+      margin-top: unset;
+      grid-template-rows: repeat(3, 30px);
+      grid-template-columns: repeat(3, 30px);
+    }
+
+    @media screen and (min-device-height: 500px) and (orientation: landscape) {
       margin-top: unset;
       grid-template-rows: repeat(3, 30px);
       grid-template-columns: repeat(3, 30px);
