@@ -1,7 +1,7 @@
 <template>
   <section class="damage-relations">
-    <PikachuLoader v-if="isLoading" />
-    <ErrorCard v-else-if="hasError" />
+    <!-- <PikachuLoader v-if="isLoading" /> -->
+    <ErrorCard v-if="hasError" />
     <div
       v-else
       class="damage-relations__groups"
@@ -113,7 +113,7 @@ watch(activePokemonType, (type) => getDamageRelations(type));
     display: grid;
     grid-auto-flow: column;
     grid-template-columns: v-bind(gridColumns);
-    transition: grid-template-columns 500;
+    transition: grid-template-columns 1s;
     will-change: grid-template-columns;
   }
   &__group:first-of-type {
