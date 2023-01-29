@@ -97,10 +97,6 @@ onBeforeUnmount(() => {
       background-position: center;
       transform: unset;
     }
-    @media screen and (max-height: 500px) and (orientation: landscape) {
-      width: 100vw;
-      height: 100vh;
-    }
   }
 
   &__keyboard-map-wrapper {
