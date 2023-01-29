@@ -11,7 +11,7 @@
     </div>
     <div class="middle-controls">
       <VolumeButton @click="handleMainControl('volume-down')" />
-      <VolumeButton isPlus @click="handleMainControl('volume-up')" />
+      <VolumeButton is-plus @click="handleMainControl('volume-up')" />
       <PowerButton
         @click="handleMainControl('power')"
         :is-pokedex-on="isPokedexOn"
@@ -30,12 +30,12 @@
 </template>
 
 <script setup lang="ts">
-import { useControlsStore } from "@/store/controls";
-import useMainControls from "@/composables/useMainControls";
-import { storeToRefs } from "pinia";
+import { useControlsStore } from '@/store/controls';
+import useMainControls from '@/composables/useMainControls';
+import { storeToRefs } from 'pinia';
 
-const arrowBtns = ["up", "down", "left", "right"];
-const abxyBtns = ["a", "b", "x", "y"];
+const arrowBtns = ['up', 'down', 'left', 'right'];
+const abxyBtns = ['a', 'b', 'x', 'y'];
 const { handleMainControl } = useMainControls();
 const controlsStore = useControlsStore();
 const { isPokedexOn } = storeToRefs(controlsStore);
@@ -47,16 +47,22 @@ const { isPokedexOn } = storeToRefs(controlsStore);
   justify-content: space-between;
   .d-pad {
     margin: 0;
+    margin-top: -10px;
     padding: 0;
     display: grid;
-    grid-template-rows: repeat(3, 30px);
-    grid-template-columns: repeat(3, 30px);
+    grid-template-rows: repeat(3, 45px);
+    grid-template-columns: repeat(3, 45px);
     grid-template-areas:
-      ".   top ."
-      "left . right"
-      ". bottom .";
+      '.   top .'
+      'left . right'
+      '. bottom .';
     column-gap: 3px;
     row-gap: 1px;
+    @media (min-width: 666px) {
+      margin-top: unset;
+      grid-template-rows: repeat(3, 30px);
+      grid-template-columns: repeat(3, 30px);
+    }
 
     &__up,
     &__x {
@@ -77,13 +83,16 @@ const { isPokedexOn } = storeToRefs(controlsStore);
   }
 
   .middle-controls {
-    margin-top: 43px;
+    margin-top: 15px;
     width: 180px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     justify-items: center;
     gap: 10px;
+    @media (min-width: 666px) {
+      margin-top: 43px;
+    }
 
     > :last-child {
       grid-column: 1 / -1;
