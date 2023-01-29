@@ -122,7 +122,7 @@ onMounted(async () => {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0.6) rotate(90deg);
+  transform: translate(-50%, -50%) scale(0.55) rotate(90deg);
   width: 1000px;
   height: 700px;
   display: grid;
