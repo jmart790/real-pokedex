@@ -122,11 +122,23 @@ onMounted(async () => {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0.85);
+  transform: translate(-50%, -50%) scale(0.55) rotate(90deg);
   width: 1000px;
   height: 700px;
   display: grid;
   grid-template-columns: 500px 500px;
+
+  @media (min-width: 666px) {
+    transform: translate(-50%, -50%) scale(0.65);
+  }
+
+  @media (min-width: 777px) {
+    transform: translate(-50%, -50%) scale(0.75);
+  }
+
+  @media (min-width: 888px) {
+    transform: translate(-50%, -50%) scale(0.85);
+  }
 
   &__left-window,
   &__right-window {
