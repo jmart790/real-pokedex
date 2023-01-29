@@ -43,6 +43,8 @@ function handleKeyUp(event: KeyboardEvent) {
 }
 
 function handleOrientation(event) {
+  console.log('in handle orientation');
+  screen.orientation.lock('portrait-primary');
   event.preventDefault();
 }
 
