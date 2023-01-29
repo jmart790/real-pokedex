@@ -1,6 +1,6 @@
 <template>
   <article class="damage-group">
-    <h4>{{ groupLabel }}</h4>
+    <h4>{{ groupLabel }} {{ relation }}</h4>
     <div class="damage-group__groups">
       <TransitionGroup name="special">
         <TypePill
@@ -21,6 +21,7 @@ import { computed } from 'vue';
 const props = defineProps<{
   group: string;
   types: string[];
+  relation: string;
 }>();
 
 const groupLabel = computed(() =>

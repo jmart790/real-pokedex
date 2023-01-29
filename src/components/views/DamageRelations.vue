@@ -24,25 +24,6 @@
         }"
       />
     </div>
-    <div
-      class="damage-relations__icon-container"
-      :class="`damage-relations__icon-container--${
-        relation === 'from' ? 'shield' : 'sword'
-      }`"
-    >
-      <img
-        v-if="relation === 'from'"
-        src="@/assets/images/red-shield-icon.png"
-        alt="shield icon"
-        width="40px"
-      />
-      <img
-        v-else
-        src="@/assets/images/red-sword-icon.png"
-        alt="sword icon"
-        width="20px"
-      />
-    </div>
   </section>
 </template>
 
@@ -140,23 +121,6 @@ watch(activePokemonType, (type) => getDamageRelations(type));
   }
   &__group {
     flex-shrink: 1;
-  }
-  &__icon-container {
-    position: absolute;
-    left: 5px;
-    bottom: 0px;
-    height: auto;
-    img {
-      height: 100%;
-      width: 100%;
-      transform: rotateY(180deg);
-    }
-    &--shield {
-      width: 40px;
-    }
-    &--sword {
-      width: 25px;
-    }
   }
 }
 </style>
