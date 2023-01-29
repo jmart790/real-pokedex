@@ -42,12 +42,18 @@ function handleKeyUp(event: KeyboardEvent) {
   }
 }
 
+function handleOrientation(event) {
+  event.preventDefault();
+}
+
 onMounted(() => {
   window.addEventListener('keyup', handleKeyUp);
+  window.addEventListener('orientationchange', handleOrientation);
 });
 
 onBeforeUnmount(() => {
   window.removeEventListener('keyup', handleKeyUp);
+  window.removeEventListener('orientationchange', handleOrientation);
 });
 </script>
 
