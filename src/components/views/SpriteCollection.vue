@@ -2,19 +2,30 @@
   <section class="sprite-collection">
     <PikachuLoader v-if="isLoading" />
     <div v-else class="sprite-collection__container">
-      <div
-        class="sprite-collection__sprite"
-        v-for="sprite in sprites"
-        :key="sprite"
-      >
-        <img :src="sprite" />
+      <div class="sprite-collection__sprites">
+        <div
+          class="sprite-collection__sprite"
+          v-for="sprite in spritesSplit.firstHalf"
+          :key="sprite"
+        >
+          <img :src="sprite" />
+        </div>
+      </div>
+      <div class="sprite-collection__sprites">
+        <div
+          class="sprite-collection__sprite"
+          v-for="sprite in spritesSplit.secondHalf"
+          :key="sprite"
+        >
+          <img :src="sprite" />
+        </div>
       </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { usePokeStore } from '@/store/pokemon';
 import { storeToRefs } from 'pinia';
 import type { IPokemonSpritesUpdated } from '@/types';
@@ -24,6 +35,21 @@ const { activePokemon } = storeToRefs(pokeStore);
 
 const isLoading = ref(false);
 const sprites = ref([]);
+
+const spritesSplit = computed(() => {
+  if (!sprites.value) return { firstHalf: [], secondHalf: [] };
+  const middleIndex = Math.ceil(sprites.value.length / 2);
+  const firstHalf = sprites.value.slice(0, middleIndex);
+  const secondHalf = sprites.value.slice(-middleIndex);
+  return { firstHalf, secondHalf };
+});
+
+const spritesWidth = computed(() => {
+  const spriteWidth = 128;
+  const spacing = 8;
+  const containerWidth = spritesSplit.value.firstHalf.length;
+  return `${(spriteWidth + spacing) * containerWidth}px`;
+});
 
 function extractSprites(
   sprites: IPokemonSpritesUpdated,
@@ -56,17 +82,51 @@ watch(
 <style scoped lang="scss">
 .sprite-collection {
   @include cool-bg;
+  overflow: hidden;
   &__container {
+    position: relative;
     height: 100%;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: gap(2);
-    overflow: auto;
+  }
+  &__sprites {
+    position: absolute;
+    display: flex;
+    top: 0;
+    align-items: center;
+    gap: gap(4);
+    height: 50%;
+    width: max-content;
+    animation: slide-right 120s linear infinite;
+
+    &:last-of-type {
+      top: unset;
+      bottom: 0;
+      animation: slide-left 120s linear infinite;
+    }
   }
   &__sprite {
-    max-width: 120px;
+    width: 120px;
+    height: 120px;
+
     img {
       width: 100%;
+      height: 100%;
+    }
+  }
+  @keyframes slide-right {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+
+  @keyframes slide-left {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
     }
   }
 }
