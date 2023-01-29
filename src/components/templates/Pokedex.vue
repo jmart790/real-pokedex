@@ -140,7 +140,7 @@ onMounted(async () => {
     transform: translate(-50%, -50%) scale(0.85);
   }
 
-  @media screen and (max-device-height: 500px) and (orientation: landscape) {
+  @media screen and (max-height: 500px) and (orientation: landscape) {
     transform: translate(-50%, -50%) scale(0.55);
   }
 

@@ -64,7 +64,7 @@ const { isPokedexOn } = storeToRefs(controlsStore);
       grid-template-columns: repeat(3, 30px);
     }
 
-    @media screen and (min-device-height: 500px) and (orientation: landscape) {
+    @media screen and (min-height: 500px) and (orientation: landscape) {
       margin-top: unset;
       grid-template-rows: repeat(3, 30px);
       grid-template-columns: repeat(3, 30px);
