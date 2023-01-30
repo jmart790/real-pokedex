@@ -1,13 +1,29 @@
 <template>
-  <button class="mobile-btn" v-bind="$attrs">
+  <button class="mobile-btn" v-bind="$attrs" @click="handleInternalClick">
     <p class="mobile-btn__pokeball">
       <span class="mobile-btn__pokeball-center" />
     </p>
-    <img src="https://svgshare.com/i/aat.svg" alt="pikachu" class="pikachu" />
+    <img
+      src="https://svgshare.com/i/aat.svg"
+      alt="pikachu"
+      class="pikachu"
+      :class="{ 'pikachu--show': hasClicked }"
+    />
   </button>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue';
+
+const hasClicked = ref(false);
+
+function handleInternalClick() {
+  hasClicked.value = true;
+  setTimeout(() => {
+    hasClicked.value = false;
+  }, 500);
+}
+</script>
 
 <style scoped lang="scss">
 .mobile-btn {
@@ -58,12 +74,12 @@
     top: 0;
     z-index: -2;
     width: 75px;
-    transition: all ease-in-out 300ms;
+    transition: all ease 300ms;
     opacity: 0.1;
-  }
-  &:active .pikachu {
-    transform: translateY(-60px);
-    opacity: 1;
+    &--show {
+      transform: translateY(-60px);
+      opacity: 1;
+    }
   }
 }
 </style>
