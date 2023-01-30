@@ -11,6 +11,7 @@
 button {
   all: unset;
   touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 li {
