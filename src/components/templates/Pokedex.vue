@@ -119,30 +119,10 @@ onMounted(async () => {
 
 <style scoped lang="scss">
 .pokedex {
-  position: fixed;
-  top: 50%;
-  left: 50%;
   width: 1000px;
   height: 700px;
   display: grid;
   grid-template-columns: 500px 500px;
-  transform: translate(-50%, -50%) scale(0.55) rotate(90deg);
-
-  @media (min-width: 666px) {
-    transform: translate(-50%, -50%) scale(0.65);
-  }
-
-  @media (min-width: 777px) {
-    transform: translate(-50%, -50%) scale(0.75);
-  }
-
-  @media (min-width: 888px) {
-    transform: translate(-50%, -50%) scale(0.85);
-  }
-
-  @media screen and (max-height: 500px) and (orientation: landscape) {
-    transform: translate(-50%, -50%) scale(0.55);
-  }
 
   &__left-window,
   &__right-window {
