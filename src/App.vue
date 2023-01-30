@@ -94,7 +94,7 @@ onBeforeUnmount(() => {
 
   &__mobile-btn {
     position: fixed;
-    bottom: 5%;
+    bottom: 2.5%;
     left: 50%;
     transform: translateX(-50%);
     @media (min-width: 666px) {
