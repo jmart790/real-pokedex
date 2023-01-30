@@ -87,12 +87,12 @@ watch(
   }
   &__sprites {
     position: absolute;
-    display: flex;
     top: 0;
-    align-items: center;
-    gap: gap(4);
     height: 50%;
     width: max-content;
+    display: flex;
+    align-items: center;
+    gap: gap(4);
     animation: slide-right v-bind(scrollSpeed) linear infinite;
 
     &:last-of-type {
