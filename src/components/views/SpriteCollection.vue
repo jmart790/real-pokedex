@@ -44,11 +44,9 @@ const spritesSplit = computed(() => {
   return { firstHalf, secondHalf };
 });
 
-const spritesWidth = computed(() => {
-  const spriteWidth = 128;
-  const spacing = 8;
-  const containerWidth = spritesSplit.value.firstHalf.length;
-  return `${(spriteWidth + spacing) * containerWidth}px`;
+const scrollSpeed = computed(() => {
+  const ratio = 1.558;
+  return `${sprites.value.length * ratio}s`;
 });
 
 function extractSprites(
@@ -95,12 +93,12 @@ watch(
     gap: gap(4);
     height: 50%;
     width: max-content;
-    animation: slide-right 120s linear infinite;
+    animation: slide-right v-bind(scrollSpeed) linear infinite;
 
     &:last-of-type {
       top: unset;
       bottom: 0;
-      animation: slide-left 120s linear infinite;
+      animation: slide-left v-bind(scrollSpeed) linear infinite;
     }
   }
   &__sprite {
