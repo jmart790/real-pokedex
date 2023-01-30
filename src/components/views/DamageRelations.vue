@@ -1,7 +1,7 @@
 <template>
   <section class="damage-relations">
-    <!-- <PikachuLoader v-if="isLoading" /> -->
-    <ErrorCard v-if="hasError" />
+    <PikachuLoader v-if="isLoading" />
+    <ErrorCard v-else-if="hasError" />
     <div
       v-else
       class="damage-relations__groups"
@@ -30,7 +30,7 @@
 <script setup lang="ts">
 import { usePokeStore } from '@/store/pokemon';
 import { storeToRefs } from 'pinia';
-import { watch, ref, computed } from 'vue';
+import { watchEffect, ref, computed } from 'vue';
 import PokeAPI, {
   type INamedApiResource,
   type IType,
@@ -94,13 +94,9 @@ async function getDamageRelations(type: string) {
   isLoading.value = false;
 }
 
-watch(
-  () => props.relation,
-  () => getDamageRelations(activePokemonType.value),
-  { immediate: true }
-);
+watchEffect(() => getDamageRelations(activePokemonType.value));
 
-watch(activePokemonType, (type) => getDamageRelations(type));
+// watch(activePokemonType, (type) => getDamageRelations(type));
 </script>
 
 <style scoped lang="scss">
