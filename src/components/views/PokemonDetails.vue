@@ -36,7 +36,7 @@ const {
   activePokemonName,
   activePokemonSprites,
   activePokemonType,
-  genNum
+  genNum,
 } = storeToRefs(pokeStore);
 
 const { getActivePokemon } = pokeStore;
@@ -61,12 +61,12 @@ const spriteImage = computed(() => {
 });
 
 function handleImgLoaded() {
-  isImgLoading.value = false;
+  setTimeout(() => (isImgLoading.value = false), 1000);
 }
 
-watchEffect(() => {
+watchEffect(async () => {
   isImgLoading.value = true;
-  getActivePokemon(activePokemonPayload.value);
+  await getActivePokemon(activePokemonPayload.value);
 });
 </script>
 

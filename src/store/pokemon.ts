@@ -3,6 +3,7 @@ import { ref, computed } from 'vue';
 import PokeAPI from 'pokeapi-typescript';
 import type { IGeneration, IPokemon } from 'pokeapi-typescript';
 import type { IPokemonSpritesUpdated } from '@/types/index';
+import { useLoading } from '@/composables/useLoading';
 
 interface IPokemonListItem {
   name: string;
@@ -35,7 +36,6 @@ export const usePokeStore = defineStore('pokemon', () => {
   const pokemonListLength = computed(
     () => generation.value?.pokemon_species.length
   );
-  const isLoading = ref(false);
   const hasError = ref(false);
   const isGenLoading = ref(false);
 
@@ -65,15 +65,15 @@ export const usePokeStore = defineStore('pokemon', () => {
   async function getActivePokemon(payload: string) {
     hasError.value = false;
     if (!payload) return;
-    isLoading.value = true;
     await PokeAPI.Pokemon.resolve(payload)
       .then((res) => setActivePokemon(res))
       .catch((e) => {
         console.log({ e });
         hasError.value = true;
       });
-    isLoading.value = false;
   }
+
+  const { isLoading, executeFn } = useLoading(getActivePokemon);
 
   const activePokemon = ref<IPokemon>();
   const activePokemonId = computed(() => activePokemon.value?.id);
@@ -108,7 +108,7 @@ export const usePokeStore = defineStore('pokemon', () => {
     pokemonListLength,
     genNum,
     region,
-    getActivePokemon,
+    getActivePokemon: executeFn,
     isLoading,
     hasError,
     setActivePokemon,

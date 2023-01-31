@@ -24,12 +24,15 @@
 <script setup lang="ts">
 import { usePokeStore } from '@/store/pokemon';
 import { storeToRefs } from 'pinia';
-import { watch, ref, computed } from 'vue';
+import { watchEffect, ref, computed } from 'vue';
 import PokeAPI, {
   type IChainLink,
   type IEvolutionDetail,
   type IPokemon
 } from 'pokeapi-typescript';
+import { useLoading } from '@/composables/useLoading';
+
+const { isLoading, executeFn } = useLoading(getEvoChain);
 
 interface IPokeEvolution {
   name: string;
@@ -42,7 +45,6 @@ interface IPokeEvolution {
 const pokeStore = usePokeStore();
 const { activePokemonId } = storeToRefs(pokeStore);
 const evoChain = ref<IPokeEvolution[]>();
-const isLoading = ref(false);
 
 const totalEvolutions = computed(() => {
   return evoChain.value?.length || 0;
@@ -79,7 +81,6 @@ async function mapEvolutionsLinearly(
 }
 
 async function getEvoChain(id: number) {
-  isLoading.value = true;
   const evolutions: IPokeEvolution[] = [];
   const chainId = await PokeAPI.PokemonSpecies.resolve(id).then((res) => {
     return Number(res.evolution_chain.url.split('/')[6]);
@@ -95,18 +96,13 @@ async function getEvoChain(id: number) {
   } catch (e) {
     // do something meaningfull
     console.log({ e });
-  } finally {
-    isLoading.value = false;
-  }
+  } 
 }
 
-watch(
-  activePokemonId,
-  async (id = 1) => {
-    await getEvoChain(id);
-  },
-  { immediate: true }
-);
+watchEffect(async () => {
+  const payload = activePokemonId.value || 1;
+  await executeFn(payload);
+});
 </script>
 
 <style scoped lang="scss">

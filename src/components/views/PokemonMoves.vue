@@ -32,6 +32,9 @@ import { usePokeStore } from '@/store/pokemon';
 import { storeToRefs } from 'pinia';
 import { ref, computed, watchEffect } from 'vue';
 import PokeAPI, { type IMove, type IPokemonMove } from 'pokeapi-typescript';
+import { useLoading } from '@/composables/useLoading';
+
+const { isLoading, executeFn } = useLoading(getMoves);
 
 interface IPokeMove extends IMove {
   levelLearnedAt: number;
@@ -44,7 +47,7 @@ const props = defineProps<{
 
 const pokeStore = usePokeStore();
 const movesList = ref<IPokeMove[]>();
-const isLoading = ref(false);
+// const isLoading = ref(false);
 
 const { activePokemonMoves, genNum } = storeToRefs(pokeStore);
 const genNums = ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii'];
@@ -99,7 +102,6 @@ function filterAndSort(moves: IPokeMove[], filterBy: string) {
 
 async function getMoves(pokemonMoves: IPokemonMove[], filterBy) {
   if (!pokemonMoves?.length) return;
-  isLoading.value = true;
   try {
     const filteredMoves = filterActivePokemonMoves(pokemonMoves, filterBy);
     const moves = await Promise.all(
@@ -108,12 +110,10 @@ async function getMoves(pokemonMoves: IPokemonMove[], filterBy) {
     movesList.value = filterAndSort(moves as IPokeMove[], filterBy);
   } catch (e) {
     console.log({ e });
-  } finally {
-    isLoading.value = false;
   }
 }
 
-watchEffect(() => getMoves(activePokemonMoves.value, props.filterBy));
+watchEffect(() => executeFn(activePokemonMoves.value, props.filterBy));
 </script>
 
 <style scoped lang="scss">

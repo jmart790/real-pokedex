@@ -36,6 +36,7 @@ import PokeAPI, {
   type IType,
   type ITypeRelations
 } from 'pokeapi-typescript';
+import { useLoading } from '@/composables/useLoading';
 
 interface IDamageRelation {
   group: string;
@@ -46,6 +47,8 @@ interface IDamageRelations {
   double: IDamageRelation;
 }
 
+const { isLoading, executeFn } = useLoading(getDamageRelations);
+
 const props = defineProps<{
   relation: 'from' | 'to';
 }>();
@@ -53,8 +56,7 @@ const props = defineProps<{
 const pokeStore = usePokeStore();
 
 const { activePokemonType } = storeToRefs(pokeStore);
-const damageRelations = ref<IDamageRelations>();
-const isLoading = ref(false);
+const damageRelationsRawResponse = ref<ITypeRelations>();
 const hasError = ref(false);
 
 const gridColumns = computed(() => {
@@ -68,7 +70,9 @@ const gridColumns = computed(() => {
   return `${halfCount}fr ${doubleCount}fr`;
 });
 
-function handleSuccess(data: ITypeRelations) {
+const damageRelations = computed(() => {
+  const data = damageRelationsRawResponse?.value;
+  if (!data) return;
   const dataTransformed = Object.keys(data).reduce((relations, groupName) => {
     const types =
       data[groupName].map((item: INamedApiResource<IType>) => item.name) || [];
@@ -78,8 +82,8 @@ function handleSuccess(data: ITypeRelations) {
     }
     return relations;
   }, {} as IDamageRelations);
-  damageRelations.value = dataTransformed;
-}
+  return dataTransformed;
+});
 
 function handleFailure(e) {
   console.log({ e });
@@ -87,16 +91,15 @@ function handleFailure(e) {
 }
 
 async function getDamageRelations(type: string) {
-  isLoading.value = true;
   await PokeAPI.Type.resolve(type)
-    .then(({ damage_relations }) => handleSuccess(damage_relations))
+    .then(
+      ({ damage_relations }) =>
+        (damageRelationsRawResponse.value = damage_relations)
+    )
     .catch((e) => handleFailure(e));
-  isLoading.value = false;
 }
 
-watchEffect(() => getDamageRelations(activePokemonType.value));
-
-// watch(activePokemonType, (type) => getDamageRelations(type));
+watchEffect(() => executeFn(activePokemonType.value));
 </script>
 
 <style scoped lang="scss">

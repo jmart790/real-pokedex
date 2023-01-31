@@ -36,19 +36,21 @@
 
 <script setup lang="ts">
 import PokeAPI from 'pokeapi-typescript';
-import { computed, ref, watch } from 'vue';
+import { computed, ref, watchEffect } from 'vue';
 import { usePokeStore } from '@/store/pokemon';
 import { storeToRefs } from 'pinia';
+import { useLoading } from '@/composables/useLoading';
 
 const pokeStore = usePokeStore();
 const { activePokemon } = storeToRefs(pokeStore);
 
-const isLoading = ref(false);
 const description = ref<string>('');
 const flavorText = ref<string>('');
 const genus = ref<string>('');
 const location = ref<string>('');
 const encounter = ref<string>('');
+
+const { isLoading, executeFn } = useLoading(getData);
 
 const entryNumber = computed(() => {
   let num = String(activePokemon.value?.id || 0);
@@ -101,24 +103,18 @@ async function getEncounter(payload: number) {
 
 async function getData(payload: number) {
   if (!payload) return;
-  isLoading.value = true;
   await Promise.all([
     getDescription(payload),
     getSpecies(payload),
     getLocation(payload),
     getEncounter(payload)
   ]);
-  isLoading.value = false;
 }
 
-watch(
-  activePokemon,
-  (pokemon) => {
-    const payload = pokemon?.id || 0;
-    getData(payload);
-  },
-  { immediate: true }
-);
+watchEffect(() => {
+  const payload = activePokemon.value?.id || 0;
+  executeFn(payload);
+});
 </script>
 
 <style scoped lang="scss">
