@@ -10,6 +10,7 @@
     <MobileViewButton
       class="pokedex-container__mobile-btn"
       @click="isShiftedRight = !isShiftedRight"
+      :is-shifted-right="isShiftedRight"
     />
   </div>
 </template>

@@ -1,7 +1,12 @@
 <template>
   <button class="mobile-btn" v-bind="$attrs" @click="handleInternalClick">
     <p class="mobile-btn__pokeball">
-      <span class="mobile-btn__pokeball-center" />
+      <span
+        class="mobile-btn__pokeball-center"
+        :class="{ 'mobile-btn__pokeball-center--right': isShiftedRight }"
+        >⬅</span
+      >
+      <span class="mobile-btn__copy">click me</span>
     </p>
     <img
       src="https://svgshare.com/i/aat.svg"
@@ -14,6 +19,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+
+defineProps<{ isShiftedRight: boolean }>();
 
 const hasClicked = ref(false);
 
@@ -40,7 +47,7 @@ function handleInternalClick() {
     color: $off-white;
     border-radius: $rounded-circle;
     border: 4px solid $off-black;
-    box-shadow: 2px 4px 8px rgba(black, 0.2);
+    box-shadow: 4px 4px 8px rgba(black, 0.4);
     &::before {
       position: absolute;
       z-index: -1;
@@ -61,13 +68,26 @@ function handleInternalClick() {
       background-color: $off-black;
     }
   }
+  &__copy {
+    position: absolute;
+    bottom: -19px;
+    font-size: rem(12);
+  }
   &__pokeball-center {
     content: '';
     height: 25px;
     width: 25px;
+    @include flex-center;
     border-radius: $rounded-circle;
     background: $off-white;
     border: 4px solid $off-black;
+    color: rgba($off-black, 0.5);
+    font-size: rem(12);
+    transform: rotate(180deg);
+    line-height: 1;
+    &--right {
+      transform: rotate(0deg);
+    }
   }
   .pikachu {
     position: absolute;
