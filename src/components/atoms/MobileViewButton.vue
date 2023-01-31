@@ -4,8 +4,7 @@
       <span
         class="mobile-btn__pokeball-center"
         :class="{ 'mobile-btn__pokeball-center--right': isShiftedRight }"
-        >⬅</span
-      >
+      />
       <span class="mobile-btn__copy">click me</span>
     </p>
     <img
