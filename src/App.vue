@@ -67,6 +67,9 @@ onBeforeUnmount(() => {
     @media (min-width: 666px) {
       display: block;
     }
+    @media screen and (max-height: 500px) and (orientation: landscape) {
+      display: none;
+    }
     position: absolute;
     top: rem(16);
     left: rem(16);
@@ -91,6 +94,10 @@ onBeforeUnmount(() => {
     @media (min-width: 888px) {
       transform: translate(-50%, -50%) scale(0.85);
     }
+    @media screen and (max-height: 500px) and (orientation: landscape) {
+      transform: translate(-50%, -50%) scale(0.55);
+    }
+
   }
 
   &__mobile-btn {
