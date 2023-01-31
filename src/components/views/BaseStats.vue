@@ -2,11 +2,13 @@
   <section class="base-stats">
     <PikachuLoader v-if="isLoading" />
     <ErrorCard v-else-if="hasError" />
-    <FrostCard v-for="(stat, key) in stats" :key="`base-stat-${key}`">
-      <div class="base-stats__card">
-        <CircleRange :label="key" :max="stat.max" :base="stat.base" />
-      </div>
-    </FrostCard>
+    <div class="base-stats__cards" v-else>
+      <FrostCard v-for="(stat, key) in stats" :key="`base-stat-${key}`">
+        <div class="base-stats__card">
+          <CircleRange :label="key" :max="stat.max" :base="stat.base" />
+        </div>
+      </FrostCard>
+    </div>
   </section>
 </template>
 
@@ -53,10 +55,12 @@ function getMaxStat(stat: number, isHp = false) {
 .base-stats {
   @include cool-bg;
   padding: $medium-window-padding;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: gap(2);
-
+  &__cards {
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: gap(2);
+  }
   &__card {
     height: 100%;
     padding: gap(2);
