@@ -113,7 +113,7 @@ watchEffect(() => {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: gap(3) gap(4);
-    overflow: auto;
+    overflow: hidden;
   }
 }
 </style>
