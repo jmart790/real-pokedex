@@ -21,13 +21,14 @@
   position: relative;
   width: 100%;
   height: 100%;
-
+  
+  
   &__wrapper {
     position: absolute;
     right: 0;
     bottom: 0;
     z-index: 5;
-    height: 83%;
+    height: 82.8%;
     width: 100%;
   }
 
@@ -97,6 +98,7 @@
     bottom: 0;
     width: 100%;
     padding: 25px;
+    box-shadow: 0px 20px 16px rgba(0, 0, 0, 0.4);
   }
 }
 </style>
