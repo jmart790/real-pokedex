@@ -80,7 +80,7 @@ onBeforeUnmount(() => {
   }
 
   &__pokedex {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-32.5%, -50%) scale(0.7);
@@ -101,7 +101,7 @@ onBeforeUnmount(() => {
   }
 
   &__mobile-btn {
-    position: absolute;
+    position: fixed;
     bottom: 2.5%;
     left: 50%;
     transform: translateX(-50%);
