@@ -145,7 +145,7 @@ const buttons = computed(() => [
   color: rgba(white, 0.8);
 
   &--open {
-    height: 671px;
+    height: 700px;
   }
   &--open &__content {
     opacity: 1;
