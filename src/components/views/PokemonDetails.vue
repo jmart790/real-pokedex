@@ -84,7 +84,7 @@ watchEffect(async () => {
   &__pokemon {
     bottom: 10%;
     right: 10%;
-    height: 150px;
+    height: 50%;
     width: auto;
     filter: drop-shadow(0px 4px 4px rgba(black, 0.7));
   }
