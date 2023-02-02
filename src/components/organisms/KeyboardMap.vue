@@ -126,6 +126,7 @@ const buttons = [
     rgba($primary, 0.2) 100%
   );
   filter: none;
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
 }
 .key-map {

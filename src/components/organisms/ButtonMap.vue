@@ -133,6 +133,7 @@ const buttons = computed(() => [
   );
   filter: none;
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 .btn-map {
   height: 40px;
