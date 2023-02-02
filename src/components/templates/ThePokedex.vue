@@ -123,7 +123,7 @@ onMounted(async () => {
   height: 700px;
   display: grid;
   grid-template-columns: 500px 500px;
-  
+
   &__left-window,
   &__right-window {
     margin-bottom: 25px;
