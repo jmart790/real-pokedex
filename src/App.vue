@@ -88,7 +88,7 @@ onBeforeUnmount(() => {
     position: absolute;
     top: rem(16);
     width: 350px;
-    max-height: 90vh;
+    max-height: 95vh;
     height: 700px;
     z-index: 100;
     @media (min-width: 666px) {
