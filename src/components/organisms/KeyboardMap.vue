@@ -140,7 +140,7 @@ const buttons = [
 
   &--open {
     width: 100%;
-    height: 100%;
+    height: 671px;
   }
   &--open &__content {
     opacity: 1;
