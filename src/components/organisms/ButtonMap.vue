@@ -132,7 +132,7 @@ const buttons = computed(() => [
     rgba($secondary, 0.2) 100%
   );
   filter: none;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(8px);
 }
 .btn-map {
   height: 40px;
