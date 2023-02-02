@@ -1,9 +1,12 @@
 <template>
   <div class="pokedex-container" @keyup="handleKeyUp">
     <div class="pokedex-container__keyboard-map-wrapper">
-      <KeyboardMap class="pokedex-container__keyboard-map" />
+      <KeyboardMap />
     </div>
-    <Pokedex
+    <div class="pokedex-container__btn-map-wrapper">
+      <ButtonMap />
+    </div>
+    <ThePokedex
       class="pokedex-container__pokedex"
       :class="{ 'pokedex-container__pokedex--shift-right': isShiftedRight }"
     />
@@ -79,6 +82,21 @@ onBeforeUnmount(() => {
     z-index: 100;
   }
 
+  &__btn-map-wrapper {
+    right: 50%;
+    transform: translateX(50%);
+    position: absolute;
+    top: rem(16);
+    width: 350px;
+    max-height: 90vh;
+    height: 700px;
+    z-index: 100;
+    @media (min-width: 666px) {
+      transform: unset;
+      right: rem(16);
+    }
+  }
+
   &__pokedex {
     position: fixed;
     top: 50%;
@@ -89,6 +107,9 @@ onBeforeUnmount(() => {
       transform: translate(-67.5%, -50%) scale(0.7);
     }
     @media (min-width: 666px) {
+      transform: translate(-50%, -50%) scale(0.65);
+    }
+    @media (min-width: 777px) {
       transform: translate(-50%, -50%) scale(0.75);
     }
     @media (min-width: 888px) {
