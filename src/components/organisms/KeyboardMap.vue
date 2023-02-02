@@ -132,10 +132,11 @@ const buttons = [
   height: 40px;
   padding: gap(2) gap(3) gap(4) gap(3);
   overflow: hidden;
-  border: 1px solid rgba(#fff, 0.5);
+  color: rgba(black, 0.6);
   border-radius: $rounded-1;
-  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
-  transition: all ease-in-out 300ms;
+  box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.4),
+    inset 2px 4px 8px rgba(0, 0, 0, 0.4);
+  transition: height ease-in-out 300ms;
 
   &--open {
     width: 100%;
@@ -154,7 +155,6 @@ const buttons = [
     cursor: pointer;
   }
   &__title {
-    color: rgba(black, 0.6);
     font-weight: 600;
     font-family: $secondary-font;
   }
@@ -165,16 +165,9 @@ const buttons = [
     line-height: 1;
     border-radius: $rounded-circle;
     font-size: rem(24);
-    color: rgba(black, 0.6);
     cursor: pointer;
     background: linear-gradient(315deg, #ffffd4, #d6d6b2);
     box-shadow: -20px -20px 60px #cacaa8, 20px 20px 60px #ffffe4;
-    &:hover {
-      // background-color: darken(white, 5%);
-    }
-    &:active {
-      // background-color: darken(white, 10%);
-    }
   }
   &__content {
     display: grid;
@@ -182,7 +175,7 @@ const buttons = [
     gap: gap(4);
     opacity: 0;
     filter: blur(5px);
-    transition: all ease-in-out 300ms;
+    transition: opacity ease-in-out 300ms, filter ease-in-out 300ms;
   }
 
   &__legend {
