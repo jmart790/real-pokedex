@@ -86,6 +86,7 @@ export const usePokeStore = defineStore('pokemon', () => {
   const activePokemonSprites = computed(() =>
     transformSprites(activePokemon.value?.sprites as IPokemonSpritesUpdated)
   );
+  const activePokemonHeight = computed(() => activePokemon.value?.height || 0);
 
   function setActivePokemon(pokemon: IPokemon) {
     activePokemon.value = pokemon;
@@ -120,6 +121,7 @@ export const usePokeStore = defineStore('pokemon', () => {
     activePokemonId,
     setPokemonLoaded,
     activePokemonMoves,
-    activePokemonSprites
+    activePokemonSprites,
+    activePokemonHeight
   };
 });

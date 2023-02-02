@@ -1,19 +1,19 @@
 <template>
-  <section class="pokemon-details">
+  <section class="pokemon-wild">
     <div
-      class="pokemon-details__bg"
-      :class="`pokemon-details__bg--${activePokemonType}`"
+      class="pokemon-wild__bg"
+      :class="`pokemon-wild__bg--${activePokemonType}`"
     />
-    {{ activePokemonName }}
     <img
       v-show="isImgLoading"
-      class="pokemon-details__pokeball"
+      class="pokemon-wild__pokeball"
       src="@/assets/images/pokeball-pokemon.gif"
       :alt="`${activePokemonName} sprite`"
     />
     <img
       v-show="!isImgLoading"
-      class="pokemon-details__pokemon"
+      class="pokemon-wild__pokemon"
+      :class="{ 'pokemon-wild__pokemon--small': activePokemonHeight <= 10 }"
       :src="spriteImage"
       :alt="`${activePokemonName} sprite`"
       @load="handleImgLoaded"
@@ -36,6 +36,7 @@ const {
   activePokemonName,
   activePokemonSprites,
   activePokemonType,
+  activePokemonHeight,
   genNum,
 } = storeToRefs(pokeStore);
 
@@ -60,6 +61,13 @@ const spriteImage = computed(() => {
   return sprites[type][safeOrientation];
 });
 
+const pokemonHeight = computed(() => {
+  const baseHeight = 30;
+  const ratio = 12;
+  console.log(activePokemonHeight.value + baseHeight);
+  return `${activePokemonHeight.value * ratio + baseHeight}px`;
+});
+
 function handleImgLoaded() {
   setTimeout(() => (isImgLoading.value = false), 1000);
 }
@@ -71,7 +79,7 @@ watchEffect(async () => {
 </script>
 
 <style scoped lang="scss">
-.pokemon-details {
+.pokemon-wild {
   position: relative;
   height: 100%;
   width: 100%;
@@ -84,9 +92,15 @@ watchEffect(async () => {
   &__pokemon {
     bottom: 10%;
     right: 10%;
-    height: 50%;
+    // min-height: 20%;
+    max-height: 65%;
+    height: v-bind(pokemonHeight);
     width: auto;
     filter: drop-shadow(0px 4px 4px rgba(black, 0.7));
+    &--small {
+      bottom: 15%;
+      right: 15%;
+    }
   }
 
   &__pokeball {

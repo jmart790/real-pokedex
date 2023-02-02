@@ -9,7 +9,7 @@
         <PokemonIntro v-if="currentView === 'INTRO'" />
         <template v-else>
           <PokemonList v-show="currentView === 'LIST'" />
-          <PokemonDetails v-show="currentView === 'POKEMON'" />
+          <PokemonWild v-show="currentView === 'POKEMON'" />
         </template>
         <Toast
           v-if="isToastVisible"
