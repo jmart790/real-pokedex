@@ -125,6 +125,7 @@ watchEffect(() => executeFn(activePokemonMoves.value, props.filterBy));
     gap: gap(2);
   }
   &__move {
+    height: min-content;
     padding: 1px gap(4);
     display: grid;
     grid-template-columns: 7% 35% 18% 20% 15%;
