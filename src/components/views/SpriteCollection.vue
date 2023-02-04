@@ -49,6 +49,14 @@ const scrollSpeed = computed(() => {
   return `${sprites.value.length * ratio}s`;
 });
 
+function shuffleSprites(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
 function extractSprites(
   sprites: IPokemonSpritesUpdated,
   spritesArray: string[]
@@ -71,7 +79,7 @@ watch(
     if (!pokemon?.sprites) return;
     const spritesArray = [];
     extractSprites(pokemon.sprites as IPokemonSpritesUpdated, spritesArray);
-    sprites.value = spritesArray;
+    sprites.value = shuffleSprites(spritesArray);
   },
   { immediate: true }
 );
