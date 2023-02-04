@@ -98,6 +98,7 @@ watch(
     &:last-of-type {
       top: unset;
       bottom: 0;
+      left: 100%;
       animation: slide-left v-bind(scrollSpeed) linear infinite;
     }
   }
