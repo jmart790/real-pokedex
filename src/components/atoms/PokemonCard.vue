@@ -91,7 +91,6 @@ const trigger = computed(() => {
   color: $off-white;
   &__img-wrapper {
     position: relative;
-    aspect-ratio: 1 / 1;
     max-height: 100%;
     width: 100%;
   }
@@ -108,7 +107,6 @@ const trigger = computed(() => {
   }
   &__arrow {
     position: absolute;
-    // bottom: 30%;
     top: -15%;
     left: -15%;
     font-size: rem(24);
