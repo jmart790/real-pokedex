@@ -122,10 +122,10 @@ onMounted(async () => {
       opacity: 1;
       height: 160%;
       width: 160%;
-      // animation-duration: 2s;
-      // animation-iteration-count: infinite;
-      // animation-name: bounce;
-      // animation-timing-function: ease;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+      animation-name: bounce;
+      animation-timing-function: ease;
       @keyframes bounce {
         0% {
           transform: scale(1, 1) translate(-50%, -50%) translateY(0);
