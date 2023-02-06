@@ -102,6 +102,7 @@ onMounted(async () => {
     position: relative;
     height: 50px;
     width: 50px;
+    @include flex-center;
     border-radius: 50%;
     background-color: rgba(white, 0.4);
     &--loading {
@@ -112,51 +113,41 @@ onMounted(async () => {
     }
   }
   &__sprite {
-    position: absolute;
     height: 150%;
     width: 150%;
-    @include position-center;
     opacity: 0.9;
-    // transform-origin: center;
     &--backup-active {
-      opacity: 1;
       height: 160%;
       width: 160%;
-      animation-duration: 2s;
-      animation-iteration-count: infinite;
-      animation-name: bounce;
-      animation-timing-function: ease;
+      opacity: 1;
+      animation: bounce 2s ease infinite;
       @keyframes bounce {
         0% {
-          transform: scale(1, 1) translate(-50%, -50%) translateY(0);
+          transform: scale(1, 1) translateY(0);
         }
         10% {
-          transform: scale(1.05, 0.9) translate(-50%, -50%) translateX(2.5%);
+          transform: scale(1.05, 0.95);
         }
         30% {
-          transform: scale(0.95, 1.1) translate(-50%, -50%) translateY(-3px) translateX(-2.5%);
+          transform: scale(0.95, 1) translateY(-5px);
         }
         50% {
-          transform: scale(1, 1) translate(-50%, -50%) translateY(0);
+          transform: scale(1, 1) translateY(0);
         }
         57% {
-          transform: scale(1, 1) translate(-50%, -50%) translateY(-1px);
+          transform: scale(1, 1) translateY(-1px);
         }
         64% {
-          transform: scale(1, 1) translate(-50%, -50%) translateY(0);
+          transform: scale(1, 1) translateY(0);
         }
         100% {
-          transform: scale(1, 1) translate(-50%, -50%) translateY(0);
+          transform: scale(1, 1) translateY(0);
         }
       }
     }
   }
 
   &__gif {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.9);
     opacity: 1;
   }
 
