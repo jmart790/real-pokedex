@@ -73,7 +73,7 @@ onBeforeUnmount(() => {
     @media screen and (max-height: 500px) and (orientation: landscape) {
       display: none;
     }
-    position: absolute;
+    position: fixed;
     top: rem(16);
     left: rem(16);
     width: 256px;
@@ -84,7 +84,7 @@ onBeforeUnmount(() => {
   &__btn-map-wrapper {
     right: 50%;
     transform: translateX(50%);
-    position: absolute;
+    position: fixed;
     top: rem(16);
     width: 350px;
     max-height: 95vh;
