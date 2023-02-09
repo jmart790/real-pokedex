@@ -117,8 +117,8 @@ onMounted(async () => {
     width: 150%;
     opacity: 0.9;
     &--backup-active {
-      height: 160%;
-      width: 160%;
+      height: 170%;
+      width: 170%;
       opacity: 1;
       animation: bounce 2s ease infinite;
       @keyframes bounce {
