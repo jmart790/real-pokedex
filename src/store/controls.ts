@@ -7,15 +7,16 @@ export const useControlsStore = defineStore('controls', () => {
   const secondaryView = ref<TSecondaryView>(1);
   const isPokedexOn = computed(() => currentView.value !== 'OFF');
   const isActiveSpriteFront = ref(true);
-  const activeSpriteType = ref(0);
+  const isActiveSpriteAnimated = ref(true);
+  const isActiveSpriteShiny = ref(false);
   const listPosition = ref(0);
   const listLength = ref(0);
   const lastDirection = ref('');
 
-  const spriteTypeOptions = ['animated', 'animatedShiny', 'artwork', 'artworkShiny'];
   const activeSpriteSetting = computed(() => {
     return {
-      type: spriteTypeOptions[activeSpriteType.value],
+      isAnimated: isActiveSpriteAnimated.value,
+      isShiny: isActiveSpriteShiny.value,
       isFront: isActiveSpriteFront.value
     };
   });
@@ -70,13 +71,13 @@ export const useControlsStore = defineStore('controls', () => {
     secondaryView.value = view;
   }
   function toggleActiveSpriteType() {
-    activeSpriteType.value =
-      activeSpriteType.value >= spriteTypeOptions.length - 1
-        ? 0
-        : activeSpriteType.value + 1;
+    isActiveSpriteAnimated.value = !isActiveSpriteAnimated.value;
   }
   function toggleActiveSpriteOrientation() {
     isActiveSpriteFront.value = !isActiveSpriteFront.value;
+  }
+  function toggleActiveSpriteShiny() {
+    isActiveSpriteShiny.value = !isActiveSpriteShiny.value;
   }
 
   return {
@@ -92,6 +93,7 @@ export const useControlsStore = defineStore('controls', () => {
     secondaryView,
     toggleActiveSpriteType,
     toggleActiveSpriteOrientation,
+    toggleActiveSpriteShiny,
     activeSpriteSetting,
     lastDirection
   };

@@ -13,7 +13,8 @@ export default function useMainControls() {
     setMainView,
     setSecondaryView,
     toggleActiveSpriteOrientation,
-    toggleActiveSpriteType
+    toggleActiveSpriteType,
+    toggleActiveSpriteShiny
   } = controlsStore;
 
   const { currentView } = storeToRefs(controlsStore);
@@ -36,7 +37,6 @@ export default function useMainControls() {
         navigatePokemonList(command);
         break;
       case 'a':
-        // enter/go command
         setMainView('POKEMON');
         break;
       case 'b':
@@ -76,11 +76,9 @@ export default function useMainControls() {
         toggleActiveSpriteType();
         break;
       case 'a':
-        // enter/go command
-        // nothing right now
+        toggleActiveSpriteShiny();
         break;
       case 'b':
-        // back command
         setMainView('LIST');
         break;
       case '1':

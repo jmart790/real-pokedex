@@ -36,29 +36,36 @@ const {
   activePokemonName,
   activePokemonSprites,
   activePokemonType,
-  activePokemonHeight,
-  genNum,
+  activePokemonHeight
 } = storeToRefs(pokeStore);
 
 const { getActivePokemon } = pokeStore;
 
 const isImgLoading = ref(false);
 
+/**
+ * Returns the sprite image for the active Pokemon based on the active sprite setting.
+ * @return {string|null} - The URL of the sprite image, or null if the active Pokemon sprites are not available.
+ */
 const spriteImage = computed(() => {
   if (!activePokemonSprites.value) return null;
 
   const sprites = activePokemonSprites.value;
-  const { type, isFront } = activeSpriteSetting.value;
-  if (genNum.value > 5) {
-    // only artwork front for gen 6 and up
-    const isShiny = type.includes('Shiny');
-    const artworkType = isShiny ? 'artworkShiny' : 'artwork';
-    return sprites[artworkType].front;
-  }
-  const orientation = isFront ? 'front' : 'back';
-  const safeOrientation = type.includes('artwork') ? 'front' : orientation;
+  const { isAnimated, isShiny, isFront } = activeSpriteSetting.value;
 
-  return sprites[type][safeOrientation];
+  const type = isAnimated ? 'animated' : 'artwork';
+  const shiny = isShiny ? 'Shiny' : '';
+  const availableType = sprites[`${type}${shiny}`].front
+    ? `${type}${shiny}`
+    : `artwork${shiny}`;
+
+  const availableOrientation = isFront
+    ? 'front'
+    : sprites[availableType].back
+    ? 'back'
+    : 'front';
+
+  return sprites[availableType][availableOrientation];
 });
 
 const pokemonHeight = computed(() => {
@@ -69,7 +76,7 @@ const pokemonHeight = computed(() => {
 });
 
 function handleImgLoaded() {
-  setTimeout(() => (isImgLoading.value = false), 1000);
+  setTimeout(() => (isImgLoading.value = false), 500);
 }
 
 watchEffect(async () => {
@@ -92,7 +99,6 @@ watchEffect(async () => {
   &__pokemon {
     bottom: 10%;
     right: 10%;
-    // min-height: 20%;
     max-height: 65%;
     height: v-bind(pokemonHeight);
     width: auto;

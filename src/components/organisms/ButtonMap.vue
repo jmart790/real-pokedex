@@ -58,22 +58,22 @@ const buttons = computed(() => [
   {
     component: 'DpadButton',
     props: { variant: 'y' },
-    correspondingAction: currentView.value === 'POKEMON' ? 'change sprite' : 'N/A'
+    correspondingAction: currentView.value === 'POKEMON' ? 'toggle sprite' : 'N/A'
   },
   {
     component: 'DpadButton',
     props: { variant: 'x' },
-    correspondingAction: currentView.value === 'POKEMON' ? 'flip pokemon' : 'N/A'
+    correspondingAction: currentView.value === 'POKEMON' ? 'toggle orientation' : 'N/A'
   },
   {
     component: 'DpadButton',
     props: { variant: 'b' },
-    correspondingAction: currentView.value === 'POKEMON' ? 'N/A' : 'back to list'
+    correspondingAction: currentView.value === 'POKEMON' ? 'back to list' : 'N/A'
   },
   {
     component: 'DpadButton',
     props: { variant: 'a' },
-    correspondingAction: currentView.value === 'POKEMON' ? 'N/A' : 'select pokemon'
+    correspondingAction: currentView.value === 'POKEMON' ? 'toggle shiny' : 'select pokemon'
   },
   {
     component: 'BlueButton',

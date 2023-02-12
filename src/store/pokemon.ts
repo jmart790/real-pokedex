@@ -15,8 +15,15 @@ function transformSprites(sprites: IPokemonSpritesUpdated) {
   if (!sprites) return null;
   const { versions, other } = sprites;
   const gifs = versions['generation-v']['black-white'].animated;
-  const animated = { front: gifs?.front_default, back: gifs?.back_default };
-  const animatedShiny = { front: gifs?.front_shiny, back: gifs?.back_shiny };
+
+  const animated = {
+    front: gifs?.front_default,
+    back: gifs?.back_default
+  };
+  const animatedShiny = {
+    front: gifs?.front_shiny,
+    back: gifs?.back_shiny
+  };
   const artwork = {
     front: other['official-artwork']?.front_default,
     back: null
