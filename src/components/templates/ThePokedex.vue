@@ -5,15 +5,16 @@
         <Radar />
       </template>
       <Window class="pokedex__left-window">
-        <Toast v-if="isToastVisible" v-bind="toastProps.header[currentView]" />
-        <PokemonIntro v-if="currentView === 'INTRO'" />
+        <Toast v-if="isToastVisible" v-bind="toastProps.header[mainView]" />
+        <PokemonIntro v-if="mainView === 'INTRO'" />
+        <MainMenu v-else-if="true" />
         <template v-else>
-          <PokemonList v-show="currentView === 'LIST'" />
-          <PokemonWild v-show="currentView === 'POKEMON'" />
+          <PokemonList v-show="mainView === 'LIST'" />
+          <PokemonWild v-show="mainView === 'POKEMON'" />
         </template>
         <Toast
           v-if="isToastVisible"
-          v-bind="{ ...toastProps.footer[currentView] }"
+          v-bind="{ ...toastProps.footer[mainView] }"
         />
       </Window>
       <LeftControls />
@@ -21,7 +22,7 @@
     <PokedexRight>
       <Window variant="md" class="pokedex__right-window">
         <component
-          v-if="currentView !== 'INTRO'"
+          v-if="mainView !== 'INTRO'"
           :is="secondaryViewComponent"
           v-bind="secondaryViewProps"
         />
@@ -43,16 +44,16 @@ const pokeStore = usePokeStore();
 const controlsStore = useControlsStore();
 
 const { pokemonListLength, activePokemonName } = storeToRefs(pokeStore);
-const { currentView, secondaryView } = storeToRefs(controlsStore);
+const { mainView, secondaryView } = storeToRefs(controlsStore);
 const { setListLength, togglePower } = controlsStore;
 
 const isToastVisible = computed(() => {
   const allowedViews = ['LIST', 'POKEMON'];
-  return allowedViews.includes(currentView.value);
+  return allowedViews.includes(mainView.value);
 });
 
 const secondaryViewComponent = computed(() => {
-  if (currentView.value === 'LIST') return 'Region';
+  if (mainView.value === 'LIST') return 'Region';
   const secondaryOptions = {
     1: 'BaseDetails',
     2: 'BaseStats',
@@ -63,7 +64,7 @@ const secondaryViewComponent = computed(() => {
     7: 'PokemonMoves',
     8: 'SpriteCollection'
   };
-  if (currentView.value === 'POKEMON') {
+  if (mainView.value === 'POKEMON') {
     return secondaryOptions[secondaryView.value];
   }
   return null;

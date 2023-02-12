@@ -30,7 +30,7 @@ import { ref, computed } from 'vue';
 import { storeToRefs } from 'pinia';
 
 const controlsStore = useControlsStore();
-const { currentView } = storeToRefs(controlsStore);
+const { mainView } = storeToRefs(controlsStore);
 
 const isOpen = ref(false);
 
@@ -38,82 +38,82 @@ const buttons = computed(() => [
   {
     component: 'DpadButton',
     props: { variant: 'up' },
-    correspondingAction: currentView.value === 'POKEMON' ? 'next 2 pokemon' : 'move up'
+    correspondingAction: mainView.value === 'POKEMON' ? 'next 2 pokemon' : 'move up'
   },
   {
     component: 'DpadButton',
     props: { variant: 'down' },
-    correspondingAction: currentView.value === 'POKEMON' ? 'previous 2 pokemon' : 'move down'
+    correspondingAction: mainView.value === 'POKEMON' ? 'previous 2 pokemon' : 'move down'
   },
   {
     component: 'DpadButton',
     props: { variant: 'left' },
-    correspondingAction: currentView.value === 'POKEMON' ? 'previous pokemon' : 'move left'
+    correspondingAction: mainView.value === 'POKEMON' ? 'previous pokemon' : 'move left'
   },
   {
     component: 'DpadButton',
     props: { variant: 'right' },
-    correspondingAction: currentView.value === 'POKEMON' ? 'next pokemon' : 'move right'
+    correspondingAction: mainView.value === 'POKEMON' ? 'next pokemon' : 'move right'
   },
   {
     component: 'DpadButton',
     props: { variant: 'y' },
-    correspondingAction: currentView.value === 'POKEMON' ? 'toggle sprite' : 'N/A'
+    correspondingAction: mainView.value === 'POKEMON' ? 'toggle sprite' : 'N/A'
   },
   {
     component: 'DpadButton',
     props: { variant: 'x' },
-    correspondingAction: currentView.value === 'POKEMON' ? 'toggle orientation' : 'N/A'
+    correspondingAction: mainView.value === 'POKEMON' ? 'toggle orientation' : 'N/A'
   },
   {
     component: 'DpadButton',
     props: { variant: 'b' },
-    correspondingAction: currentView.value === 'POKEMON' ? 'back to list' : 'N/A'
+    correspondingAction: mainView.value === 'POKEMON' ? 'back to list' : 'N/A'
   },
   {
     component: 'DpadButton',
     props: { variant: 'a' },
-    correspondingAction: currentView.value === 'POKEMON' ? 'toggle shiny' : 'select pokemon'
+    correspondingAction: mainView.value === 'POKEMON' ? 'toggle shiny' : 'select pokemon'
   },
   {
     component: 'BlueButton',
     props: { copy: 1 },
-    correspondingAction: currentView.value === 'POKEMON' ? 'details' : 'generation 1'
+    correspondingAction: mainView.value === 'POKEMON' ? 'details' : 'generation 1'
   },
   {
     component: 'BlueButton',
     props: { copy: 2 },
-    correspondingAction: currentView.value === 'POKEMON' ? 'stats' : 'generation 2'
+    correspondingAction: mainView.value === 'POKEMON' ? 'stats' : 'generation 2'
   },
   {
     component: 'BlueButton',
     props: { copy: 3 },
-    correspondingAction: currentView.value === 'POKEMON' ? 'damage from' : 'generation 3'
+    correspondingAction: mainView.value === 'POKEMON' ? 'damage from' : 'generation 3'
   },
   {
     component: 'BlueButton',
     props: { copy: 4 },
-    correspondingAction: currentView.value === 'POKEMON' ? 'damage to' : 'generation 4'
+    correspondingAction: mainView.value === 'POKEMON' ? 'damage to' : 'generation 4'
   },
   {
     component: 'BlueButton',
     props: { copy: 5 },
-    correspondingAction: currentView.value === 'POKEMON' ? 'evolutions' : 'generation 5'
+    correspondingAction: mainView.value === 'POKEMON' ? 'evolutions' : 'generation 5'
   },
   {
     component: 'BlueButton',
     props: { copy: 6 },
-    correspondingAction: currentView.value === 'POKEMON' ? 'learned moves' : 'generation 6'
+    correspondingAction: mainView.value === 'POKEMON' ? 'learned moves' : 'generation 6'
   },
   {
     component: 'BlueButton',
     props: { copy: 7 },
-    correspondingAction: currentView.value === 'POKEMON' ? 'machine moves' : 'generation 7'
+    correspondingAction: mainView.value === 'POKEMON' ? 'machine moves' : 'generation 7'
   },
   {
     component: 'BlueButton',
     props: { copy: 8 },
-    correspondingAction: currentView.value === 'POKEMON' ? 'sprites' : 'generation 8'
+    correspondingAction: mainView.value === 'POKEMON' ? 'sprites' : 'generation 8'
   },
   {
     component: 'PowerButton',

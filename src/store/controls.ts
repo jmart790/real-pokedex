@@ -3,9 +3,9 @@ import { ref, computed } from 'vue';
 import type { TMainView, TSecondaryView } from '@/types/index';
 
 export const useControlsStore = defineStore('controls', () => {
-  const currentView = ref<TMainView>('OFF');
+  const mainView = ref<TMainView>('OFF');
   const secondaryView = ref<TSecondaryView>(1);
-  const isPokedexOn = computed(() => currentView.value !== 'OFF');
+  const isPokedexOn = computed(() => mainView.value !== 'OFF');
   const isActiveSpriteFront = ref(true);
   const isActiveSpriteAnimated = ref(true);
   const isActiveSpriteShiny = ref(false);
@@ -22,10 +22,10 @@ export const useControlsStore = defineStore('controls', () => {
   });
 
   function togglePower() {
-    if (currentView.value === 'OFF') {
-      currentView.value = 'INTRO';
-      setTimeout(() => (currentView.value = 'LIST'), 6000);
-    } else currentView.value = 'OFF';
+    if (mainView.value === 'OFF') {
+      mainView.value = 'INTRO';
+      setTimeout(() => (mainView.value = 'LIST'), 6000);
+    } else mainView.value = 'OFF';
   }
 
   function resetListPosition() {
@@ -65,7 +65,7 @@ export const useControlsStore = defineStore('controls', () => {
   }
 
   function setMainView(view: TMainView) {
-    currentView.value = view;
+    mainView.value = view;
   }
   function setSecondaryView(view: TSecondaryView) {
     secondaryView.value = view;
@@ -86,7 +86,7 @@ export const useControlsStore = defineStore('controls', () => {
     togglePower,
     isPokedexOn,
     resetListPosition,
-    currentView,
+    mainView,
     setListLength,
     setMainView,
     setSecondaryView,

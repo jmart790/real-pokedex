@@ -17,12 +17,12 @@ export default function useMainControls() {
     toggleActiveSpriteShiny
   } = controlsStore;
 
-  const { currentView } = storeToRefs(controlsStore);
+  const { mainView } = storeToRefs(controlsStore);
 
   function handleMainControl(command: string) {
-    if (currentView.value === 'OFF' && command === 'power') togglePower();
-    else if (currentView.value === 'LIST') listViewControls(command);
-    else if (currentView.value === 'POKEMON') pokemonViewControls(command);
+    if (mainView.value === 'OFF' && command === 'power') togglePower();
+    else if (mainView.value === 'LIST') listViewControls(command);
+    else if (mainView.value === 'POKEMON') pokemonViewControls(command);
   }
 
   function listViewControls(command) {

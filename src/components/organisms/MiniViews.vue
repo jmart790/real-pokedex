@@ -3,12 +3,12 @@
     <section class="mini-views__windows">
       <Window variant="sm">
         <p class="mini-views__copy">
-          {{ copy[currentView]?.left }}
+          {{ copy[mainView]?.left }}
         </p>
       </Window>
       <Window variant="sm">
         <p class="mini-views__copy">
-          {{ copy[currentView]?.right }}
+          {{ copy[mainView]?.right }}
         </p>
       </Window>
     </section>
@@ -25,7 +25,7 @@ const pokeStore = usePokeStore();
 const controlsStore = useControlsStore();
 
 const { genNum, activePokemon, pokemonListLength } = storeToRefs(pokeStore);
-const { currentView } = storeToRefs(controlsStore);
+const { mainView } = storeToRefs(controlsStore);
 
 function hectogramsToPounds(num: number) {
   const hectoToPound = 0.220462;
