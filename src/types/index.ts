@@ -1,6 +1,9 @@
-import type { IPokemon, IPokemonSprites } from 'pokeapi-typescript/dist/interfaces/Pokemon/Pokemon';
+import type {
+  IPokemon,
+  IPokemonSprites
+} from 'pokeapi-typescript/dist/interfaces/Pokemon/Pokemon';
 
-export type TMainView = 'OFF' | 'INTRO' | 'LIST' | 'POKEMON';
+export type TMainView = 'OFF' | 'INTRO' | 'MENU' | 'LIST' | 'POKEMON';
 
 export type TSecondaryView = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
@@ -61,4 +64,11 @@ export interface IPokemonTile {
   isActive: boolean;
   genNum: number;
   id: number;
+}
+
+export interface INavigateOptions {
+  position: number;
+  end: number;
+  num: number;
+  type: string;
 }

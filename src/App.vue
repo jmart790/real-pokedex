@@ -20,8 +20,8 @@
 
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref } from 'vue';
-import useMainControls from '@/composables/useMainControls';
-const { handleMainControl } = useMainControls();
+import useControls from '@/composables/useControls';
+const { handleMainControl } = useControls();
 // eslint-disable-next-line prettier/prettier
 const keysToListenTo = ['down', 'up', 'left', 'right', 'x', 'z', 'a', 's', '1', '2', '3', '4', '5', '6', '7', '8', 'p'];
 const keysToBtnMap = { a: 'y', s: 'x', z: 'b', x: 'a', p: 'power' };

@@ -14,8 +14,8 @@
 </template>
 
 <script setup lang="ts">
-import useMainControls from '@/composables/useMainControls';
-const { handleMainControl } = useMainControls();
+import useControls from '@/composables/useControls';
+const { handleMainControl } = useControls();
 
 function handleBtnClick(command: number) {
   handleMainControl(String(command));

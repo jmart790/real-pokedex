@@ -31,12 +31,12 @@
 
 <script setup lang="ts">
 import { useControlsStore } from '@/store/controls';
-import useMainControls from '@/composables/useMainControls';
+import useControls from '@/composables/useControls';
 import { storeToRefs } from 'pinia';
 
 const arrowBtns = ['up', 'down', 'left', 'right'];
 const abxyBtns = ['a', 'b', 'x', 'y'];
-const { handleMainControl } = useMainControls();
+const { handleMainControl } = useControls();
 const controlsStore = useControlsStore();
 const { isPokedexOn } = storeToRefs(controlsStore);
 </script>

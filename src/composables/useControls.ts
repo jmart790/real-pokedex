@@ -2,7 +2,7 @@ import { useControlsStore } from '@/store/controls';
 import { usePokeStore } from '@/store/pokemon';
 import { storeToRefs } from 'pinia';
 
-export default function useMainControls() {
+export default function useControls() {
   const pokeStore = usePokeStore();
   const controlsStore = useControlsStore();
 
@@ -14,18 +14,39 @@ export default function useMainControls() {
     setSecondaryView,
     toggleActiveSpriteOrientation,
     toggleActiveSpriteType,
-    toggleActiveSpriteShiny
+    toggleActiveSpriteShiny,
+    navigateMainMenu
   } = controlsStore;
 
   const { mainView } = storeToRefs(controlsStore);
 
   function handleMainControl(command: string) {
     if (mainView.value === 'OFF' && command === 'power') togglePower();
+    else if (mainView.value === 'MENU') MenuViewControls(command);
     else if (mainView.value === 'LIST') listViewControls(command);
     else if (mainView.value === 'POKEMON') pokemonViewControls(command);
   }
 
-  function listViewControls(command) {
+  function MenuViewControls(command: string) {
+    switch (command) {
+      case 'power':
+        togglePower();
+        break;
+      case 'up':
+      case 'down':
+      case 'left':
+      case 'right':
+        navigateMainMenu(command);
+        break;
+      case 'a':
+        // set menu view
+        break;
+      default:
+        break;
+    }
+  }
+
+  function listViewControls(command: string) {
     switch (command) {
       case 'power':
         togglePower();
@@ -58,7 +79,7 @@ export default function useMainControls() {
     }
   }
 
-  function pokemonViewControls(command) {
+  function pokemonViewControls(command: string) {
     switch (command) {
       case 'power':
         togglePower();
@@ -89,7 +110,7 @@ export default function useMainControls() {
       case '6':
       case '7':
       case '8':
-        setSecondaryView(command);
+        setSecondaryView(command as any);
         break;
       default:
         break;

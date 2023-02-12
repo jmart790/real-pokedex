@@ -1,6 +1,10 @@
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
-import type { TMainView, TSecondaryView } from '@/types/index';
+import type {
+  INavigateOptions,
+  TMainView,
+  TSecondaryView
+} from '@/types/index';
 
 export const useControlsStore = defineStore('controls', () => {
   const mainView = ref<TMainView>('OFF');
@@ -12,6 +16,7 @@ export const useControlsStore = defineStore('controls', () => {
   const listPosition = ref(0);
   const listLength = ref(0);
   const lastDirection = ref('');
+  const menuPosition = ref(0);
 
   const activeSpriteSetting = computed(() => {
     return {
@@ -24,7 +29,7 @@ export const useControlsStore = defineStore('controls', () => {
   function togglePower() {
     if (mainView.value === 'OFF') {
       mainView.value = 'INTRO';
-      setTimeout(() => (mainView.value = 'LIST'), 6000);
+      setTimeout(() => (mainView.value = 'MENU'), 6000);
     } else mainView.value = 'OFF';
   }
 
@@ -38,28 +43,51 @@ export const useControlsStore = defineStore('controls', () => {
 
   function navigatePokemonList(command: string) {
     lastDirection.value = command;
+    const position = listPosition.value;
+    const end = listLength.value - 1;
+    const options = { position, end, type: 'ADD', num: 1 };
     switch (command) {
       case 'up':
-        listPosition.value = getNextMove('SUB', 2);
+        listPosition.value = getNextMove({ ...options, type: 'SUB', num: 2 });
         break;
       case 'down':
-        listPosition.value = getNextMove('ADD', 2);
+        listPosition.value = getNextMove({ ...options, num: 2 });
         break;
       case 'left':
-        listPosition.value = getNextMove('SUB');
+        listPosition.value = getNextMove({ ...options, type: 'SUB' });
         break;
       case 'right':
-        listPosition.value = getNextMove('ADD');
+        listPosition.value = getNextMove({ ...options });
         break;
       default:
         break;
     }
   }
 
-  function getNextMove(type: 'ADD' | 'SUB', num = 1) {
-    const position = listPosition.value;
-    const end = listLength.value - 1;
+  function navigateMainMenu(command: string) {
+    const position = menuPosition.value;
+    const end = 3;
+    const options = { position, end, type: 'ADD', num: 1 };
+    switch (command) {
+      case 'up':
+        menuPosition.value = getNextMove({ ...options, type: 'SUB', num: 2 });
+        break;
+      case 'down':
+        menuPosition.value = getNextMove({ ...options, num: 2 });
+        break;
+      case 'left':
+        menuPosition.value = getNextMove({ ...options, type: 'SUB' });
+        break;
+      case 'right':
+        menuPosition.value = getNextMove({ ...options });
+        break;
+      default:
+        break;
+    }
+  }
 
+  function getNextMove(options: INavigateOptions) {
+    const { type, num, position, end } = options;
     if (type === 'SUB') return position >= num ? position - num : 0;
     else return position >= end - num ? end : position + num;
   }
@@ -95,6 +123,8 @@ export const useControlsStore = defineStore('controls', () => {
     toggleActiveSpriteOrientation,
     toggleActiveSpriteShiny,
     activeSpriteSetting,
-    lastDirection
+    lastDirection,
+    menuPosition,
+    navigateMainMenu
   };
 });
