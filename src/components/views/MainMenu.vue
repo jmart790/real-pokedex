@@ -32,6 +32,7 @@ const { menuPosition } = storeToRefs(controlsStore);
   @include cool-bg;
   padding: gap(9) gap(5);
   img {
+    height: 110px;
     width: 330px;
     display: block;
     margin-inline: auto;
@@ -43,7 +44,8 @@ const { menuPosition } = storeToRefs(controlsStore);
     gap: gap(4);
   }
   &__option {
-    padding: gap(2) gap(4);
+    padding: gap(3) gap(4);
+    font-size: rem(18);
     &--active {
       color: white;
     }
