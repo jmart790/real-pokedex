@@ -1,5 +1,6 @@
 import { useControlsStore } from '@/store/controls';
 import { usePokeStore } from '@/store/pokemon';
+import type { TMainView } from '@/types';
 import { storeToRefs } from 'pinia';
 
 export default function useControls() {
@@ -18,7 +19,7 @@ export default function useControls() {
     navigateMainMenu
   } = controlsStore;
 
-  const { mainView } = storeToRefs(controlsStore);
+  const { mainView, menuPosition } = storeToRefs(controlsStore);
 
   function handleMainControl(command: string) {
     if (mainView.value === 'OFF' && command === 'power') togglePower();
@@ -28,6 +29,9 @@ export default function useControls() {
   }
 
   function MenuViewControls(command: string) {
+    const menuOptions = ['LIST', 'GENERATIONS', 'ME', 'CREDITS'];
+    const newView = menuOptions[menuPosition.value] as TMainView;
+
     switch (command) {
       case 'power':
         togglePower();
@@ -39,7 +43,7 @@ export default function useControls() {
         navigateMainMenu(command);
         break;
       case 'a':
-        // set menu view
+        setMainView(newView);
         break;
       default:
         break;
@@ -61,8 +65,7 @@ export default function useControls() {
         setMainView('POKEMON');
         break;
       case 'b':
-        // back command
-        // eventually menu cmd
+        setMainView('MENU');
         break;
       case '1':
       case '2':
