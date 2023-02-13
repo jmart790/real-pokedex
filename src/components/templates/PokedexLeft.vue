@@ -1,7 +1,7 @@
 <template>
   <section class="pokedex-left">
     <div class="pokedex-left__top">
-      <slot name="radar" />
+      <Radar />
     </div>
     <div class="pokedex-left__top-small" />
 

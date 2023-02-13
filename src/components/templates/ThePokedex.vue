@@ -1,13 +1,10 @@
 <template>
   <main class="pokedex">
     <PokedexLeft>
-      <template #radar>
-        <Radar />
-      </template>
       <Window class="pokedex__left-window">
         <Toast v-if="isToastVisible" v-bind="toastProps.header[mainView]" />
         <PokemonIntro v-if="mainView === 'INTRO'" />
-        <MainMenu v-else-if="true" />
+        <MainMenu v-else-if="mainView === 'MENU'" />
         <template v-else>
           <PokemonList v-show="mainView === 'LIST'" />
           <PokemonWild v-show="mainView === 'POKEMON'" />
