@@ -2,7 +2,7 @@
   <section class="main-menu">
     <img 
       class="main-menu__logo"
-      src="@/assets/images/pokedex_logo.png"
+      src="../../assets/images/Pokedex_logo.png"
       alt="Pokedex logo"
     />
     <div class="main-menu__options">
