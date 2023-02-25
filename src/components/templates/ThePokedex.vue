@@ -36,10 +36,12 @@ import { usePokeStore } from '@/store/pokemon';
 import { useControlsStore } from '@/store/controls';
 import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
-import { useAnalytics } from '@/composables/useSegment';
+import useAnalytics from '@/composables/useSegment';
 
 const pokeStore = usePokeStore();
 const controlsStore = useControlsStore();
+const { trackNewUser } = useAnalytics();
+
 
 const { pokemonListLength, activePokemonName } = storeToRefs(pokeStore);
 const { mainView, secondaryView } = storeToRefs(controlsStore);
@@ -113,7 +115,9 @@ async function initPokedex() {
 
 onMounted(async () => {
   await initPokedex();
-  useAnalytics.track('testing pokedex');
+  console.log({ userAgent: window.navigator.userAgent });
+  // useAnalytics.track('testing pokedex');
+  trackNewUser(window);
 });
 </script>
 
