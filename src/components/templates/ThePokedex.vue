@@ -116,7 +116,6 @@ async function initPokedex() {
 onMounted(async () => {
   await initPokedex();
   console.log({ userAgent: window.navigator.userAgent });
-  // useAnalytics.track('testing pokedex');
   trackNewUser(window);
 });
 </script>

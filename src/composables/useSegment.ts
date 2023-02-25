@@ -5,7 +5,7 @@ const analytics = AnalyticsBrowser.load({
 });
 
 function deviceMatch(userAgent: string) {
-  const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+  const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|iOS/i;
   const tabletRegex = /Tablet|iPad/i;
   const laptopRegex = /Windows NT|Macintosh/;
   const isMobile = mobileRegex.test(userAgent);
@@ -36,7 +36,7 @@ export default function useAnalytics() {
   }
 
   function trackEvent(eventName, properties) {
-    analytics.track(eventName, properties)
+    analytics.track(eventName, properties);
   }
 
   function trackNewUser({ navigator, screen }: Window) {
