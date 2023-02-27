@@ -71,7 +71,6 @@ const spriteImage = computed(() => {
 const pokemonHeight = computed(() => {
   const baseHeight = 70;
   const ratio = 8;
-  console.log(activePokemonHeight.value + baseHeight);
   return `${activePokemonHeight.value * ratio + baseHeight}px`;
 });
 

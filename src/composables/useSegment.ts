@@ -40,10 +40,13 @@ export default function useAnalytics() {
   }
 
   function trackNewUser({ navigator, screen }: Window) {
+    // temp solution
+    const isProd = import.meta.env.PROD;
+    if (!isProd) return;
+
     const { deviceType, browserType } = getDeviceInfo(navigator.userAgent);
     const eventName = 'New User';
     const payload = {
-      is_prod: import.meta.env.PROD,
       device_type: deviceType,
       browser_type: browserType,
       screen_width: `${screen.width}px`,

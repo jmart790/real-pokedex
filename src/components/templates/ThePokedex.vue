@@ -107,7 +107,6 @@ const toastProps = computed(() => {
 });
 
 async function initPokedex() {
-  console.log('init pokedex');
   await pokeStore.getGeneration();
   setListLength(pokemonListLength.value || 1);
   togglePower();
@@ -115,7 +114,7 @@ async function initPokedex() {
 
 onMounted(async () => {
   await initPokedex();
-  console.log({ userAgent: window.navigator.userAgent });
+  // console.log({ userAgent: window.navigator.userAgent });
   trackNewUser(window);
 });
 </script>
