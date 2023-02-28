@@ -5,6 +5,7 @@
         <Toast v-if="isToastVisible" v-bind="toastProps.header[mainView]" />
         <PokemonIntro v-if="mainView === 'INTRO'" />
         <MainMenu v-else-if="mainView === 'MENU'" />
+        <PokemonGens v-else-if="mainView === 'GENERATIONS'" />
         <template v-else>
           <PokemonList v-show="mainView === 'LIST'" />
           <PokemonWild v-show="mainView === 'POKEMON'" />
@@ -48,7 +49,7 @@ const { mainView, secondaryView } = storeToRefs(controlsStore);
 const { setListLength, togglePower } = controlsStore;
 
 const isToastVisible = computed(() => {
-  const allowedViews = ['LIST', 'POKEMON'];
+  const allowedViews = ['LIST', 'POKEMON', 'GENERATIONS'];
   return allowedViews.includes(mainView.value);
 });
 
@@ -89,6 +90,10 @@ const toastProps = computed(() => {
       POKEMON: {
         isHeader: true,
         copy: activePokemonName.value
+      },
+      GENERATIONS: {
+        isHeader: true,
+        copy: 'Generations'
       }
     },
     footer: {
@@ -101,6 +106,11 @@ const toastProps = computed(() => {
         isHeader: false,
         copy: 'Back',
         btnCopy: 'B'
+      },
+      GENERATIONS: {
+        isHeader: false,
+        copy: `Select`,
+        btnCopy: 'A'
       }
     }
   };

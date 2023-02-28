@@ -43,9 +43,6 @@ const { genNum, region } = storeToRefs(pokeStore);
       left: 8px;
     }
   }
-  &--johto {
-    background-image: url('@/assets/images/johto_map.webp');
-  }
   &--kalos {
     background-image: url('@/assets/images/kalos_map.webp');
     h2 {

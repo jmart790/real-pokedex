@@ -29,7 +29,7 @@ export const useControlsStore = defineStore('controls', () => {
   function togglePower() {
     if (mainView.value === 'OFF') {
       mainView.value = 'INTRO';
-      setTimeout(() => (mainView.value = 'LIST'), 6000);
+      setTimeout(() => (mainView.value = 'MENU'), 6000);
     } else mainView.value = 'OFF';
   }
 

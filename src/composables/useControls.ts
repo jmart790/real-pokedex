@@ -65,7 +65,7 @@ export default function useControls() {
         setMainView('POKEMON');
         break;
       case 'b':
-        // setMainView('MENU');
+        setMainView('MENU');
         break;
       case '1':
       case '2':
