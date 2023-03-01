@@ -7,7 +7,7 @@
       >
         <div
           class="gens__option"
-          :class="{ 'gens__option--active': menuPosition === option.id }"
+          :class="{ 'gens__option--active': true }"
         >
           <p class="gens__gen-num">{{ option.id }}</p>
           <p class="gens__region">{{ option.region }}</p>
@@ -52,16 +52,16 @@ const menuOptions = [
     region: 'Kanto',
     sprites: [
       {
-        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-iii/firered-leafgreen/25.png',
-        alt: 'pikachu'
+        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png',
+        alt: 'Bulbasaur'
       },
       {
-        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-iii/firered-leafgreen/216.png',
-        alt: 'Teddiursa'
+        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png',
+        alt: 'Charmander'
       },
       {
-        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/813.png',
-        alt: 'Piplup'
+        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png',
+        alt: 'Squirtle'
       }
     ]
   },
@@ -70,16 +70,16 @@ const menuOptions = [
     region: 'Johto',
     sprites: [
       {
-        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-iii/firered-leafgreen/1.png',
-        alt: 'Bulbasaur'
+        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/152.png',
+        alt: 'Chikorita'
       },
       {
-        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-iii/firered-leafgreen/4.png',
-        alt: 'Charmander'
+        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/155.png',
+        alt: 'Cyndaquil'
       },
       {
-        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-iii/firered-leafgreen/7.png',
-        alt: 'Squirtle'
+        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/158.png',
+        alt: 'Totodile'
       }
     ]
   },
@@ -88,8 +88,16 @@ const menuOptions = [
     region: 'Hoenn',
     sprites: [
       {
-        src: meUrl,
-        alt: 'Bonzai Yosh'
+        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/252.png',
+        alt: 'Treeko'
+      },
+      {
+        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/255.png',
+        alt: 'Torchic'
+      },
+      {
+        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/258.png',
+        alt: 'Mudkip'
       }
     ]
   },
@@ -98,16 +106,16 @@ const menuOptions = [
     region: 'Sinnoh',
     sprites: [
       {
-        src: ashUrl,
-        alt: 'Ask Ketchum'
+        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/387.png',
+        alt: 'Turtwig'
       },
       {
-        src: mistyUrl,
-        alt: 'Misty'
+        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/390.png',
+        alt: 'Chimchar'
       },
       {
-        src: brockUrl,
-        alt: 'Brock'
+        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/393.png',
+        alt: 'Piplup'
       }
     ]
   },
@@ -116,16 +124,16 @@ const menuOptions = [
     region: 'Unova',
     sprites: [
       {
-        src: ashUrl,
-        alt: 'Ask Ketchum'
+        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/495.png',
+        alt: 'Snivy'
       },
       {
-        src: mistyUrl,
-        alt: 'Misty'
+        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/498.png',
+        alt: 'Tepig'
       },
       {
-        src: brockUrl,
-        alt: 'Brock'
+        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/501.png',
+        alt: 'Oshawott'
       }
     ]
   },
@@ -134,16 +142,16 @@ const menuOptions = [
     region: 'Kalos',
     sprites: [
       {
-        src: ashUrl,
-        alt: 'Ask Ketchum'
+        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/650.png',
+        alt: 'Chespin'
       },
       {
-        src: mistyUrl,
-        alt: 'Misty'
+        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/653.png',
+        alt: 'Fennekin'
       },
       {
-        src: brockUrl,
-        alt: 'Brock'
+        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/656.png',
+        alt: 'Froakie'
       }
     ]
   },
@@ -152,16 +160,16 @@ const menuOptions = [
     region: 'Alola',
     sprites: [
       {
-        src: ashUrl,
-        alt: 'Ask Ketchum'
+        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/722.png',
+        alt: 'Rowlet'
       },
       {
-        src: mistyUrl,
-        alt: 'Misty'
+        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/725.png',
+        alt: 'Litten'
       },
       {
-        src: brockUrl,
-        alt: 'Brock'
+        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/728.png',
+        alt: 'Popplio'
       }
     ]
   },
@@ -170,16 +178,16 @@ const menuOptions = [
     region: 'Galar',
     sprites: [
       {
-        src: ashUrl,
-        alt: 'Ask Ketchum'
+        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/810.png',
+        alt: 'Grookey'
       },
       {
-        src: mistyUrl,
-        alt: 'Misty'
+        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/813.png',
+        alt: 'Scorbunny'
       },
       {
-        src: brockUrl,
-        alt: 'Brock'
+        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/816.png',
+        alt: 'Sobble'
       }
     ]
   },
@@ -188,16 +196,16 @@ const menuOptions = [
     region: 'Paldea',
     sprites: [
       {
-        src: ashUrl,
-        alt: 'Ask Ketchum'
+        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/906.png',
+        alt: 'Sprigatito'
       },
       {
-        src: mistyUrl,
-        alt: 'Misty'
+        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/909.png',
+        alt: 'Fuecoco'
       },
       {
-        src: brockUrl,
-        alt: 'Brock'
+        src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/912.png',
+        alt: 'Quaxly'
       }
     ]
   }
@@ -220,7 +228,7 @@ const menuOptions = [
   &__option {
     position: relative;
     height: 100%;
-    padding: 0 gap(1);
+    padding: gap(3) gap(4);
     display: flex;
     align-items: center;
     gap: gap(3);
@@ -241,24 +249,23 @@ const menuOptions = [
       #{$self}__sprites {
         transform: translateX(-70px);
       }
-
-      #{$self}__sprites--3 {
-        transform: translateX(-95px);
+      #{$self}__gen-num {
+        transform: translateY(-25px);
       }
     }
   }
   &__gen-num {
-    flex-shrink: 0;
-    margin-left: 2px;
-    margin-top: 2px;
-    height: 90%;
+    position: absolute;
+    top: 1px;
+    right: 2px;
+    height: 50%;
     aspect-ratio: 1/1;
     display: flex;
     @include flex-center;
     border-radius: 50%;
     background-color: rgba(white, 0.4);
     font-weight: 700;
-    font-size: rem(20);
+    font-size: rem(10);
     font-family: $secondary-font;
   }
 
@@ -270,85 +277,150 @@ const menuOptions = [
     position: absolute;
     right: -70px;
     top: 0px;
-    width: 70px;
+    width: 52%;
     height: 100%;
     transition: transform 300ms ease-in-out;
+    // filter: grayscale(1);
 
     img {
       position: absolute;
+      top: 0;
       height: 50px;
       width: 50px;
     }
-
-    &--0 {
-      img {
-        top: 0px;
-        left: -10px;
-      }
-
-      img:nth-of-type(2) {
-        left: 10px;
-      }
-
-      img:last-of-type {
-        top: -2px;
-        left: 30px;
-        transform: scale(-1.1, 1.1);
-      }
-    }
-
     &--1 {
       img:first-of-type {
-        top: 10px;
-        left: 19px;
-        z-index: 1;
-        transform: scale(1.1);
+        left: 0;
       }
-
       img:nth-of-type(2) {
-        top: -5px;
-        left: 38px;
-        transform: scale(1.1);
+        left: 32px;
       }
-
       img:last-of-type {
-        top: -8px;
-        left: 6px;
-        transform: scale(1.1);
+        left: 55px;
       }
     }
-
     &--2 {
       img {
-        top: 0px;
-        left: 20px;
-        height: unset;
-        transform: scale(0.9);
+        transform: scale(1.2);
+      }
+      img:first-of-type {
+        left: -5px;
+        top: -5px;
+      }
+      img:nth-of-type(2) {
+        left: 22px;
+        transform: scale(-1.2, 1.2);
+      }
+      img:last-of-type {
+        left: 51px;
+        top: 5px;
       }
     }
-
     &--3 {
-      right: -95px;
-
       img {
-        height: unset;
+        transform: scale(1.1);
       }
-
       img:first-of-type {
-        top: 0px;
-        left: -30px;
-        z-index: 1;
-      }
-
-      img:nth-of-type(2) {
-        top: 0px;
         left: -2px;
       }
-
-      img:nth-of-type(3) {
-        top: 18px;
-        left: 30px;
-        transform: scale(2);
+      img:nth-of-type(2) {
+        left: 22px;
+      }
+      img:last-of-type {
+        left: 52px;
+        top: -5px;
+      }
+    }
+    &--4 {
+      img:first-of-type {
+        left: -5px;
+        top: -2px;
+        transform: scale(1.1);
+      }
+      img:nth-of-type(2) {
+        left: 21px;
+        transform: scale(1.1);
+      }
+      img:last-of-type {
+        left: 50px;
+        transform: scaleX(-1);
+      }
+    }
+    &--5 {
+      img:first-of-type {
+        left: -5px;
+      }
+      img:nth-of-type(2) {
+        left: 23px;
+        top: -5px;
+        transform: scaleX(-1);
+      }
+      img:last-of-type {
+        left: 50px;
+      }
+    }
+    &--6 {
+      img:first-of-type {
+        left: -9px;
+        transform: scale(1.2);
+      }
+      img:nth-of-type(2) {
+        left: 21px;
+        top: -5px;
+        transform: scale(-1.2, 1.2);
+      }
+      img:last-of-type {
+        left: 48px;
+        transform: scale(-0.9, 0.9);
+      }
+    }
+    &--7 {
+      img:first-of-type {
+        left: -9px;
+      }
+      img:nth-of-type(2) {
+        left: 22px;
+        top: -5px;
+        transform: scale(1.4);
+      }
+      img:last-of-type {
+        left: 53px;
+        top: -2px;
+        transform: scale(-1.2, 1.2);
+      }
+    }
+    &--8 {
+      img:first-of-type {
+        left: -9px;
+        top: -3px;
+        transform: scale(-1.1, 1.1);
+      }
+      img:nth-of-type(2) {
+        left: 18px;
+        top: -5px;
+        transform: scale(1.7);
+      }
+      img:last-of-type {
+        left: 51px;
+        top: -12px;
+        transform: scale(1.4);
+      }
+    }
+    &--9 {
+      img:first-of-type {
+        left: -9px;
+        top: -3px;
+        transform: scale(1.1);
+      }
+      img:nth-of-type(2) {
+        left: 25px;
+        top: -2px;
+        transform: scale(1);
+      }
+      img:last-of-type {
+        left: 51px;
+        top: -4px;
+        transform: scale(-1.1, 1.1);
       }
     }
   }

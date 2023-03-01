@@ -26,6 +26,7 @@ export default function useControls() {
     else if (mainView.value === 'MENU') MenuViewControls(command);
     else if (mainView.value === 'LIST') listViewControls(command);
     else if (mainView.value === 'POKEMON') pokemonViewControls(command);
+    else if (mainView.value === 'GENERATIONS') gensViewControls(command);
   }
 
   function MenuViewControls(command: string) {
@@ -44,6 +45,38 @@ export default function useControls() {
         break;
       case 'a':
         setMainView(newView);
+        break;
+      default:
+        break;
+    }
+  }
+
+  function gensViewControls(command: string) {
+    switch (command) {
+      case 'power':
+        togglePower();
+        break;
+      case 'up':
+      case 'down':
+      case 'left':
+      case 'right':
+        // navigateGenerationsList(command);
+        break;
+      case 'a':
+        // setGen
+        break;
+      case 'b':
+        setMainView('MENU');
+        break;
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+      case '6':
+      case '7':
+      case '8':
+        getGeneration(Number(command));
         break;
       default:
         break;
