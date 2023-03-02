@@ -2,7 +2,7 @@
   <section class="right-controls">
     <div class="blue-btns">
       <BlueButton
-        v-for="i in 8"
+        v-for="i in 10"
         :key="`blue-btn-${i}`"
         @click="handleBtnClick(i)"
         :copy="i"
@@ -28,7 +28,7 @@ function handleBtnClick(command: number) {
     width: 90%;
     margin-inline: auto;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     grid-template-rows: 50px 50px;
     gap: gap(4);
   }
