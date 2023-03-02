@@ -10,7 +10,7 @@
           'evo-chain__pokemons--multiple-rows': totalEvolutions > 4
         }"
       >
-        <PokemonCard
+        <EvolutionCard
           v-for="pokemon in evoChain"
           :key="pokemon.name"
           v-bind="{ ...pokemon, totalEvolutions }"
@@ -116,7 +116,6 @@ watchEffect(async () => {
     position: relative;
     z-index: 5;
     height: inherit;
-    // @include frost-bg;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
     align-content: center;
@@ -132,6 +131,7 @@ watchEffect(async () => {
   }
   &__pokemon {
     width: 100%;
+    height: 100%;
   }
 }
 </style>

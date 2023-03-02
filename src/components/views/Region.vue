@@ -74,6 +74,13 @@ const { genNum, region } = storeToRefs(pokeStore);
   &--galar {
     background-image: url('@/assets/images/galar_map.webp');
   }
+  &--paldea {
+    background-image: url('@/assets/images/paldea_map.webp');
+    h2 {
+      top: 8px;
+      right: 8px;
+    }
+  }
   h2 {
     position: absolute;
     width: fit-content;

@@ -7,7 +7,7 @@
     ]"
   >
     <div class="pokemon-card__img-wrapper">
-      <img :src="sprite.url" alt="pokemon sprite" :class="`${sprite.type}`" />
+      <img :src="sprite" alt="pokemon sprite" />
     </div>
     <FrostCard>
       <h4>{{ name }}</h4>
@@ -35,11 +35,8 @@ interface IProps {
 const props = defineProps<IProps>();
 
 const sprite = computed(() => {
-  const { other, front_default } = props.pokemon
-    .sprites as IPokemonSpritesUpdated;
-  return other.home.front_default
-    ? { type: 'home', url: other.home.front_default }
-    : { type: 'default', url: front_default };
+  const { other } = props.pokemon.sprites as IPokemonSpritesUpdated;
+  return other['official-artwork'].front_default;
 });
 
 const isArrowVis = computed(() => {
@@ -53,8 +50,17 @@ const isArrowVis = computed(() => {
 function getTrigger(details) {
   const { trigger, min_happiness, min_level, item, known_move } = details;
   const wordNumToNum = { one: 1, two: 2, three: 3, four: 4, five: 5 };
+  const genNineSteps = ['pawmot', 'brambleghast', 'rabsca'];
   if (min_level) {
     return `level ${min_level}`;
+  } else if (genNineSteps.includes(props.name)) {
+    return '1000 steps';
+  } else if (props.name === 'annihilape') {
+    return '20 rage fists';
+  } else if (props.name === 'kingambit') {
+    return "Leader's Crest + defeat 3 Bisharp";
+  } else if (props.name === 'gholdengo') {
+    return '999 Gimmighoul Coins';
   } else if (min_happiness) {
     return `happiness ${min_happiness}`;
   } else if (item?.name) {
@@ -86,6 +92,7 @@ const trigger = computed(() => {
   position: relative;
   height: fit-content;
   display: grid;
+  grid-template-rows: 1fr auto;
   justify-content: center;
   align-items: center;
   color: $off-white;
@@ -100,7 +107,7 @@ const trigger = computed(() => {
 
   h4 {
     width: 100%;
-    padding-inline: gap(1);
+    padding-inline: gap(2);
     line-height: 1.5;
     text-transform: capitalize;
     text-align: center;

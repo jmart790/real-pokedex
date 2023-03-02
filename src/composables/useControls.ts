@@ -111,6 +111,7 @@ export default function useControls() {
       case '6':
       case '7':
       case '8':
+      case '9':
         getGeneration(Number(command));
         break;
       default:
