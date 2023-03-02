@@ -10,7 +10,7 @@
           'evo-chain__pokemons--multiple-rows': totalEvolutions > 4
         }"
       >
-        <PokemonCard
+        <EvolutionCard
           v-for="pokemon in evoChain"
           :key="pokemon.name"
           v-bind="{ ...pokemon, totalEvolutions }"
