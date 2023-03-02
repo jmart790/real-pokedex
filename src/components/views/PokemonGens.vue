@@ -7,7 +7,7 @@
       >
         <div
           class="gens__option"
-          :class="{ 'gens__option--active': true }"
+          :class="{ 'gens__option--active': option.id === gensPosition + 1 }"
         >
           <p class="gens__gen-num">{{ option.id }}</p>
           <p class="gens__region">{{ option.region }}</p>
@@ -36,15 +36,7 @@ import { useControlsStore } from '@/store/controls';
 import { storeToRefs } from 'pinia';
 
 const controlsStore = useControlsStore();
-const { menuPosition } = storeToRefs(controlsStore);
-
-const meUrl = new URL(
-  '/src/assets/images/bonzaiyoshanime.png',
-  import.meta.url
-);
-const ashUrl = new URL('/src/assets/images/ashketchum.png', import.meta.url);
-const brockUrl = new URL('/src/assets/images/brock.png', import.meta.url);
-const mistyUrl = new URL('/src/assets/images/misty.png', import.meta.url);
+const { gensPosition } = storeToRefs(controlsStore);
 
 const menuOptions = [
   {
@@ -233,6 +225,7 @@ const menuOptions = [
     align-items: center;
     gap: gap(3);
     border-radius: inherit;
+    color: rgba($off-black, 0.7);
     background-color: rgba($secondary, 0);
     transition: color 300ms ease-in-out, background-color 300ms ease-in-out;
     overflow: hidden;
@@ -247,26 +240,26 @@ const menuOptions = [
       }
 
       #{$self}__sprites {
-        transform: translateX(-70px);
+        transform: translateX(-100px);
       }
       #{$self}__gen-num {
-        transform: translateY(-25px);
+        transform: translateY(-100%);
       }
     }
   }
   &__gen-num {
     position: absolute;
-    top: 1px;
-    right: 2px;
-    height: 50%;
+    top: 0px;
+    right: 5px;
+    height: 100%;
     aspect-ratio: 1/1;
     display: flex;
     @include flex-center;
-    border-radius: 50%;
-    background-color: rgba(white, 0.4);
     font-weight: 700;
-    font-size: rem(10);
+    font-size: rem(40);
     font-family: $secondary-font;
+    color: rgba(white, 0.4);
+    transition: transform 300ms ease-in-out;
   }
 
   &__region {
@@ -275,7 +268,7 @@ const menuOptions = [
 
   &__sprites {
     position: absolute;
-    right: -70px;
+    right: -100px;
     top: 0px;
     width: 52%;
     height: 100%;

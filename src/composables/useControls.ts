@@ -16,10 +16,11 @@ export default function useControls() {
     toggleActiveSpriteOrientation,
     toggleActiveSpriteType,
     toggleActiveSpriteShiny,
-    navigateMainMenu
+    navigateMainMenu,
+    navigateGensMenu
   } = controlsStore;
 
-  const { mainView, menuPosition } = storeToRefs(controlsStore);
+  const { mainView, menuPosition, gensPosition } = storeToRefs(controlsStore);
 
   function handleMainControl(command: string) {
     if (mainView.value === 'OFF' && command === 'power') togglePower();
@@ -52,6 +53,7 @@ export default function useControls() {
   }
 
   function gensViewControls(command: string) {
+    const gen = gensPosition.value + 1;
     switch (command) {
       case 'power':
         togglePower();
@@ -60,10 +62,11 @@ export default function useControls() {
       case 'down':
       case 'left':
       case 'right':
-        // navigateGenerationsList(command);
+        navigateGensMenu(command);
         break;
       case 'a':
-        // setGen
+        getGeneration(gen);
+        setMainView('LIST');
         break;
       case 'b':
         setMainView('MENU');

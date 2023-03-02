@@ -141,6 +141,7 @@ const menuOptions = [
     overflow: hidden;
     border-radius: inherit;
     background-color: rgba($secondary, 0);
+    color: rgba($off-black, 0.8);
     transition: color 300ms ease-in-out, background-color 300ms ease-in-out;
     p {
       transition: letter-spacing 300ms ease-in-out, 

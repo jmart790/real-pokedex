@@ -17,6 +17,7 @@ export const useControlsStore = defineStore('controls', () => {
   const listLength = ref(0);
   const lastDirection = ref('');
   const menuPosition = ref(0);
+  const gensPosition = ref(0);
 
   const activeSpriteSetting = computed(() => {
     return {
@@ -86,6 +87,28 @@ export const useControlsStore = defineStore('controls', () => {
     }
   }
 
+  function navigateGensMenu(command: string) {
+    const position = gensPosition.value;
+    const end = 8;
+    const options = { position, end, type: 'ADD', num: 1 };
+    switch (command) {
+      case 'up':
+        gensPosition.value = getNextMove({ ...options, type: 'SUB', num: 2 });
+        break;
+      case 'down':
+        gensPosition.value = getNextMove({ ...options, num: 2 });
+        break;
+      case 'left':
+        gensPosition.value = getNextMove({ ...options, type: 'SUB' });
+        break;
+      case 'right':
+        gensPosition.value = getNextMove({ ...options });
+        break;
+      default:
+        break;
+    }
+  }
+
   function getNextMove(options: INavigateOptions) {
     const { type, num, position, end } = options;
     if (type === 'SUB') return position >= num ? position - num : 0;
@@ -125,6 +148,8 @@ export const useControlsStore = defineStore('controls', () => {
     activeSpriteSetting,
     lastDirection,
     menuPosition,
-    navigateMainMenu
+    navigateMainMenu,
+    gensPosition,
+    navigateGensMenu
   };
 });
