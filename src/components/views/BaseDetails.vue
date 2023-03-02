@@ -1,7 +1,6 @@
 <template>
   <section class="base-details" :class="`base-details--${pokemonTypes[0]}`">
     <PikachuLoader v-if="isLoading" />
-
     <div v-else class="base-details__card">
       <section class="base-details__species-num">
         <p>{{ genus }}</p>
@@ -16,6 +15,11 @@
         <span class="base-details__copy-name">
           {{ activePokemon?.name }}
         </span>
+        <span v-if="!hasData">
+          <br>
+          <br>
+          We apologize, as some of the generation 9 pokémon details are missing 😞
+        </span>
         <template v-if="description">
           {{ description.toLowerCase() }}.
         </template>
@@ -28,7 +32,11 @@
       </p>
 
       <div class="base-details__types">
-        <TypePill v-for="type in pokemonTypes" :key="type" :type="type" />
+        <TypePill
+          v-for="pokemonType in pokemonTypes"
+          :key="pokemonType"
+          :type="pokemonType"
+        />
       </div>
     </div>
   </section>
@@ -42,7 +50,7 @@ import { storeToRefs } from 'pinia';
 import { useLoading } from '@/composables/useLoading';
 
 const pokeStore = usePokeStore();
-const { activePokemon } = storeToRefs(pokeStore);
+const { activePokemon, genNum } = storeToRefs(pokeStore);
 
 const description = ref<string>('');
 const flavorText = ref<string>('');
@@ -51,6 +59,16 @@ const location = ref<string>('');
 const encounter = ref<string>('');
 
 const { isLoading, executeFn } = useLoading(getData);
+
+const hasData = computed(() => {
+  return (
+    description.value ||
+    flavorText.value ||
+    genus.value ||
+    location.value ||
+    encounter.value
+  );
+});
 
 const entryNumber = computed(() => {
   let num = String(activePokemon.value?.id || 0);
