@@ -9,6 +9,7 @@ export type TMainView =
   | 'MENU'
   | 'LIST'
   | 'POKEMON'
+  | 'YOSH'
   | 'GENERATIONS';
 
 export type TSecondaryView = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;

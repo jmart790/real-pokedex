@@ -123,6 +123,7 @@ watchEffect(async () => {
     content: '';
     background-position: right bottom;
     background-size: cover;
+    background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1064387454741790781/BonzaiYosh_in-game_forest_background_landscape_in_the_style_of__12a91c82-c63a-4349-8a95-827ddf720f5e.png');
     opacity: 0.85;
 
     &--fire {

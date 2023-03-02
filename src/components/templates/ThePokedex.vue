@@ -6,6 +6,7 @@
         <PokemonIntro v-if="mainView === 'INTRO'" />
         <MainMenu v-else-if="mainView === 'MENU'" />
         <PokemonGens v-else-if="mainView === 'GENERATIONS'" />
+        <ProfYosh v-else-if="mainView === 'YOSH'"></ProfYosh>
         <template v-else>
           <PokemonList v-show="mainView === 'LIST'" />
           <PokemonWild v-show="mainView === 'POKEMON'" />

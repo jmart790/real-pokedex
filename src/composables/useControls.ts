@@ -31,7 +31,7 @@ export default function useControls() {
   }
 
   function MenuViewControls(command: string) {
-    const menuOptions = ['LIST', 'GENERATIONS', 'ME', 'CREDITS'];
+    const menuOptions = ['LIST', 'GENERATIONS', 'YOSH', 'CREDITS'];
     const newView = menuOptions[menuPosition.value] as TMainView;
 
     switch (command) {
