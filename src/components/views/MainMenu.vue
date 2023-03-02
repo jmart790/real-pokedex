@@ -144,15 +144,14 @@ const menuOptions = [
     color: rgba($off-black, 0.8);
     transition: color 300ms ease-in-out, background-color 300ms ease-in-out;
     p {
-      transition: letter-spacing 300ms ease-in-out, 
-        font-weight 300ms ease-in-out;
+      font-weight: 600;
+      transition: letter-spacing 300ms ease-in-out;
     }
     &--active {
       color: $primary;
       background-color: rgba($secondary, 0.5);
       p {
         letter-spacing: 2px;
-        font-weight: 600;
       }
       #{$self}__sprites {
         transform: translateX(-70px);

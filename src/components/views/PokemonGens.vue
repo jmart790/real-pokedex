@@ -236,7 +236,6 @@ const menuOptions = [
 
       #{$self}__region {
         letter-spacing: 2px;
-        font-weight: 600;
       }
 
       #{$self}__sprites {
@@ -263,7 +262,8 @@ const menuOptions = [
   }
 
   &__region {
-    transition: letter-spacing 300ms ease-in-out, font-weight 300ms ease-in-out;
+    font-weight: 600;
+    transition: letter-spacing 300ms ease-in-out;
   }
 
   &__sprites {
