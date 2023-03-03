@@ -75,7 +75,7 @@ const hasData = computed(() => {
 });
 
 const name = computed(() => {
-  return isYoshView.value ? 'Professor Yosh' : activePokemon.value;
+  return isYoshView.value ? 'Professor Yosh' : activePokemon.value?.name;
 });
 
 const entryNumber = computed(() => {
