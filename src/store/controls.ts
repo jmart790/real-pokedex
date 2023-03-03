@@ -27,6 +27,8 @@ export const useControlsStore = defineStore('controls', () => {
     };
   });
 
+  const isYoshView = computed(() => mainView.value === 'YOSH');
+
   function togglePower() {
     if (mainView.value === 'OFF') {
       mainView.value = 'INTRO';
@@ -150,6 +152,7 @@ export const useControlsStore = defineStore('controls', () => {
     menuPosition,
     navigateMainMenu,
     gensPosition,
-    navigateGensMenu
+    navigateGensMenu,
+    isYoshView
   };
 });

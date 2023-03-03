@@ -13,12 +13,12 @@
 
       <section class="base-details__copy">
         <span class="base-details__copy-name">
-          {{ activePokemon?.name }}
+          {{ name }}
         </span>
         <span v-if="!hasData">
           <br>
           <br>
-          We apologize, as some of the generation 9 pokémon details are missing 😞
+          We apologize, as some of {{ name }} details are missing 😞
         </span>
         <template v-if="description">
           {{ description.toLowerCase() }}.
@@ -43,14 +43,18 @@
 </template>
 
 <script setup lang="ts">
-import PokeAPI from 'pokeapi-typescript';
+import PokeAPI, { type IPokemonSpecies } from 'pokeapi-typescript';
 import { computed, ref, watchEffect } from 'vue';
 import { usePokeStore } from '@/store/pokemon';
+import { useControlsStore } from '@/store/controls';
 import { storeToRefs } from 'pinia';
 import { useLoading } from '@/composables/useLoading';
 
 const pokeStore = usePokeStore();
-const { activePokemon, genNum } = storeToRefs(pokeStore);
+const controlsStore = useControlsStore();
+
+const { activePokemon } = storeToRefs(pokeStore);
+const { isYoshView } = storeToRefs(controlsStore);
 
 const description = ref<string>('');
 const flavorText = ref<string>('');
@@ -70,24 +74,37 @@ const hasData = computed(() => {
   );
 });
 
+const name = computed(() => {
+  return isYoshView.value ? 'Professor Yosh' : activePokemon.value;
+});
+
 const entryNumber = computed(() => {
+  if (isYoshView.value) return '305';
   let num = String(activePokemon.value?.id || 0);
   while (num.length < 3) num = '0' + num;
   return num;
 });
 
 const pokemonTypes = computed(() => {
+  if (isYoshView.value) return ['grass', 'dragon'];
   return activePokemon.value?.types.map(({ type }) => type.name) || ['normal'];
 });
+
+function getFlavortText(species: IPokemonSpecies) {
+  const textEntries = species?.flavor_text_entries;
+  const textEntry =  textEntries?.find(({ language }) => language.name == 'en');
+  return textEntry?.flavor_text || '';
+}
+
+function getGenus({ genera }: IPokemonSpecies) {
+  return genera?.find(({ language }) => language.name == 'en')?.genus || '';
+}
 
 async function getSpecies(payload: number) {
   await PokeAPI.PokemonSpecies.resolve(payload)
     .then((res) => {
-      flavorText.value =
-        res?.flavor_text_entries?.find(({ language }) => language.name == 'en')
-          ?.flavor_text || '';
-      genus.value =
-        res?.genera?.find(({ language }) => language.name == 'en')?.genus || '';
+      flavorText.value = getFlavortText(res);
+      genus.value = getGenus(res);
     })
     .catch((e) => console.log({ e }));
 }
@@ -119,19 +136,30 @@ async function getEncounter(payload: number) {
     .catch((e) => console.log({ e }));
 }
 
-async function getData(payload: number) {
-  if (!payload) return;
-  await Promise.all([
-    getDescription(payload),
-    getSpecies(payload),
-    getLocation(payload),
-    getEncounter(payload)
-  ]);
+function getYoshData() {
+  flavorText.value = "If he's not spending time his wife & daughter then you can find him either gardening or building cool new Vue apps";
+  genus.value = 'Cool Nerd Professor';
+  description.value = 'Loves tacos and pineapple pizza';
+  encounter.value = 'sitting at his Autonomous desk or plants';
+  location.value = 'sunny south Florida';
+}
+
+async function getData(payload: number, isYosh: boolean) {
+  console.log({ isYosh });
+  if (isYosh) getYoshData();
+  else if (!payload) return;
+  else
+    await Promise.all([
+      getDescription(payload),
+      getSpecies(payload),
+      getLocation(payload),
+      getEncounter(payload)
+    ]);
 }
 
 watchEffect(() => {
   const payload = activePokemon.value?.id || 0;
-  executeFn(payload);
+  executeFn(payload, isYoshView.value);
 });
 </script>
 

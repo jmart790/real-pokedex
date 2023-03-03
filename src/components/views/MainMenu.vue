@@ -43,7 +43,7 @@ const controlsStore = useControlsStore();
 const { menuPosition } = storeToRefs(controlsStore);
 
 const meUrl = new URL(
-  '/src/assets/images/bonzaiyoshanime.png',
+  '/src/assets/images/BonzaiYoshProfessor.png',
   import.meta.url
 );
 const ashUrl = new URL('/src/assets/images/ashketchum.png', import.meta.url);
@@ -210,10 +210,10 @@ const menuOptions = [
 
     &--2 {
       img {
-        top: 0px;
-        left: 20px;
+        top: 30px;
+        left: 10px;
         height: unset;
-        transform: scale(0.9);
+        transform: scale(1.7);
       }
     }
 

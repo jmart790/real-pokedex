@@ -103,6 +103,7 @@ const trigger = computed(() => {
   }
   img {
     width: 100%;
+    filter: drop-shadow(4px 4px 8px rgba(black, 0.7));
   }
 
   h4 {

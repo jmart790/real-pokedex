@@ -2,6 +2,20 @@
   <article class="evo-chain">
     <div class="evo-chain__card">
       <PikachuLoader v-if="isLoading" />
+      <div v-else-if="isYoshView" class="evo-chain__pokemons">
+        <div
+          v-for="(yosh, index) in yoshs"
+          :key="`yosh-evo--${index}`"
+          class="evo-chain__yosh"
+        >
+          <p>{{ yosh.level }}</p>
+          <img :src="(yosh.img as unknown as string)" :alt="yosh.name" />
+          <FrostCard>
+            <label>{{ yosh.name }}</label>
+          </FrostCard>
+          <span v-if="index < 2" class="evo-chain__arrow">→</span>
+        </div>
+      </div>
       <div
         v-else-if="evoChain"
         class="evo-chain__pokemons"
@@ -31,8 +45,22 @@ import PokeAPI, {
   type IPokemon
 } from 'pokeapi-typescript';
 import { useLoading } from '@/composables/useLoading';
+import { useControlsStore } from '@/store/controls';
+
+const controlsStore = useControlsStore();
+const { isYoshView } = storeToRefs(controlsStore);
 
 const { isLoading, executeFn } = useLoading(getEvoChain);
+
+const childYoshUrl = new URL('/src/assets/images/BonzaiYoshChild.png', import.meta.url);
+const youngYoshUrl = new URL('/src/assets/images/BonzaiYoshYoung.png', import.meta.url);
+const professorYoshUrl = new URL('/src/assets/images/BonzaiYoshProfessor.png', import.meta.url);
+
+const yoshs = [
+  { name: 'Child Yosh', img: childYoshUrl, level: '9 years' },
+  { name: 'Young Yosh', img: youngYoshUrl, level: '22 years' },
+  { name: 'Prof. Yosh', img: professorYoshUrl, level: '35 years' }
+];
 
 interface IPokeEvolution {
   name: string;
@@ -132,6 +160,34 @@ watchEffect(async () => {
   &__pokemon {
     width: 100%;
     height: 100%;
+  }
+  &__yosh {
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    justify-items: center;
+    color: $off-white;
+    img {
+      width: 115px;
+      filter: drop-shadow(4px 4px 8px rgba(black, 0.7));
+    }
+    p {
+      font-size: rem(12);
+    }
+    label {
+      padding-inline: gap(3);
+    }
+    &:first-of-type {
+      img {
+        margin-top: auto;
+        height: 180px;
+      }
+    }
+  }
+  &__arrow {
+    position: absolute;
+    top: -2px;
+    left: 120px;
   }
 }
 </style>

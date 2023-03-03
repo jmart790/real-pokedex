@@ -28,6 +28,7 @@ export default function useControls() {
     else if (mainView.value === 'LIST') listViewControls(command);
     else if (mainView.value === 'POKEMON') pokemonViewControls(command);
     else if (mainView.value === 'GENERATIONS') gensViewControls(command);
+    else if (mainView.value === 'YOSH') profYoshControls(command);
   }
 
   function MenuViewControls(command: string) {
@@ -80,6 +81,29 @@ export default function useControls() {
       case '7':
       case '8':
         getGeneration(Number(command));
+        break;
+      default:
+        break;
+    }
+  }
+
+  function profYoshControls(command: string) {
+    switch (command) {
+      case 'power':
+        togglePower();
+        break;
+      case 'b':
+        setMainView('MENU');
+        break;
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+      case '6':
+      case '7':
+      case '8':
+        setSecondaryView(command as any);
         break;
       default:
         break;

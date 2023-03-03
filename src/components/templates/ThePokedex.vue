@@ -66,7 +66,7 @@ const secondaryViewComponent = computed(() => {
     7: 'PokemonMoves',
     8: 'SpriteCollection'
   };
-  if (mainView.value === 'POKEMON') {
+  if (['POKEMON', 'YOSH'].includes(mainView.value)) {
     return secondaryOptions[secondaryView.value];
   }
   return null;

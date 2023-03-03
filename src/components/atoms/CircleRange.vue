@@ -16,12 +16,12 @@
           a 15.9155 15.9155 0 0 1 0 -31.831"
       />
       <linearGradient
-        v-for="type in statTypes"
-        :key="`linear-gradient--${type}`"
-        :id="`gradient-${type}`"
+        v-for="theType in statTypes"
+        :key="`linear-gradient--${theType}`"
+        :id="`gradient-${theType}`"
       >
-        <stop :class="`stop1-${type}`" offset="0%" />
-        <stop :class="`stop2-${type}`" offset="100%" />
+        <stop :class="`stop1-${theType}`" offset="0%" />
+        <stop :class="`stop2-${theType}`" offset="100%" />
       </linearGradient>
     </svg>
     <div class="circle-range__values">
@@ -111,22 +111,28 @@ const gradientId = computed(() => `#gradient-${props.label}`);
     stroke-width: 4;
     stroke-linecap: round;
     animation: progress 1s ease-out forwards;
-    &--hp {
+    &--hp,
+    &--js {
       stroke: url(#gradient-hp);
     }
-    &--attack {
+    &--attack,
+    &--html {
       stroke: url(#gradient-attack);
     }
-    &--defense {
+    &--defense,
+    &--css {
       stroke: url(#gradient-defense);
     }
-    &--special-attack {
+    &--special-attack,
+    &--creative {
       stroke: url(#gradient-special-attack);
     }
-    &--special-defense {
+    &--special-defense,
+    &--funny {
       stroke: url(#gradient-special-defense);
     }
-    &--speed {
+    &--speed,
+    &--cool {
       stroke: url(#gradient-speed);
     }
   }

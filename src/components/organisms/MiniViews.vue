@@ -50,6 +50,10 @@ const copy = computed(() => {
     POKEMON: {
       left: `Height: ${height} ft`,
       right: `Weight: ${weight} lbs`
+    },
+    YOSH: {
+      left: "Height: 6'1 ft",
+      right: 'Weight: Nunya'
     }
   };
 });
