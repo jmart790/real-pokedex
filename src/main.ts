@@ -1,14 +1,12 @@
-import { createApp } from 'vue'
+import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import GlobalComponents from './globals.js';
-import axios from './plugins/axios';
-import App from './App.vue'
-import './assets/base.css'
+import App from './App.vue';
+import './assets/base.css';
 
-const pinia = createPinia()
-const app = createApp(App)
+const pinia = createPinia();
+const app = createApp(App);
 
 app.use(GlobalComponents);
 app.use(pinia);
-app.use(axios);
 app.mount('#app');
