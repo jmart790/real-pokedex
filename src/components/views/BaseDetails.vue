@@ -128,7 +128,6 @@ function getYoshData() {
 }
 
 async function getData(payload: number, isYosh: boolean) {
-  console.log({ isYosh });
   if (isYosh) getYoshData();
   else if (!payload) return;
   else await Promise.all([getDescription(payload), getSpecies(payload), getLocation(payload), getEncounter(payload)]);
