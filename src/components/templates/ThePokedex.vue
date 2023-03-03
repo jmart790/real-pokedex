@@ -6,25 +6,19 @@
         <PokemonIntro v-if="mainView === 'INTRO'" />
         <MainMenu v-else-if="mainView === 'MENU'" />
         <PokemonGens v-else-if="mainView === 'GENERATIONS'" />
-        <ProfYosh v-else-if="mainView === 'YOSH'"></ProfYosh>
+        <ProfYosh v-else-if="mainView === 'YOSH'" />
+        <CreditThanks v-else-if="mainView === 'CREDITS'" />
         <template v-else>
           <PokemonList v-show="mainView === 'LIST'" />
           <PokemonWild v-show="mainView === 'POKEMON'" />
         </template>
-        <Toast
-          v-if="isToastVisible"
-          v-bind="{ ...toastProps.footer[mainView] }"
-        />
+        <Toast v-if="isToastVisible" v-bind="{ ...toastProps.footer[mainView] }" />
       </Window>
       <LeftControls />
     </PokedexLeft>
     <PokedexRight>
       <Window variant="md" class="pokedex__right-window">
-        <component
-          v-if="mainView !== 'INTRO'"
-          :is="secondaryViewComponent"
-          v-bind="secondaryViewProps"
-        />
+        <component v-if="mainView !== 'INTRO'" :is="secondaryViewComponent" v-bind="secondaryViewProps" />
       </Window>
       <RightControls />
       <MiniViews />
@@ -43,7 +37,6 @@ import useAnalytics from '@/composables/useSegment';
 const pokeStore = usePokeStore();
 const controlsStore = useControlsStore();
 const { trackNewUser } = useAnalytics();
-
 
 const { pokemonListLength, activePokemonName } = storeToRefs(pokeStore);
 const { mainView, secondaryView } = storeToRefs(controlsStore);

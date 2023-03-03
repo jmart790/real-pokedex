@@ -1,24 +1,10 @@
-import type {
-  IPokemon,
-  IPokemonSprites
-} from 'pokeapi-typescript/dist/interfaces/Pokemon/Pokemon';
+import type { IPokemon, IPokemonSprites } from 'pokeapi-typescript/dist/interfaces/Pokemon/Pokemon';
 
-export type TMainView =
-  | 'OFF'
-  | 'INTRO'
-  | 'MENU'
-  | 'LIST'
-  | 'POKEMON'
-  | 'YOSH'
-  | 'GENERATIONS';
+export type TMainView = 'OFF' | 'INTRO' | 'MENU' | 'LIST' | 'POKEMON' | 'YOSH' | 'CREDITS' | 'GENERATIONS';
 
 export type TSecondaryView = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
-export type TActiveSpriteType =
-  | 'animated'
-  | 'animatedShiny'
-  | 'artwork'
-  | 'artworkShiny';
+export type TActiveSpriteType = 'animated' | 'animatedShiny' | 'artwork' | 'artworkShiny';
 
 export interface IActiveSpriteSetting {
   type: TActiveSpriteType;

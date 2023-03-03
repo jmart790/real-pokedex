@@ -29,6 +29,7 @@ export default function useControls() {
     else if (mainView.value === 'POKEMON') pokemonViewControls(command);
     else if (mainView.value === 'GENERATIONS') gensViewControls(command);
     else if (mainView.value === 'YOSH') profYoshControls(command);
+    else if (mainView.value === 'CREDITS') creditsControls(command);
   }
 
   function MenuViewControls(command: string) {
@@ -104,6 +105,19 @@ export default function useControls() {
       case '7':
       case '8':
         setSecondaryView(command as any);
+        break;
+      default:
+        break;
+    }
+  }
+
+  function creditsControls(command: string) {
+    switch (command) {
+      case 'power':
+        togglePower();
+        break;
+      case 'b':
+        setMainView('MENU');
         break;
       default:
         break;

@@ -1,25 +1,11 @@
 <template>
   <section class="main-menu">
-    <img 
-      class="main-menu__logo"
-      src="../../assets/images/Pokedex_logo.png"
-      alt="Pokedex logo"
-    />
+    <img class="main-menu__logo" src="../../assets/images/Pokedex_logo.png" alt="Pokedex logo" />
     <div class="main-menu__options">
-      <FrostCard
-        v-for="option in menuOptions"
-        :key="`menu-option__${option.label}`"
-      >
-        <div
-          class="main-menu__option"
-          :class="{ 'main-menu__option--active': menuPosition === option.id }"
-        >
+      <FrostCard v-for="option in menuOptions" :key="`menu-option__${option.label}`">
+        <div class="main-menu__option" :class="{ 'main-menu__option--active': menuPosition === option.id }">
           <p>{{ option.label }}</p>
-          <div
-            v-if="option.sprites.length"
-            class="main-menu__sprites"
-            :class="`main-menu__sprites--${option.id}`"
-          >
+          <div v-if="option.sprites.length" class="main-menu__sprites" :class="`main-menu__sprites--${option.id}`">
             <img
               v-for="{ src, alt } in option.sprites"
               :key="`menu-sprite__${alt}`"
@@ -42,10 +28,7 @@ import { storeToRefs } from 'pinia';
 const controlsStore = useControlsStore();
 const { menuPosition } = storeToRefs(controlsStore);
 
-const meUrl = new URL(
-  '/src/assets/images/BonzaiYoshProfessor.png',
-  import.meta.url
-);
+const meUrl = new URL('/src/assets/images/BonzaiYoshProfessor.png', import.meta.url);
 const ashUrl = new URL('/src/assets/images/ashketchum.png', import.meta.url);
 const brockUrl = new URL('/src/assets/images/brock.png', import.meta.url);
 const mistyUrl = new URL('/src/assets/images/misty.png', import.meta.url);

@@ -1,10 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
-import type {
-  INavigateOptions,
-  TMainView,
-  TSecondaryView
-} from '@/types/index';
+import type { INavigateOptions, TMainView, TSecondaryView } from '@/types/index';
 
 export const useControlsStore = defineStore('controls', () => {
   const mainView = ref<TMainView>('OFF');
