@@ -5,9 +5,7 @@
       <section class="base-details__species-num">
         <p>{{ genus }}</p>
         <FrostCard>
-          <p class="base-details__national-num">
-            <span>#</span>{{ entryNumber }}
-          </p>
+          <p class="base-details__national-num"><span>#</span>{{ entryNumber }}</p>
         </FrostCard>
       </section>
 
@@ -16,27 +14,19 @@
           {{ name }}
         </span>
         <span v-if="!hasData">
-          <br>
-          <br>
+          <br />
+          <br />
           We apologize, as some of {{ name }} details are missing 😞
         </span>
-        <template v-if="description">
-          {{ description.toLowerCase() }}.
-        </template>
+        <template v-if="description"> {{ description.toLowerCase() }}. </template>
         {{ flavorText }}
       </section>
       <p class="base-details__location">
-        <span v-if="encounter && location">
-          Located {{ encounter?.toLowerCase() }} near {{ location }}.
-        </span>
+        <span v-if="encounter && location"> Located {{ encounter?.toLowerCase() }} near {{ location }}. </span>
       </p>
 
       <div class="base-details__types">
-        <TypePill
-          v-for="pokemonType in pokemonTypes"
-          :key="pokemonType"
-          :type="pokemonType"
-        />
+        <TypePill v-for="pokemonType in pokemonTypes" :key="pokemonType" :type="pokemonType" />
       </div>
     </div>
   </section>
@@ -65,13 +55,7 @@ const encounter = ref<string>('');
 const { isLoading, executeFn } = useLoading(getData);
 
 const hasData = computed(() => {
-  return (
-    description.value ||
-    flavorText.value ||
-    genus.value ||
-    location.value ||
-    encounter.value
-  );
+  return description.value || flavorText.value || genus.value || location.value || encounter.value;
 });
 
 const name = computed(() => {
@@ -92,7 +76,7 @@ const pokemonTypes = computed(() => {
 
 function getFlavortText(species: IPokemonSpecies) {
   const textEntries = species?.flavor_text_entries;
-  const textEntry =  textEntries?.find(({ language }) => language.name == 'en');
+  const textEntry = textEntries?.find(({ language }) => language.name == 'en');
   return textEntry?.flavor_text || '';
 }
 
@@ -112,9 +96,7 @@ async function getSpecies(payload: number) {
 async function getDescription(payload: number) {
   await PokeAPI.Characteristic.resolve(payload)
     .then((res: any) => {
-      description.value = res?.descriptions.find(
-        ({ language }) => language.name === 'en'
-      )?.description;
+      description.value = res?.descriptions.find(({ language }) => language.name === 'en')?.description;
     })
     .catch(async (e) => console.log({ e }));
 }
@@ -137,7 +119,8 @@ async function getEncounter(payload: number) {
 }
 
 function getYoshData() {
-  flavorText.value = "If he's not spending time his wife & daughter then you can find him either gardening or building cool new Vue apps";
+  flavorText.value =
+    "If he's not spending time his wife & daughter then you can find him either gardening or building cool new Vue apps";
   genus.value = 'Cool Nerd Professor';
   description.value = 'Loves tacos and pineapple pizza';
   encounter.value = 'sitting at his Autonomous desk or plants';
@@ -148,13 +131,7 @@ async function getData(payload: number, isYosh: boolean) {
   console.log({ isYosh });
   if (isYosh) getYoshData();
   else if (!payload) return;
-  else
-    await Promise.all([
-      getDescription(payload),
-      getSpecies(payload),
-      getLocation(payload),
-      getEncounter(payload)
-    ]);
+  else await Promise.all([getDescription(payload), getSpecies(payload), getLocation(payload), getEncounter(payload)]);
 }
 
 watchEffect(() => {

@@ -3,20 +3,12 @@
     <PikachuLoader v-if="isLoading" />
     <div v-else class="sprite-collection__container">
       <div class="sprite-collection__sprites">
-        <div
-          class="sprite-collection__sprite"
-          v-for="sprite in spritesSplit.firstHalf"
-          :key="sprite"
-        >
+        <div class="sprite-collection__sprite" v-for="sprite in spritesSplit.firstHalf" :key="sprite">
           <img :src="sprite" />
         </div>
       </div>
       <div class="sprite-collection__sprites">
-        <div
-          class="sprite-collection__sprite"
-          v-for="sprite in spritesSplit.secondHalf"
-          :key="sprite"
-        >
+        <div class="sprite-collection__sprite" v-for="sprite in spritesSplit.secondHalf" :key="sprite">
           <img :src="sprite" />
         </div>
       </div>
@@ -57,10 +49,7 @@ function shuffleSprites(array) {
   return array;
 }
 
-function extractSprites(
-  sprites: IPokemonSpritesUpdated,
-  spritesArray: string[]
-) {
+function extractSprites(sprites: IPokemonSpritesUpdated, spritesArray: string[]) {
   for (const key in sprites) {
     if (key in sprites) {
       const value = sprites[key];
