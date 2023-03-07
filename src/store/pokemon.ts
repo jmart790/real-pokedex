@@ -40,9 +40,7 @@ export const usePokeStore = defineStore('pokemon', () => {
   const genNum = computed(() => generation.value?.id || 1);
   const region = computed(() => generation.value?.main_region.name);
   const pokemonList = ref<IPokemonListItem[]>();
-  const pokemonListLength = computed(
-    () => generation.value?.pokemon_species.length
-  );
+  const pokemonListLength = computed(() => generation.value?.pokemon_species.length);
   const hasError = ref(false);
   const isGenLoading = ref(false);
 
@@ -86,13 +84,9 @@ export const usePokeStore = defineStore('pokemon', () => {
   const activePokemonId = computed(() => activePokemon.value?.id);
   const activePokemonName = computed(() => activePokemon.value?.name);
   const activePokemonPayload = ref<string>('');
-  const activePokemonType = computed(
-    () => activePokemon.value?.types[0]?.type?.name || ''
-  );
+  const activePokemonType = computed(() => activePokemon.value?.types[0]?.type?.name || '');
   const activePokemonMoves = computed(() => activePokemon.value?.moves || []);
-  const activePokemonSprites = computed(() =>
-    transformSprites(activePokemon.value?.sprites as IPokemonSpritesUpdated)
-  );
+  const activePokemonSprites = computed(() => transformSprites(activePokemon.value?.sprites as IPokemonSpritesUpdated));
   const activePokemonHeight = computed(() => activePokemon.value?.height || 0);
 
   function setActivePokemon(pokemon: IPokemon) {
@@ -104,8 +98,7 @@ export const usePokeStore = defineStore('pokemon', () => {
   }
 
   function setPokemonLoaded(index: number) {
-    if (!pokemonList.value?.length || index >= pokemonList.value?.length)
-      return;
+    if (!pokemonList.value?.length || index >= pokemonList.value?.length) return;
     pokemonList.value[index].isLoaded = true;
   }
 

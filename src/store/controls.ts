@@ -1,8 +1,11 @@
-import { defineStore } from 'pinia';
+import { defineStore, storeToRefs } from 'pinia';
 import { ref, computed } from 'vue';
+import { usePokeStore } from '@/store/pokemon';
 import type { INavigateOptions, TMainView, TSecondaryView } from '@/types/index';
 
 export const useControlsStore = defineStore('controls', () => {
+  const pokeStore = usePokeStore();
+  const { pokemonListLength } = storeToRefs(pokeStore);
   const mainView = ref<TMainView>('OFF');
   const secondaryView = ref<TSecondaryView>(1);
   const isPokedexOn = computed(() => mainView.value !== 'OFF');
@@ -10,7 +13,6 @@ export const useControlsStore = defineStore('controls', () => {
   const isActiveSpriteAnimated = ref(true);
   const isActiveSpriteShiny = ref(false);
   const listPosition = ref(0);
-  const listLength = ref(0);
   const lastDirection = ref('');
   const menuPosition = ref(0);
   const gensPosition = ref(0);
@@ -36,14 +38,10 @@ export const useControlsStore = defineStore('controls', () => {
     listPosition.value = 0;
   }
 
-  function setListLength(length: number) {
-    listLength.value = length;
-  }
-
   function navigatePokemonList(command: string) {
     lastDirection.value = command;
     const position = listPosition.value;
-    const end = listLength.value - 1;
+    const end = Number(pokemonListLength.value) - 1;
     const options = { position, end, type: 'ADD', num: 1 };
     switch (command) {
       case 'up':
@@ -136,7 +134,6 @@ export const useControlsStore = defineStore('controls', () => {
     isPokedexOn,
     resetListPosition,
     mainView,
-    setListLength,
     setMainView,
     setSecondaryView,
     secondaryView,

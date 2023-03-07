@@ -34,7 +34,7 @@ const { trackNewUser } = useAnalytics();
 
 const { pokemonListLength, activePokemonName } = storeToRefs(pokeStore);
 const { mainView, secondaryView } = storeToRefs(controlsStore);
-const { setListLength, togglePower } = controlsStore;
+const { togglePower } = controlsStore;
 
 const isToastVisible = computed(() => {
   const viewsWithToast = ['LIST', 'POKEMON', 'GENERATIONS'];
@@ -72,12 +72,13 @@ const secondaryViewComponent = computed(() => {
 });
 
 const secondaryViewProps = computed(() => {
-  const { value } = secondaryView;
-  if (value == 3) return { relation: 'from' };
-  else if (value == 4) return { relation: 'to' };
-  else if (value == 6) return { filterBy: 'level-up' };
-  else if (value == 7) return { filterBy: 'machine' };
-  else return null;
+  const options = {
+    3: { relation: 'from' },
+    4: { relation: 'to' },
+    6: { filterBy: 'level-up' },
+    7: { filterBy: 'machine' }
+  };
+  return options[secondaryView.value] || null;
 });
 
 const toastProps = computed(() => {
@@ -121,8 +122,6 @@ const toastProps = computed(() => {
 
 async function initPokedex() {
   await pokeStore.getGeneration();
-  // should read from poke store
-  setListLength(pokemonListLength.value || 1);
   togglePower();
 }
 

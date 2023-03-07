@@ -32,7 +32,7 @@ const pokeStore = usePokeStore();
 const controlsStore = useControlsStore();
 const { pokemonList, isGenLoading, genNum } = storeToRefs(pokeStore);
 const { listPosition, lastDirection } = storeToRefs(controlsStore);
-const { resetListPosition, setListLength } = controlsStore;
+const { resetListPosition } = controlsStore;
 const listElement = ref<HTMLUListElement | null>(null);
 
 function handleScrollInto(
@@ -90,7 +90,6 @@ function handlePokemonHighlighted(pos = 0) {
 function resetList() {
   resetListPosition();
   handleScrollInto(listElement.value, lastDirection.value);
-  setListLength(pokemonList.value?.length || 0);
 }
 
 watch(genNum, (newVal, oldVal) => {
