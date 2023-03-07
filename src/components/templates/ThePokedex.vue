@@ -4,7 +4,8 @@
       <Window class="pokedex__left-window">
         <Toast v-if="isToastVisible" v-bind="toastProps.header" />
         <component :is="mainViewComponent" />
-        <!-- pokemon list needs to remain alive for now -->
+        <!-- pokemon list/wild needs to remain alive for now -->
+        <PokemonWild v-show="mainView === 'POKEMON'" />
         <PokemonList v-show="mainView === 'LIST'" />
         <Toast v-if="isToastVisible" v-bind="{ ...toastProps.footer }" />
       </Window>
@@ -45,7 +46,6 @@ const mainViewComponent = computed(() => {
   const options = {
     INTRO: 'PokemonIntro',
     MENU: 'MainMenu',
-    POKEMON: 'PokemonWild',
     GENERATIONS: 'PokemonGens',
     YOSH: 'ProfYosh',
     CREDITS: 'CreditThanks'
