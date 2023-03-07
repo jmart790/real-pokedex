@@ -2,17 +2,11 @@
   <main class="pokedex">
     <PokedexLeft>
       <Window class="pokedex__left-window">
-        <Toast v-if="isToastVisible" v-bind="toastProps.header[mainView]" />
-        <PokemonIntro v-if="mainView === 'INTRO'" />
-        <MainMenu v-else-if="mainView === 'MENU'" />
-        <PokemonGens v-else-if="mainView === 'GENERATIONS'" />
-        <ProfYosh v-else-if="mainView === 'YOSH'" />
-        <CreditThanks v-else-if="mainView === 'CREDITS'" />
-        <template v-else>
-          <PokemonList v-show="mainView === 'LIST'" />
-          <PokemonWild v-show="mainView === 'POKEMON'" />
-        </template>
-        <Toast v-if="isToastVisible" v-bind="{ ...toastProps.footer[mainView] }" />
+        <Toast v-if="isToastVisible" v-bind="toastProps.header" />
+        <component :is="mainViewComponent" />
+        <!-- pokemon list needs to remain alive for now -->
+        <PokemonList v-show="mainView === 'LIST'" />
+        <Toast v-if="isToastVisible" v-bind="{ ...toastProps.footer }" />
       </Window>
       <LeftControls />
     </PokedexLeft>
@@ -43,8 +37,20 @@ const { mainView, secondaryView } = storeToRefs(controlsStore);
 const { setListLength, togglePower } = controlsStore;
 
 const isToastVisible = computed(() => {
-  const allowedViews = ['LIST', 'POKEMON', 'GENERATIONS'];
-  return allowedViews.includes(mainView.value);
+  const viewsWithToast = ['LIST', 'POKEMON', 'GENERATIONS'];
+  return viewsWithToast.includes(mainView.value);
+});
+
+const mainViewComponent = computed(() => {
+  const options = {
+    INTRO: 'PokemonIntro',
+    MENU: 'MainMenu',
+    POKEMON: 'PokemonWild',
+    GENERATIONS: 'PokemonGens',
+    YOSH: 'ProfYosh',
+    CREDITS: 'CreditThanks'
+  };
+  return options[mainView.value] || null;
 });
 
 const secondaryViewComponent = computed(() => {
@@ -75,50 +81,53 @@ const secondaryViewProps = computed(() => {
 });
 
 const toastProps = computed(() => {
-  return {
-    header: {
-      LIST: {
+  const options = {
+    LIST: {
+      header: {
         isHeader: true,
         copy: `Pokemon`
       },
-      POKEMON: {
-        isHeader: true,
-        copy: activePokemonName.value
-      },
-      GENERATIONS: {
-        isHeader: true,
-        copy: 'Generations'
-      }
-    },
-    footer: {
-      LIST: {
+      footer: {
         isHeader: false,
         copy: `Select`,
         btnCopy: 'A'
+      }
+    },
+    POKEMON: {
+      header: {
+        isHeader: true,
+        copy: activePokemonName.value
       },
-      POKEMON: {
+      footer: {
         isHeader: false,
         copy: 'Back',
         btnCopy: 'B'
+      }
+    },
+    GENERATIONS: {
+      header: {
+        isHeader: true,
+        copy: 'Generations'
       },
-      GENERATIONS: {
+      footer: {
         isHeader: false,
         copy: `Select`,
         btnCopy: 'A'
       }
     }
   };
+  return options[mainView.value] || null;
 });
 
 async function initPokedex() {
   await pokeStore.getGeneration();
+  // should read from poke store
   setListLength(pokemonListLength.value || 1);
   togglePower();
 }
 
 onMounted(async () => {
   await initPokedex();
-  // console.log({ userAgent: window.navigator.userAgent });
   trackNewUser(window);
 });
 </script>
