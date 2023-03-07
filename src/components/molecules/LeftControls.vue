@@ -12,10 +12,7 @@
     <div class="middle-controls">
       <VolumeButton @click="handleMainControl('volume-down')" />
       <VolumeButton is-plus @click="handleMainControl('volume-up')" />
-      <PowerButton
-        @click="handleMainControl('power')"
-        :is-pokedex-on="isPokedexOn"
-      />
+      <PowerButton @click="handleMainControl('power')" :is-pokedex-on="isPokedexOn" />
     </div>
     <div class="d-pad">
       <DpadButton

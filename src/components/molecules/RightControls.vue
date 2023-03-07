@@ -1,12 +1,7 @@
 <template>
   <section class="right-controls">
     <div class="blue-btns">
-      <BlueButton
-        v-for="i in 10"
-        :key="`blue-btn-${i}`"
-        @click="handleBtnClick(i)"
-        :copy="i"
-      >
+      <BlueButton v-for="i in 10" :key="`blue-btn-${i}`" @click="handleBtnClick(i)" :copy="i">
         {{ i }}
       </BlueButton>
     </div>

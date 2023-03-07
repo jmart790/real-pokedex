@@ -2,15 +2,13 @@
   <article class="damage-group">
     <h4>{{ groupLabel }} {{ relation }}</h4>
     <div class="damage-group__groups">
-      <TransitionGroup name="special">
-        <TypePill
-          class="damage-group__item"
-          v-for="item in types"
-          :key="`damage-group--${item}`"
-          mode="default"
-          :type="item"
-        />
-      </TransitionGroup>
+      <TypePill
+        class="damage-group__item"
+        v-for="item in types"
+        :key="`damage-group--${item}`"
+        mode="default"
+        :type="item"
+      />
     </div>
   </article>
 </template>
@@ -24,9 +22,7 @@ const props = defineProps<{
   relation: string;
 }>();
 
-const groupLabel = computed(() =>
-  props.group === 'double' ? '2x DMG' : '1/2 DMG'
-);
+const groupLabel = computed(() => (props.group === 'double' ? '2x DMG' : '1/2 DMG'));
 </script>
 
 <style scoped lang="scss">
@@ -52,15 +48,4 @@ const groupLabel = computed(() =>
     gap: gap(2);
   }
 }
-// .special-enter-from {
-//   // opacity: 0;
-//   transform: scale(0.6);
-// }
-// .special-enter-to {
-//   // opacity: 1;
-//   transform: scale(1);
-// }
-// .special-enter-active {
-//   transition: transform 1s ease;
-// }
 </style>

@@ -1,9 +1,6 @@
 <template>
   <section class="pokemon-wild">
-    <div
-      class="pokemon-wild__bg"
-      :class="`pokemon-wild__bg--${activePokemonType}`"
-    />
+    <div class="pokemon-wild__bg" :class="`pokemon-wild__bg--${activePokemonType}`" />
     <img
       v-show="isImgLoading"
       class="pokemon-wild__pokeball"
@@ -31,13 +28,8 @@ const pokeStore = usePokeStore();
 const controlStore = useControlsStore();
 
 const { activeSpriteSetting } = storeToRefs(controlStore);
-const {
-  activePokemonPayload,
-  activePokemonName,
-  activePokemonSprites,
-  activePokemonType,
-  activePokemonHeight
-} = storeToRefs(pokeStore);
+const { activePokemonPayload, activePokemonName, activePokemonSprites, activePokemonType, activePokemonHeight } =
+  storeToRefs(pokeStore);
 
 const { getActivePokemon } = pokeStore;
 
@@ -55,15 +47,9 @@ const spriteImage = computed(() => {
 
   const type = isAnimated ? 'animated' : 'artwork';
   const shiny = isShiny ? 'Shiny' : '';
-  const availableType = sprites[`${type}${shiny}`].front
-    ? `${type}${shiny}`
-    : `artwork${shiny}`;
+  const availableType = sprites[`${type}${shiny}`].front ? `${type}${shiny}` : `artwork${shiny}`;
 
-  const availableOrientation = isFront
-    ? 'front'
-    : sprites[availableType].back
-    ? 'back'
-    : 'front';
+  const availableOrientation = isFront ? 'front' : sprites[availableType].back ? 'back' : 'front';
 
   return sprites[availableType][availableOrientation];
 });

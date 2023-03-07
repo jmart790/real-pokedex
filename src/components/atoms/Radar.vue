@@ -49,9 +49,8 @@ const { isLoading } = storeToRefs(pokeStore);
     height: 90%;
     border-radius: 128px;
     background: transparent;
-    box-shadow: inset 1px 2px 5px 5px #e4e9ec, inset 1px 2px 10px 2px #363635,
-      inset 0px -40px 29px #b3b3b3, -5px 17px 48px -28px #b3b3b3,
-      -40px -13px 45px -58px #fff, -10px 4px 10px -32px #b3b3b3,
+    box-shadow: inset 1px 2px 5px 5px #e4e9ec, inset 1px 2px 10px 2px #363635, inset 0px -40px 29px #b3b3b3,
+      -5px 17px 48px -28px #b3b3b3, -40px -13px 45px -58px #fff, -10px 4px 10px -32px #b3b3b3,
       15px 40px 20px -36px #0c0c0c, -10px 38px 20px -36px #0c0c0c;
 
     &::before,

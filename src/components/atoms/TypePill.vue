@@ -41,12 +41,7 @@ defineProps<{ type: string }>();
     #{$self}__icon {
       fill: $color-2;
     }
-    // background: linear-gradient(40deg, $color-2 30%, $color-2 100%);
-    background: linear-gradient(
-      40deg,
-      rgba($color-1, 0.8) 30%,
-      rgba(255, 255, 255, 0.3) 100%
-    );
+    background: linear-gradient(40deg, rgba($color-1, 0.8) 30%, rgba(255, 255, 255, 0.3) 100%);
   }
   &--fire {
     @include gradient-bg($pokemon-fire, $pokemon-fire-light);

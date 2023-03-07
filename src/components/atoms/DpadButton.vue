@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-type Variant = "a" | "b" | "x" | "y" | "up" | "down" | "left" | "right";
+type Variant = 'a' | 'b' | 'x' | 'y' | 'up' | 'down' | 'left' | 'right';
 defineProps<{ variant: Variant }>();
 </script>
 
@@ -14,9 +14,8 @@ defineProps<{ variant: Variant }>();
   position: relative;
   border-radius: 50%;
   background-image: linear-gradient(to bottom, $dark-grey, #333333);
-  box-shadow: 0px 2px 1px 0px $light-grey inset, 0px -2px 1px 0px black inset,
-    0px 0px 2px 0px black, 0px 0px 2px 0px black, 0px 0px 2px 0px black,
-    0px 0px 2px 0px black;
+  box-shadow: 0px 2px 1px 0px $light-grey inset, 0px -2px 1px 0px black inset, 0px 0px 2px 0px black,
+    0px 0px 2px 0px black, 0px 0px 2px 0px black, 0px 0px 2px 0px black;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,14 +25,13 @@ defineProps<{ variant: Variant }>();
   }
   &:active {
     transform: translateY(1px);
-    box-shadow: 0px 1px 1px 0px $light-grey inset, 0px -1px 1px 0px black inset,
-      0px 0px 2px 0px black, 0px 0px 2px 0px black, 0px 0px 2px 0px black,
-      0px 0px 2px 0px black;
+    box-shadow: 0px 1px 1px 0px $light-grey inset, 0px -1px 1px 0px black inset, 0px 0px 2px 0px black,
+      0px 0px 2px 0px black, 0px 0px 2px 0px black, 0px 0px 2px 0px black;
   }
 
   &:before {
     /* evens out the look of the button shading */
-    content: "";
+    content: '';
     position: absolute;
     border-radius: 50%;
     box-shadow: 2px 0px 1px 0px black inset, -2px 0px 1px 0px $light-grey inset;
@@ -73,19 +71,19 @@ defineProps<{ variant: Variant }>();
   }
 
   &__a::before {
-    content: "A";
+    content: 'A';
   }
 
   &__b::before {
-    content: "B";
+    content: 'B';
   }
 
   &__x::before {
-    content: "X";
+    content: 'X';
   }
 
   &__y::before {
-    content: "Y";
+    content: 'Y';
   }
 }
 </style>

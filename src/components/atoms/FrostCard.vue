@@ -3,11 +3,9 @@
     <div class="frost-card__content">
       <slot />
     </div>
-    <div class="frost-card__ui"></div>
+    <div class="frost-card__ui" />
   </div>
 </template>
-
-<script setup lang="ts"></script>
 
 <style scoped lang="scss">
 .frost-card {
@@ -40,11 +38,7 @@
       z-index: 0;
       border-radius: inherit;
       background: white;
-      background: linear-gradient(
-        40deg,
-        rgba(255, 255, 255, 0.4) 30%,
-        rgba(255, 255, 255, 0.1) 100%
-      );
+      background: linear-gradient(40deg, rgba(255, 255, 255, 0.4) 30%, rgba(255, 255, 255, 0.1) 100%);
       filter: blur(8px);
     }
   }

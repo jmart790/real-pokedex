@@ -8,10 +8,7 @@
       `pokemon-tile--${pokemonType}`
     ]"
   >
-    <div
-      class="pokemon-tile__image-container"
-      :class="{ 'pokemon-tile__image-container--loading': isLoading }"
-    >
+    <div class="pokemon-tile__image-container" :class="{ 'pokemon-tile__image-container--loading': isLoading }">
       <img
         v-if="isActive && gifImage"
         :src="gifImage"
@@ -55,12 +52,9 @@ const pokemon = ref<IPokemonUpdated>();
 const isLoading = ref(false);
 
 const spriteImage = computed(() => pokemon?.value?.sprites?.front_default);
-const gifImage = computed(() => {
-  const gif =
-    pokemon?.value?.sprites?.versions['generation-v']['black-white']?.animated
-      ?.front_default;
-  return gif;
-});
+const gifImage = computed(
+  () => pokemon?.value?.sprites?.versions['generation-v']['black-white']?.animated?.front_default
+);
 const pokemonType = computed(() => pokemon?.value?.types[0].type.name);
 
 const handleLoadedImage = () => {

@@ -1,16 +1,11 @@
 <template>
   <div class="loader">
-  <p>Loading...</p>
+    <p>Loading...</p>
     <div class="loader__pikachu">
-      <img
-        src="https://c.tenor.com/2lFt6lp1KaMAAAAi/run-pokemon.gif"
-        alt="pikachu"
-      />
+      <img src="https://c.tenor.com/2lFt6lp1KaMAAAAi/run-pokemon.gif" alt="pikachu" />
     </div>
   </div>
 </template>
-
-<script setup lang="ts"></script>
 
 <style scoped lang="scss">
 .loader {

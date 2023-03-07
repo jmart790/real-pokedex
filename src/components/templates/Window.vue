@@ -56,11 +56,7 @@ withDefaults(defineProps<Props>(), {
 
     &:after {
       height: 20px;
-      background-image: linear-gradient(
-        transparent,
-        $light-grey 40%,
-        transparent 90%
-      );
+      background-image: linear-gradient(transparent, $light-grey 40%, transparent 90%);
       opacity: 0.6;
     }
   }

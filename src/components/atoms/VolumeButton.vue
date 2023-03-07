@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 withDefaults(defineProps<{ isPlus?: boolean }>(), {
-  isPlus: false,
+  isPlus: false
 });
 </script>
 
@@ -14,25 +14,21 @@ withDefaults(defineProps<{ isPlus?: boolean }>(), {
   width: 22px;
   height: 6px;
   background-color: $dark-grey;
-  box-shadow: 0px -1px 0px 0px black inset, 0px 1px 0px 0px $medium-grey inset,
-    1px 0px 0px 0px $darker-grey inset, 0px 0px 2px 0px $off-black,
-    0px 0px 2px 0px $off-black, 0px 0px 2px 0px $off-black,
-    0px 0px 2px 0px $off-black;
+  box-shadow: 0px -1px 0px 0px black inset, 0px 1px 0px 0px $medium-grey inset, 1px 0px 0px 0px $darker-grey inset,
+    0px 0px 2px 0px $off-black, 0px 0px 2px 0px $off-black, 0px 0px 2px 0px $off-black, 0px 0px 2px 0px $off-black;
   &:hover {
     cursor: pointer;
   }
   &:active {
     transform: translateY(1px);
-    box-shadow: 0px 0px 0px 0px black inset, 0px 0px 0px 0px $medium-grey inset,
-      0px 0px 0px 0px $darker-grey inset, 0px 0px 2px 0px $off-black,
-      0px 0px 2px 0px $off-black, 0px 0px 2px 0px $off-black,
-      0px 0px 2px 0px $off-black;
+    box-shadow: 0px 0px 0px 0px black inset, 0px 0px 0px 0px $medium-grey inset, 0px 0px 0px 0px $darker-grey inset,
+      0px 0px 2px 0px $off-black, 0px 0px 2px 0px $off-black, 0px 0px 2px 0px $off-black, 0px 0px 2px 0px $off-black;
   }
 
   &--plus {
     &:before,
     &:after {
-      content: "";
+      content: '';
       position: absolute;
       background-color: $dark-grey;
     }
@@ -41,10 +37,8 @@ withDefaults(defineProps<{ isPlus?: boolean }>(), {
       @include position-center;
       width: 6px;
       height: 22px;
-      box-shadow: 0px -1px 0px 0px black inset,
-        1px 0px 0px 0px $darker-grey inset, 0px 1px 0px 0px $medium-grey inset,
-        0px 0px 2px 0px $off-black, 0px 0px 2px 0px $off-black,
-        0px 0px 2px 0px $off-black, 0px 0px 2px 0px $off-black;
+      box-shadow: 0px -1px 0px 0px black inset, 1px 0px 0px 0px $darker-grey inset, 0px 1px 0px 0px $medium-grey inset,
+        0px 0px 2px 0px $off-black, 0px 0px 2px 0px $off-black, 0px 0px 2px 0px $off-black, 0px 0px 2px 0px $off-black;
     }
 
     &:after {
@@ -57,10 +51,8 @@ withDefaults(defineProps<{ isPlus?: boolean }>(), {
     }
 
     &:active:before {
-      box-shadow: 0px 0px 0px 0px black inset,
-        0px 0px 0px 0px $darker-grey inset, 0px 0px 0px 0px $medium-grey inset,
-        0px 0px 2px 0px $off-black, 0px 0px 2px 0px $off-black,
-        0px 0px 2px 0px $off-black, 0px 0px 2px 0px $off-black;
+      box-shadow: 0px 0px 0px 0px black inset, 0px 0px 0px 0px $darker-grey inset, 0px 0px 0px 0px $medium-grey inset,
+        0px 0px 2px 0px $off-black, 0px 0px 2px 0px $off-black, 0px 0px 2px 0px $off-black, 0px 0px 2px 0px $off-black;
     }
   }
 }

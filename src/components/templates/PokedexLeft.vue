@@ -58,8 +58,8 @@
     border-bottom-right-radius: 2px;
     border-top-left-radius: $outside-corner;
     border-bottom-left-radius: $outside-corner;
-    box-shadow: 2px -10px 10px 0px $dark-red inset,
-      10px -2px 10px 0px $dark-red inset, 10px 10px 10px 0px $light-red inset;
+    box-shadow: 2px -10px 10px 0px $dark-red inset, 10px -2px 10px 0px $dark-red inset,
+      10px 10px 10px 0px $light-red inset;
   }
 
   &__depth-seperation {

@@ -15,18 +15,13 @@
           a 15.9155 15.9155 0 0 1 0 31.831
           a 15.9155 15.9155 0 0 1 0 -31.831"
       />
-      <linearGradient
-        v-for="theType in statTypes"
-        :key="`linear-gradient--${theType}`"
-        :id="`gradient-${theType}`"
-      >
+      <linearGradient v-for="theType in statTypes" :key="`linear-gradient--${theType}`" :id="`gradient-${theType}`">
         <stop :class="`stop1-${theType}`" offset="0%" />
         <stop :class="`stop2-${theType}`" offset="100%" />
       </linearGradient>
     </svg>
     <div class="circle-range__values">
       <span class="circle-range__base-val">{{ base }}</span>
-      <!-- <span class="circle-range__max-val"> {{ max }}</span> -->
     </div>
     <label>{{ statLabel }}</label>
   </div>
@@ -35,14 +30,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-const statTypes = [
-  'hp',
-  'attack',
-  'defense',
-  'special-attack',
-  'special-defense',
-  'speed'
-];
+const statTypes = ['hp', 'attack', 'defense', 'special-attack', 'special-defense', 'speed'];
 
 const props = defineProps<{ max: number; base: number; label: string }>();
 
@@ -51,13 +39,8 @@ const percent = computed(() => {
 });
 
 const statLabel = computed(
-  () =>
-    ({ 'special-attack': 'sp. atk', 'special-defense': 'sp. def' }[
-      props.label
-    ] || props.label)
+  () => ({ 'special-attack': 'sp. atk', 'special-defense': 'sp. def' }[props.label] || props.label)
 );
-
-const gradientId = computed(() => `#gradient-${props.label}`);
 </script>
 
 <style scoped lang="scss">
