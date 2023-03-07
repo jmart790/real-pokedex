@@ -7,18 +7,10 @@
       </button>
     </div>
     <div class="key-map__content">
-      <div
-        class="key-map__legend"
-        v-for="(item, index) in buttons"
-        :key="`key-map--${index}`"
-      >
+      <div class="key-map__legend" v-for="(item, index) in buttons" :key="`key-map--${index}`">
         <p class="key-map__key">{{ item.correspondingKey }}</p>
         <p>=</p>
-        <component
-          class="key-map__button"
-          :is="item.component"
-          v-bind="item.props"
-        />
+        <component class="key-map__button" :is="item.component" v-bind="item.props" />
       </div>
     </div>
   </FrostCard>
@@ -120,11 +112,7 @@ const buttons = [
 <style scoped lang="scss">
 // overwrite frostcard
 :deep .frost-card__ui::before {
-  background: linear-gradient(
-    40deg,
-    rgba($primary, 0.6) 30%,
-    rgba($primary, 0.2) 100%
-  );
+  background: linear-gradient(40deg, rgba($primary, 0.6) 30%, rgba($primary, 0.2) 100%);
   filter: none;
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
@@ -135,8 +123,7 @@ const buttons = [
   overflow: hidden;
   color: rgba(black, 0.6);
   border-radius: $rounded-1;
-  box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.4),
-    inset 2px 4px 8px rgba(0, 0, 0, 0.4);
+  box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.4), inset 2px 4px 8px rgba(0, 0, 0, 0.4);
   transition: height ease-in-out 300ms;
 
   &--open {
@@ -165,7 +152,7 @@ const buttons = [
     @include flex-center;
     line-height: 1;
     border-radius: $rounded-circle;
-    font-size: rem(24);
+    font-size: $font-size-5;
     cursor: pointer;
     background: linear-gradient(315deg, #ffffd4, #d6d6b2);
     box-shadow: -20px -20px 60px #cacaa8, 20px 20px 60px #ffffe4;
@@ -185,18 +172,14 @@ const buttons = [
     gap: gap(2);
     padding: gap(2);
     background-color: rgba($pokemon-ground, 0.4);
-    background: linear-gradient(
-      40deg,
-      rgba($pokemon-ground, 0.4) 30%,
-      rgba($pokemon-ground, 0.1) 100%
-    );
+    background: linear-gradient(40deg, rgba($pokemon-ground, 0.4) 30%, rgba($pokemon-ground, 0.1) 100%);
     border-radius: $rounded-1;
   }
 
   &__button {
     width: 25px;
     height: 25px;
-    font-size: rem(16);
+    font-size: $font-size-3;
   }
 
   &__key {
@@ -205,21 +188,19 @@ const buttons = [
     height: 35px;
     padding: gap(1);
     background: $off-white;
-    font-size: rem(12);
+    font-size: r$font-size-1;
     color: $medium-grey;
     border-radius: 0.3em;
     text-transform: capitalize;
-    box-shadow: 0px 2px 1px 0px $lightest-grey inset,
-      0px -2px 1px 0px black inset, 0px 0px 2px 0px black, 0px 0px 2px 0px black,
-      0px 0px 2px 0px black;
+    box-shadow: 0px 2px 1px 0px $lightest-grey inset, 0px -2px 1px 0px black inset, 0px 0px 2px 0px black,
+      0px 0px 2px 0px black, 0px 0px 2px 0px black;
     user-select: none;
     &:hover {
       cursor: pointer;
     }
     &:active {
       transform: translateY(1px);
-      box-shadow: 0px 1px 1px 0px $lightest-grey inset,
-        0px -1px 1px 0px black inset, 0px 0px 2px 0px black,
+      box-shadow: 0px 1px 1px 0px $lightest-grey inset, 0px -1px 1px 0px black inset, 0px 0px 2px 0px black,
         0px 0px 2px 0px black, 0px 0px 2px 0px black, 0px 0px 2px 0px black;
     }
   }

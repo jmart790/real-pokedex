@@ -7,16 +7,8 @@
       </button>
     </div>
     <div class="btn-map__content">
-      <div
-        class="btn-map__legend"
-        v-for="(item, index) in buttons"
-        :key="`btn-map--${index}`"
-      >
-        <component
-          class="btn-map__button"
-          :is="item.component"
-          v-bind="item.props"
-        />
+      <div class="btn-map__legend" v-for="(item, index) in buttons" :key="`btn-map--${index}`">
+        <component class="btn-map__button" :is="item.component" v-bind="item.props" />
         <p>=</p>
         <p>{{ item.correspondingAction }}</p>
       </div>
@@ -126,11 +118,7 @@ const buttons = computed(() => [
 <style scoped lang="scss">
 // overwrite frostcard
 :deep .frost-card__ui::before {
-  background: linear-gradient(
-    40deg,
-    rgba($secondary, 0.6) 30%,
-    rgba($secondary, 0.2) 100%
-  );
+  background: linear-gradient(40deg, rgba($secondary, 0.6) 30%, rgba($secondary, 0.2) 100%);
   filter: none;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -140,8 +128,7 @@ const buttons = computed(() => [
   padding: gap(2) gap(3) gap(4) gap(3);
   overflow: hidden;
   border-radius: $rounded-1;
-  box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.4),
-    inset 2px 4px 8px rgba(0, 0, 0, 0.4);
+  box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.4), inset 2px 4px 8px rgba(0, 0, 0, 0.4);
   transition: height ease-in-out 300ms;
   color: rgba(white, 0.8);
 
@@ -170,10 +157,10 @@ const buttons = computed(() => [
     @include flex-center;
     line-height: 1;
     border-radius: $rounded-circle;
-    font-size: rem(24);
+    font-size: $font-size-5;
     cursor: pointer;
     background: linear-gradient(315deg, #2c7292, #3488ad);
-    box-shadow:  -20px -20px 60px #2a6c8a, 20px 20px 60px #3892ba;
+    box-shadow: -20px -20px 60px #2a6c8a, 20px 20px 60px #3892ba;
   }
   &__content {
     display: grid;
@@ -190,11 +177,7 @@ const buttons = computed(() => [
     gap: gap(2);
     padding: gap(2);
     background-color: rgba($pokemon-ice, 0.4);
-    background: linear-gradient(
-      40deg,
-      rgba($pokemon-ice, 0.4) 30%,
-      rgba($pokemon-ice, 0.1) 100%
-    );
+    background: linear-gradient(40deg, rgba($pokemon-ice, 0.4) 30%, rgba($pokemon-ice, 0.1) 100%);
     border-radius: $rounded-1;
     text-transform: capitalize;
   }
@@ -203,7 +186,7 @@ const buttons = computed(() => [
     flex-shrink: 0;
     width: 25px;
     height: 25px;
-    font-size: rem(16);
+    font-size: $font-size-3;
   }
 }
 </style>

@@ -255,7 +255,7 @@ const menuOptions = [
     display: flex;
     @include flex-center;
     font-weight: 700;
-    font-size: rem(40);
+    font-size: $font-size-8;
     font-family: $secondary-font;
     color: rgba(white, 0.4);
     transition: transform 300ms ease-in-out;

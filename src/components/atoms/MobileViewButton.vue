@@ -70,7 +70,7 @@ function handleInternalClick() {
   &__copy {
     position: absolute;
     bottom: -19px;
-    font-size: rem(12);
+    font-size: $font-size-1;
   }
   &__pokeball-center {
     content: '';
@@ -81,7 +81,7 @@ function handleInternalClick() {
     background: $off-white;
     border: 4px solid $off-black;
     color: rgba($off-black, 0.5);
-    font-size: rem(12);
+    font-size: $font-size-1;
     transform: rotate(180deg);
     line-height: 1;
     &--right {

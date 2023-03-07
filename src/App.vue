@@ -63,7 +63,7 @@ onBeforeUnmount(() => {
   background-repeat: no-repeat;
   background-size: cover;
   font-family: $main-font;
-  font-size: rem(16);
+  font-size: $font-size-3;
 
   &__keyboard-map-wrapper {
     display: none;

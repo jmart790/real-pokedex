@@ -85,7 +85,7 @@ const { genNum, region } = storeToRefs(pokeStore);
     position: absolute;
     width: fit-content;
     color: $light-grey;
-    font-size: rem(30);
+    font-size: $font-size-6;
     font-weight: bold;
     text-transform: capitalize;
     font-family: $secondary-font;

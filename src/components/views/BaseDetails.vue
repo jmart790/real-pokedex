@@ -165,7 +165,7 @@ watchEffect(() => {
     font-weight: 500;
     letter-spacing: 1px;
     span {
-      font-size: rem(20);
+      font-size: $font-size-4;
     }
   }
 
@@ -174,7 +174,7 @@ watchEffect(() => {
   }
   &__copy-name {
     text-transform: capitalize;
-    font-size: rem(20);
+    font-size: $font-size-4;
     letter-spacing: 4px;
     line-height: 1;
     color: $primary;

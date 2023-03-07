@@ -70,13 +70,13 @@ const gradientId = computed(() => `#gradient-${props.label}`);
     position: absolute;
     @include position-center;
     display: flex;
-    font-size: 20px;
+    font-size: $font-size-4;
     text-anchor: middle;
     white-space: nowrap;
     color: rgba(white, 0.6);
   }
   &__max-val {
-    font-size: rem(12);
+    font-size: $font-size-1;
     opacity: 0.6;
     text-align: center;
   }
@@ -86,7 +86,7 @@ const gradientId = computed(() => `#gradient-${props.label}`);
     bottom: 0px;
     left: 0;
     text-align: center;
-    font-size: rem(14);
+    font-size: $font-size-2;
     text-transform: capitalize;
   }
 }

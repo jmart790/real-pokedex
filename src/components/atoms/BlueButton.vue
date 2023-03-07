@@ -13,14 +13,13 @@ defineProps<{ copy: number }>();
   position: relative;
   display: grid;
   place-items: center;
-  border-radius: 5px;
+  border-radius: $rounded;
   background-image: linear-gradient(to bottom, $blue, $dark-blue);
-  box-shadow: 0px 2px 1px 0px $light-blue inset, 0px -2px 1px 0px black inset,
-    0px 0px 2px 0px black, 0px 0px 2px 0px black, 0px 0px 2px 0px black,
-    0px 0px 2px 0px black;
+  box-shadow: 0px 2px 1px 0px $light-blue inset, 0px -2px 1px 0px black inset, 0px 0px 2px 0px black,
+    0px 0px 2px 0px black, 0px 0px 2px 0px black, 0px 0px 2px 0px black;
   font-weight: bold;
-  font-size: 35px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-size: $font-size-7;
+  font-family: $secondary-font;
   color: $dark-blue;
   text-shadow: 2px 2px 3px rgba($blue, 0.5);
 
@@ -30,9 +29,8 @@ defineProps<{ copy: number }>();
 
   &:active {
     transform: translateY(1px);
-    box-shadow: 0px 1px 1px 0px $light-blue inset, 0px -1px 1px 0px black inset,
-      0px 0px 2px 0px black, 0px 0px 2px 0px black, 0px 0px 2px 0px black,
-      0px 0px 2px 0px black;
+    box-shadow: 0px 1px 1px 0px $light-blue inset, 0px -1px 1px 0px black inset, 0px 0px 2px 0px black,
+      0px 0px 2px 0px black, 0px 0px 2px 0px black, 0px 0px 2px 0px black;
   }
 }
 </style>

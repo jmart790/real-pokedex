@@ -45,7 +45,7 @@ const credits = [
     margin-top: gap(30);
     margin-bottom: gap(40);
     text-align: center;
-    font-size: rem(36);
+    font-size: $font-size-7;
     font-family: $pokemon-font;
     color: $primary;
     letter-spacing: 4px;

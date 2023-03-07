@@ -31,7 +31,7 @@ defineProps<{ type: string }>();
     text-transform: capitalize;
     color: rgba(white, 0.85);
     text-shadow: 1px 1px 4px rgba(black, 0.3);
-    font-size: rem(14);
+    font-size: $font-size-2;
   }
 
   @mixin gradient-bg($color-1, $color-2) {

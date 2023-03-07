@@ -27,7 +27,7 @@ defineProps<Props>();
   background: black;
 
   &__content {
-    font-size: 16px;
+    font-size: $font-size-3;
     text-transform: capitalize;
     transform: skew(60deg);
   }
@@ -55,7 +55,7 @@ defineProps<Props>();
       aspect-ratio: 1/1;
       width: 24px;
       border-radius: 50%;
-      font-size: 14px;
+      font-size: $font-size-2;
       background: $light-grey;
       line-height: 1;
     }

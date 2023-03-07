@@ -157,7 +157,7 @@ watchEffect(async () => {
       filter: drop-shadow(4px 4px 8px rgba(black, 0.7));
     }
     p {
-      font-size: rem(12);
+      font-size: $font-size-1;
     }
     label {
       padding-inline: gap(3);

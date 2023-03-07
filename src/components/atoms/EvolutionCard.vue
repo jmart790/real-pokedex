@@ -117,7 +117,7 @@ const trigger = computed(() => {
     position: absolute;
     top: -15%;
     left: -15%;
-    font-size: rem(24);
+    font-size: $font-size-5;
   }
   &__trigger {
     position: absolute;
@@ -126,14 +126,14 @@ const trigger = computed(() => {
     transform: translateX(-50%);
     max-width: 150px;
     width: 100%;
-    font-size: rem(12);
+    font-size: $font-size-1;
     text-align: center;
     text-transform: capitalize;
   }
   &--non-linear {
     transform: scale(0.8);
     h4 {
-      font-size: rem(12);
+      font-size: $font-size-1;
     }
     #{$self}__trigger {
       top: -10%;
@@ -141,7 +141,7 @@ const trigger = computed(() => {
       transform: translateX(-50%);
       max-width: 150px;
       width: 100%;
-      font-size: rem(12);
+      font-size: $font-size-1;
       text-align: center;
     }
   }
