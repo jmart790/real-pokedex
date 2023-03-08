@@ -24,8 +24,8 @@
     left: 50%;
     transform: translate(-50%, -50%);
     border: 8px solid $console-grey;
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background-color: white;
   }
