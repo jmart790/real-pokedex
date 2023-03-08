@@ -1,7 +1,13 @@
 <template>
   <section class="right-controls">
     <div class="blue-btns">
-      <BlueButton v-for="i in 10" :key="`blue-btn-${i}`" @click="handleBtnClick(i)" :copy="i">
+      <BlueButton
+        v-for="i in 10"
+        :key="`blue-btn-${i}`"
+        @click="handleBtnClick(i)"
+        :copy="i"
+        :isActive="activeBtn === String(i)"
+      >
         {{ i }}
       </BlueButton>
     </div>
@@ -9,8 +15,13 @@
 </template>
 
 <script setup lang="ts">
+import { useControlsStore } from '@/store/controls';
 import useControls from '@/composables/useControls';
+import { storeToRefs } from 'pinia';
+
 const { handleMainControl } = useControls();
+const controlsStore = useControlsStore();
+const { activeBtn } = storeToRefs(controlsStore);
 
 function handleBtnClick(command: number) {
   handleMainControl(String(command));

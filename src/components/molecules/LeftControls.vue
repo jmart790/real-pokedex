@@ -4,8 +4,9 @@
       <DpadButton
         v-for="btn in arrowBtns"
         :key="`arrow-btn-${btn}`"
-        :variant="btn"
         :class="`d-pad__${btn}`"
+        :variant="btn"
+        :isActive="activeBtn === btn"
         @click="handleMainControl(btn)"
       />
     </div>
@@ -19,6 +20,7 @@
         v-for="btn in abxyBtns"
         :key="`arrow-btn-${btn}`"
         :variant="btn"
+        :isActive="activeBtn === btn"
         :class="`d-pad__${btn}`"
         @click="handleMainControl(btn)"
       />
@@ -35,7 +37,7 @@ const arrowBtns = ['up', 'down', 'left', 'right'];
 const abxyBtns = ['a', 'b', 'x', 'y'];
 const { handleMainControl } = useControls();
 const controlsStore = useControlsStore();
-const { isPokedexOn } = storeToRefs(controlsStore);
+const { isPokedexOn, activeBtn } = storeToRefs(controlsStore);
 </script>
 
 <style scoped lang="scss">

@@ -1,11 +1,11 @@
 <template>
-  <button class="blue-btn">
+  <button class="blue-btn" :class="{ 'blue-btn--active': isActive }">
     {{ copy }}
   </button>
 </template>
 
 <script setup lang="ts">
-defineProps<{ copy: number }>();
+defineProps<{ copy: number; isActive?: boolean }>();
 </script>
 
 <style scoped lang="scss">
@@ -27,7 +27,8 @@ defineProps<{ copy: number }>();
     cursor: pointer;
   }
 
-  &:active {
+  &:active,
+  &--active {
     transform: translateY(1px);
     box-shadow: 0px 1px 1px 0px $light-blue inset, 0px -1px 1px 0px black inset, 0px 0px 2px 0px black,
       0px 0px 2px 0px black, 0px 0px 2px 0px black, 0px 0px 2px 0px black;

@@ -1,12 +1,12 @@
 <template>
-  <button class="dpad-btn">
+  <button class="dpad-btn" :class="{ 'dpad-btn--active': isActive }">
     <p :class="`dpad-btn__${variant}`" />
   </button>
 </template>
 
 <script setup lang="ts">
 type Variant = 'a' | 'b' | 'x' | 'y' | 'up' | 'down' | 'left' | 'right';
-defineProps<{ variant: Variant }>();
+defineProps<{ variant: Variant; isActive?: boolean }>();
 </script>
 
 <style scoped lang="scss">
@@ -23,7 +23,8 @@ defineProps<{ variant: Variant }>();
   &:hover {
     cursor: pointer;
   }
-  &:active {
+  &:active,
+  &--active {
     transform: translateY(1px);
     box-shadow: 0px 1px 1px 0px $light-grey inset, 0px -1px 1px 0px black inset, 0px 0px 2px 0px black,
       0px 0px 2px 0px black, 0px 0px 2px 0px black, 0px 0px 2px 0px black;
