@@ -10,7 +10,7 @@
   >
     <div class="pokemon-tile__image-container" :class="{ 'pokemon-tile__image-container--loading': isLoading }">
       <img
-        v-if="isActive && gifImage"
+        v-show="isGifVisible"
         :src="gifImage"
         alt="gif image"
         class="pokemon-tile__gif"
@@ -18,7 +18,7 @@
         loading="lazy"
       />
       <img
-        v-else
+        v-show="!isGifVisible"
         :src="spriteImage"
         alt="pokemon sprite"
         class="pokemon-tile__sprite"
@@ -51,6 +51,9 @@ const props = defineProps<IPokemonTile>();
 const pokemon = ref<IPokemonUpdated>();
 const isLoading = ref(false);
 
+const isGifVisible = computed(() => {
+  return props.isActive && gifImage.value;
+});
 const spriteImage = computed(() => pokemon?.value?.sprites?.front_default);
 const gifImage = computed(
   () => pokemon?.value?.sprites?.versions['generation-v']['black-white']?.animated?.front_default
