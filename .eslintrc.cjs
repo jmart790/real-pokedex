@@ -8,6 +8,8 @@ module.exports = {
     'eslint:recommended',
     '@vue/eslint-config-typescript',
     '@vue/eslint-config-prettier'
-  ]
-  // parser: 'vue-eslint-parser'
+  ],
+  rules: {
+    'vue/attribute-hyphenation': 'off'
+  }
 };
