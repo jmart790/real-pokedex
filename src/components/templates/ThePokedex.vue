@@ -33,7 +33,7 @@ const pokeStore = usePokeStore();
 const controlsStore = useControlsStore();
 const { trackNewUser } = useAnalytics();
 
-const { pokemonListLength, activePokemonName } = storeToRefs(pokeStore);
+const { activePokemonName } = storeToRefs(pokeStore);
 const { mainView, secondaryView } = storeToRefs(controlsStore);
 const { togglePower } = controlsStore;
 
@@ -54,7 +54,9 @@ const mainViewComponent = computed(() => {
 });
 
 const secondaryViewComponent = computed(() => {
-  if (mainView.value === 'LIST') return 'Region';
+  const view = mainView.value;
+  if (['OFF', 'INTRO'].includes(view)) return 'null';
+  if (view === 'LIST') return 'Region';
   const secondaryOptions = {
     1: 'BaseDetails',
     2: 'BaseStats',
@@ -65,10 +67,9 @@ const secondaryViewComponent = computed(() => {
     7: 'PokemonMoves',
     8: 'SpriteCollection'
   };
-  if (['POKEMON', 'YOSH'].includes(mainView.value)) {
-    return secondaryOptions[secondaryView.value];
-  }
-  return null;
+  const pokeView = secondaryOptions[secondaryView.value];
+  if (['POKEMON', 'YOSH'].includes(view)) return pokeView;
+  return 'PlaceHolder';
 });
 
 const secondaryViewProps = computed(() => {
