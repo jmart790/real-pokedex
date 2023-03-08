@@ -17,12 +17,14 @@ export default function useControls() {
     toggleActiveSpriteType,
     toggleActiveSpriteShiny,
     navigateMainMenu,
-    navigateGensMenu
+    navigateGensMenu,
+    setActiveBtn
   } = controlsStore;
 
   const { mainView, menuPosition, gensPosition } = storeToRefs(controlsStore);
 
   function handleMainControl(command: string) {
+    handleActiveBtn(command);
     if (mainView.value === 'OFF' && command === 'power') togglePower();
     else if (mainView.value === 'MENU') MenuViewControls(command);
     else if (mainView.value === 'LIST') listViewControls(command);
@@ -193,6 +195,12 @@ export default function useControls() {
       default:
         break;
     }
+  }
+
+  function handleActiveBtn(command: string) {
+    const timeToLeaveActive = 200;
+    setActiveBtn(command);
+    setTimeout(() => setActiveBtn(''), timeToLeaveActive);
   }
 
   return {

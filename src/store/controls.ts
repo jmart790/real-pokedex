@@ -16,6 +16,7 @@ export const useControlsStore = defineStore('controls', () => {
   const lastDirection = ref('');
   const menuPosition = ref(0);
   const gensPosition = ref(0);
+  const activeBtn = ref('');
 
   const activeSpriteSetting = computed(() => {
     return {
@@ -126,6 +127,9 @@ export const useControlsStore = defineStore('controls', () => {
   function toggleActiveSpriteShiny() {
     isActiveSpriteShiny.value = !isActiveSpriteShiny.value;
   }
+  function setActiveBtn(value: string) {
+    activeBtn.value = value;
+  }
 
   return {
     navigatePokemonList,
@@ -146,6 +150,8 @@ export const useControlsStore = defineStore('controls', () => {
     navigateMainMenu,
     gensPosition,
     navigateGensMenu,
-    isYoshView
+    isYoshView,
+    activeBtn,
+    setActiveBtn
   };
 });
