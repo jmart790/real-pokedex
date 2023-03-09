@@ -2,11 +2,7 @@
   <section class="damage-relations">
     <PikachuLoader v-if="isLoading" />
     <ErrorCard v-else-if="hasError" />
-    <div
-      v-else
-      class="damage-relations__groups"
-      :class="{ 'damage-relations__groups--loaded': !isLoading }"
-    >
+    <div v-else class="damage-relations__groups" :class="{ 'damage-relations__groups--loaded': !isLoading }">
       <DamageGroup
         class="damage-relations__group"
         v-bind="{
@@ -31,11 +27,7 @@
 import { usePokeStore } from '@/store/pokemon';
 import { storeToRefs } from 'pinia';
 import { watchEffect, ref, computed } from 'vue';
-import PokeAPI, {
-  type INamedApiResource,
-  type IType,
-  type ITypeRelations
-} from 'pokeapi-typescript';
+import PokeAPI, { type INamedApiResource, type IType, type ITypeRelations } from 'pokeapi-typescript';
 import { useLoading } from '@/composables/useLoading';
 
 interface IDamageRelation {
@@ -74,8 +66,7 @@ const damageRelations = computed(() => {
   const data = damageRelationsRawResponse?.value;
   if (!data) return;
   const dataTransformed = Object.keys(data).reduce((relations, groupName) => {
-    const types =
-      data[groupName].map((item: INamedApiResource<IType>) => item.name) || [];
+    const types = data[groupName].map((item: INamedApiResource<IType>) => item.name) || [];
     if (types?.length && groupName.includes(props.relation)) {
       const key = groupName.includes('half') ? 'half' : 'double';
       relations[key] = { group: groupName, types };
@@ -92,10 +83,7 @@ function handleFailure(e) {
 
 async function getDamageRelations(type: string) {
   await PokeAPI.Type.resolve(type)
-    .then(
-      ({ damage_relations }) =>
-        (damageRelationsRawResponse.value = damage_relations)
-    )
+    .then(({ damage_relations }) => (damageRelationsRawResponse.value = damage_relations))
     .catch((e) => handleFailure(e));
 }
 

@@ -1,7 +1,7 @@
 <template>
   <article class="evo-chain">
     <div class="evo-chain__card">
-      <PikachuLoader v-if="isLoading" />
+      <PikachuLoader v-if="isLoading && !isYoshView" />
       <div v-else-if="isYoshView" class="evo-chain__pokemons">
         <div v-for="(yosh, index) in yoshs" :key="`yosh-evo--${index}`" class="evo-chain__yosh">
           <p>{{ yosh.level }}</p>

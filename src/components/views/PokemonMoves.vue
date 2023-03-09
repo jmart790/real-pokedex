@@ -1,7 +1,7 @@
 <template>
   <article class="poke-moves">
-    <PikachuLoader v-if="isLoading" />
-    <ul v-else-if="!isLoading && movesList?.length">
+    <PikachuLoader v-if="isLoading && !isYoshView" />
+    <ul v-else-if="hasMoves">
       <li v-for="move in movesList" :key="`pokemon-move--${move.name}`">
         <FrostCard>
           <div class="poke-moves__move">
@@ -26,7 +26,7 @@
 <script setup lang="ts">
 import { usePokeStore } from '@/store/pokemon';
 import { storeToRefs } from 'pinia';
-import { ref, watchEffect } from 'vue';
+import { ref, watchEffect, computed } from 'vue';
 import PokeAPI, { type IMove, type IPokemonMove } from 'pokeapi-typescript';
 import { useLoading } from '@/composables/useLoading';
 
@@ -179,6 +179,10 @@ const movesList = ref<IMoveListItem[]>();
 
 const { activePokemonMoves } = storeToRefs(pokeStore);
 
+const hasMoves = computed(() => {
+  return isYoshView.value || (!isLoading.value && movesList.value?.length);
+});
+
 function filterActivePokemonMoves(moves: IPokemonMove[], filterBy: string) {
   return moves.filter((move) => move.version_group_details[0].move_learn_method.name === filterBy);
 }
@@ -236,8 +240,7 @@ function sortMoves(moves: IPokeMove[], filterBy: string) {
 }
 
 async function getMoves(pokemonMoves: IPokemonMove[], filterBy: string) {
-  if (isYoshView.value) movesList.value = yoshMoves[filterBy];
-  else if (!pokemonMoves?.length) return;
+  if (!pokemonMoves?.length) return;
   else
     try {
       const filteredMoves = filterActivePokemonMoves(pokemonMoves, filterBy);
@@ -250,7 +253,10 @@ async function getMoves(pokemonMoves: IPokemonMove[], filterBy: string) {
     }
 }
 
-watchEffect(() => executeFn(activePokemonMoves.value, props.filterBy));
+watchEffect(() => {
+  if (isYoshView.value) movesList.value = yoshMoves[props.filterBy];
+  else executeFn(activePokemonMoves.value, props.filterBy);
+});
 </script>
 
 <style scoped lang="scss">

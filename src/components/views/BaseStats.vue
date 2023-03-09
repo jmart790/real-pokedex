@@ -1,6 +1,6 @@
 <template>
   <section class="base-stats">
-    <PikachuLoader v-if="isLoading" />
+    <PikachuLoader v-if="isLoading && !isYoshView" />
     <ErrorCard v-else-if="hasError && !isYoshView" />
     <div class="base-stats__cards" v-else>
       <FrostCard v-for="stat in stats" :key="`base-stat-${stat.label}`">

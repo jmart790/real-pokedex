@@ -1,6 +1,6 @@
 <template>
   <section class="base-details" :class="`base-details--${pokemonTypes[0]}`">
-    <PikachuLoader v-if="isLoading" />
+    <PikachuLoader v-if="isLoading && !isYoshView" />
     <div v-else class="base-details__card">
       <section class="base-details__species-num">
         <p>{{ genus }}</p>
