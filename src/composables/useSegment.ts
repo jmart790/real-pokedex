@@ -11,13 +11,7 @@ function deviceMatch(userAgent: string) {
   const isMobile = mobileRegex.test(userAgent);
   const isTablet = !isMobile && tabletRegex.test(userAgent);
   const isLaptop = !isMobile && !isTablet && laptopRegex.test(userAgent);
-  return isMobile
-    ? 'mobile'
-    : isTablet
-    ? 'tablet'
-    : isLaptop
-    ? 'laptop'
-    : 'desktop';
+  return isMobile ? 'mobile' : isTablet ? 'tablet' : isLaptop ? 'laptop' : 'desktop';
 }
 
 function getDeviceInfo(userAgent: string) {
