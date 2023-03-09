@@ -6,6 +6,7 @@
 </template>
 
 <style scoped lang="scss">
+// TODO: Make yosh img dynamic to show other variations
 .yosh {
   height: 100%;
   width: 100%;
