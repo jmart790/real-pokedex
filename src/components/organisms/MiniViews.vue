@@ -3,12 +3,12 @@
     <section class="mini-views__windows">
       <Window variant="sm">
         <p class="mini-views__copy">
-          {{ copy[mainView]?.left }}
+          {{ copy?.left }}
         </p>
       </Window>
       <Window variant="sm">
         <p class="mini-views__copy">
-          {{ copy[mainView]?.right }}
+          {{ copy?.right }}
         </p>
       </Window>
     </section>
@@ -40,9 +40,10 @@ function decimetersToFeet(num: number) {
 }
 
 const copy = computed(() => {
+  if (['OFF', 'INTRO'].includes(mainView.value)) return null;
   const height = decimetersToFeet(activePokemon?.value?.height || 0);
   const weight = hectogramsToPounds(activePokemon?.value?.weight || 0);
-  return {
+  const options = {
     LIST: {
       left: `Generation: ${genNum.value}`,
       right: `Pokemon: ${pokemonListLength.value}`
@@ -56,6 +57,8 @@ const copy = computed(() => {
       right: 'Weight: Nunya'
     }
   };
+  const fallback = { left: 'Version: 1', right: 'Made with Vue 💚' };
+  return options[mainView.value] || fallback;
 });
 </script>
 
