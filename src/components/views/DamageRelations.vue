@@ -25,6 +25,7 @@
 
 <script setup lang="ts">
 import { usePokeStore } from '@/store/pokemon';
+import { useControlsStore } from '@/store/controls';
 import { storeToRefs } from 'pinia';
 import { watchEffect, ref, computed } from 'vue';
 import PokeAPI, { type INamedApiResource, type IType, type ITypeRelations } from 'pokeapi-typescript';
@@ -46,7 +47,9 @@ const props = defineProps<{
 }>();
 
 const pokeStore = usePokeStore();
+const controlsStore = useControlsStore();
 
+const { isYoshView } = storeToRefs(controlsStore);
 const { activePokemonType } = storeToRefs(pokeStore);
 const damageRelationsRawResponse = ref<ITypeRelations>();
 const hasError = ref(false);
@@ -82,7 +85,8 @@ function handleFailure(e) {
 }
 
 async function getDamageRelations(type: string) {
-  await PokeAPI.Type.resolve(type)
+  const payload = isYoshView.value ? 'grass' : type;
+  await PokeAPI.Type.resolve(payload)
     .then(({ damage_relations }) => (damageRelationsRawResponse.value = damage_relations))
     .catch((e) => handleFailure(e));
 }
