@@ -3,17 +3,18 @@
     <PokedexLeft>
       <Window class="pokedex__left-window">
         <Toast v-if="isToastVisible" v-bind="toastProps.header" />
-        <component :is="mainViewComponent" />
-        <!-- pokemon list/wild needs to remain alive for now -->
-        <PokemonWild v-show="mainView === 'POKEMON'" />
-        <PokemonList v-show="mainView === 'LIST'" />
-        <Toast v-if="isToastVisible" v-bind="{ ...toastProps.footer }" />
+        <KeepAlive>
+          <component :is="mainViewComponent" />
+        </KeepAlive>
+        <Toast v-if="isToastVisible" v-bind="toastProps.footer" />
       </Window>
       <LeftControls />
     </PokedexLeft>
     <PokedexRight>
       <Window variant="md" class="pokedex__right-window">
-        <component v-if="mainView !== 'INTRO'" :is="secondaryViewComponent" v-bind="secondaryViewProps" />
+        <KeepAlive>
+          <component :is="secondaryViewComponent" v-bind="secondaryViewProps" />
+        </KeepAlive>
       </Window>
       <RightControls />
       <MiniViews />
@@ -38,7 +39,7 @@ const { mainView, secondaryView } = storeToRefs(controlsStore);
 const { togglePower } = controlsStore;
 
 const isToastVisible = computed(() => {
-  const viewsWithToast = ['LIST', 'POKEMON', 'GENERATIONS'];
+  const viewsWithToast = ['LIST', 'POKEMON', 'GENERATIONS', 'YOSH'];
   return viewsWithToast.includes(mainView.value);
 });
 
@@ -46,6 +47,8 @@ const mainViewComponent = computed(() => {
   const options = {
     INTRO: 'PokemonIntro',
     MENU: 'MainMenu',
+    LIST: 'PokemonList',
+    POKEMON: 'PokemonWild',
     GENERATIONS: 'PokemonGens',
     YOSH: 'ProfYosh',
     CREDITS: 'CreditThanks'
@@ -115,6 +118,17 @@ const toastProps = computed(() => {
         isHeader: false,
         copy: `Select`,
         btnCopy: 'A'
+      }
+    },
+    YOSH: {
+      header: {
+        isHeader: true,
+        copy: 'Prof. Yosh'
+      },
+      footer: {
+        isHeader: false,
+        copy: 'Back',
+        btnCopy: 'B'
       }
     }
   };
