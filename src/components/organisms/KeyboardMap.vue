@@ -24,22 +24,22 @@ const buttons = [
   {
     component: 'DpadButton',
     props: { variant: 'up' },
-    correspondingKey: 'up'
+    correspondingKey: '↑'
   },
   {
     component: 'DpadButton',
     props: { variant: 'down' },
-    correspondingKey: 'down'
+    correspondingKey: '↓'
   },
   {
     component: 'DpadButton',
     props: { variant: 'left' },
-    correspondingKey: 'left'
+    correspondingKey: '←'
   },
   {
     component: 'DpadButton',
     props: { variant: 'right' },
-    correspondingKey: 'right'
+    correspondingKey: '→'
   },
   {
     component: 'DpadButton',
@@ -102,6 +102,16 @@ const buttons = [
     correspondingKey: 8
   },
   {
+    component: 'BlueButton',
+    props: { copy: 9 },
+    correspondingKey: 9
+  },
+  {
+    component: 'BlueButton',
+    props: { copy: 10 },
+    correspondingKey: 0
+  },
+  {
     component: 'PowerButton',
     props: null,
     correspondingKey: 'p'
@@ -111,7 +121,7 @@ const buttons = [
 
 <style scoped lang="scss">
 // overwrite frostcard
-:deep .frost-card__ui::before {
+:deep(.frost-card__ui::before) {
   background: linear-gradient(40deg, rgba($primary, 0.6) 30%, rgba($primary, 0.2) 100%);
   filter: none;
   -webkit-backdrop-filter: blur(8px);
@@ -128,7 +138,7 @@ const buttons = [
 
   &--open {
     width: 100%;
-    height: 671px;
+    height: 720px;
   }
   &--open &__content {
     opacity: 1;
@@ -163,6 +173,7 @@ const buttons = [
     gap: gap(4);
     opacity: 0;
     filter: blur(5px);
+    backdrop-filter: blur(5px);
     transition: opacity ease-in-out 300ms, filter ease-in-out 300ms;
   }
 
@@ -177,8 +188,8 @@ const buttons = [
   }
 
   &__button {
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     font-size: $font-size-3;
   }
 

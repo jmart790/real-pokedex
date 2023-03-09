@@ -30,94 +30,99 @@ const buttons = computed(() => [
   {
     component: 'DpadButton',
     props: { variant: 'up' },
-    correspondingAction: mainView.value === 'POKEMON' ? 'next 2 pokemon' : 'move up'
+    correspondingAction: ['POKEMON', 'YOSH'].includes(mainView.value) ? 'next 2' : 'move up'
   },
   {
     component: 'DpadButton',
     props: { variant: 'down' },
-    correspondingAction: mainView.value === 'POKEMON' ? 'previous 2 pokemon' : 'move down'
+    correspondingAction: ['POKEMON', 'YOSH'].includes(mainView.value) ? 'prev 2' : 'move down'
   },
   {
     component: 'DpadButton',
     props: { variant: 'left' },
-    correspondingAction: mainView.value === 'POKEMON' ? 'previous pokemon' : 'move left'
+    correspondingAction: ['POKEMON', 'YOSH'].includes(mainView.value) ? 'prev' : 'move left'
   },
   {
     component: 'DpadButton',
     props: { variant: 'right' },
-    correspondingAction: mainView.value === 'POKEMON' ? 'next pokemon' : 'move right'
+    correspondingAction: ['POKEMON', 'YOSH'].includes(mainView.value) ? 'next' : 'move right'
   },
   {
     component: 'DpadButton',
     props: { variant: 'y' },
-    correspondingAction: mainView.value === 'POKEMON' ? 'toggle sprite' : 'N/A'
+    correspondingAction: ['POKEMON', 'YOSH'].includes(mainView.value) ? 'toggle sprite' : 'N/A'
   },
   {
     component: 'DpadButton',
     props: { variant: 'x' },
-    correspondingAction: mainView.value === 'POKEMON' ? 'toggle orientation' : 'N/A'
+    correspondingAction: ['POKEMON', 'YOSH'].includes(mainView.value) ? 'toggle orientation' : 'N/A'
   },
   {
     component: 'DpadButton',
     props: { variant: 'b' },
-    correspondingAction: mainView.value === 'POKEMON' ? 'back to list' : 'N/A'
+    correspondingAction: ['POKEMON', 'YOSH'].includes(mainView.value) ? 'back' : 'N/A'
   },
   {
     component: 'DpadButton',
     props: { variant: 'a' },
-    correspondingAction: mainView.value === 'POKEMON' ? 'toggle shiny' : 'select pokemon'
+    correspondingAction: ['POKEMON', 'YOSH'].includes(mainView.value) ? 'toggle shiny' : 'select'
   },
   {
     component: 'BlueButton',
     props: { copy: 1 },
-    correspondingAction: mainView.value === 'POKEMON' ? 'details' : 'generation 1'
+    correspondingAction: ['POKEMON', 'YOSH'].includes(mainView.value) ? 'details' : 'gen 1'
   },
   {
     component: 'BlueButton',
     props: { copy: 2 },
-    correspondingAction: mainView.value === 'POKEMON' ? 'stats' : 'generation 2'
+    correspondingAction: ['POKEMON', 'YOSH'].includes(mainView.value) ? 'stats' : 'gen 2'
   },
   {
     component: 'BlueButton',
     props: { copy: 3 },
-    correspondingAction: mainView.value === 'POKEMON' ? 'damage from' : 'generation 3'
+    correspondingAction: ['POKEMON', 'YOSH'].includes(mainView.value) ? 'damage from' : 'gen 3'
   },
   {
     component: 'BlueButton',
     props: { copy: 4 },
-    correspondingAction: mainView.value === 'POKEMON' ? 'damage to' : 'generation 4'
+    correspondingAction: ['POKEMON', 'YOSH'].includes(mainView.value) ? 'damage to' : 'gen 4'
   },
   {
     component: 'BlueButton',
     props: { copy: 5 },
-    correspondingAction: mainView.value === 'POKEMON' ? 'evolutions' : 'generation 5'
+    correspondingAction: ['POKEMON', 'YOSH'].includes(mainView.value) ? 'evolutions' : 'gen 5'
   },
   {
     component: 'BlueButton',
     props: { copy: 6 },
-    correspondingAction: mainView.value === 'POKEMON' ? 'learned moves' : 'generation 6'
+    correspondingAction: ['POKEMON', 'YOSH'].includes(mainView.value) ? 'learned moves' : 'gen 6'
   },
   {
     component: 'BlueButton',
     props: { copy: 7 },
-    correspondingAction: mainView.value === 'POKEMON' ? 'machine moves' : 'generation 7'
+    correspondingAction: ['POKEMON', 'YOSH'].includes(mainView.value) ? 'machine moves' : 'gen 7'
   },
   {
     component: 'BlueButton',
     props: { copy: 8 },
-    correspondingAction: mainView.value === 'POKEMON' ? 'sprites' : 'generation 8'
+    correspondingAction: ['POKEMON', 'YOSH'].includes(mainView.value) ? 'sprites' : 'gen 8'
+  },
+  {
+    component: 'BlueButton',
+    props: { copy: 9 },
+    correspondingAction: ['POKEMON', 'YOSH'].includes(mainView.value) ? 'N/A' : 'gen 9'
   },
   {
     component: 'PowerButton',
     props: null,
-    correspondingAction: 'toggle power'
+    correspondingAction: 'power'
   }
 ]);
 </script>
 
 <style scoped lang="scss">
 // overwrite frostcard
-:deep .frost-card__ui::before {
+:deep(.frost-card__ui::before) {
   background: linear-gradient(40deg, rgba($secondary, 0.6) 30%, rgba($secondary, 0.2) 100%);
   filter: none;
   backdrop-filter: blur(8px);
@@ -168,6 +173,7 @@ const buttons = computed(() => [
     gap: gap(4);
     opacity: 0;
     filter: blur(5px);
+    backdrop-filter: blur(5px);
     transition: opacity ease-in-out 300ms, filter ease-in-out 300ms;
   }
 
@@ -184,8 +190,8 @@ const buttons = computed(() => [
 
   &__button {
     flex-shrink: 0;
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     font-size: $font-size-3;
   }
 }
