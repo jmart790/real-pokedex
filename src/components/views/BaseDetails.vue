@@ -120,10 +120,10 @@ async function getEncounter(payload: number) {
 
 function getYoshData() {
   flavorText.value =
-    "If he's not spending time his wife & daughter then you can find him either gardening or building cool new Vue apps";
-  genus.value = 'Cool Nerd Professor';
+    "If he's not spending time with his wife & daughter then you can find him either gardening or building cool new Vue apps";
+  genus.value = 'Pokédex creator ';
   description.value = 'Loves tacos and pineapple pizza';
-  encounter.value = 'sitting at his Autonomous desk or plants';
+  encounter.value = 'at his desk working too much or gardening';
   location.value = 'sunny south Florida';
 }
 
