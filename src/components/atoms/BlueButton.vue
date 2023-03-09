@@ -20,8 +20,8 @@ defineProps<{ copy: number; isActive?: boolean }>();
   font-weight: bold;
   font-size: $font-size-7;
   font-family: $secondary-font;
-  color: $dark-blue;
-  text-shadow: 2px 2px 3px rgba($blue, 0.5);
+  color: rgba($darker-blue, 0.7);
+  text-shadow: 2px 2px 3px rgba($blue, 9);
 
   &:hover {
     cursor: pointer;
