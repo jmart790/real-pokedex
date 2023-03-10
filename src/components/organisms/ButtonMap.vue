@@ -113,6 +113,16 @@ const buttons = computed(() => [
     correspondingAction: ['POKEMON', 'YOSH'].includes(mainView.value) ? 'N/A' : 'gen 9'
   },
   {
+    component: 'VolumeButton',
+    props: { isPlus: true },
+    correspondingAction: 'N/A'
+  },
+  {
+    component: 'VolumeButton',
+    props: { isPlus: false },
+    correspondingAction: 'N/A'
+  },
+  {
     component: 'PowerButton',
     props: null,
     correspondingAction: 'power'
@@ -122,28 +132,36 @@ const buttons = computed(() => [
 
 <style scoped lang="scss">
 // overwrite frostcard
-:deep(.frost-card__ui::before) {
+:deep(.frost-card__ui:before) {
   background: linear-gradient(40deg, rgba($secondary, 0.6) 30%, rgba($secondary, 0.2) 100%);
   filter: none;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
+
 .btn-map {
   height: 40px;
   padding: gap(2) gap(3) gap(4) gap(3);
   overflow: hidden;
   border-radius: $rounded-1;
   box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.4), inset 2px 4px 8px rgba(0, 0, 0, 0.4);
+  will-change: height;
   transition: height ease-in-out 300ms;
   color: rgba(white, 0.8);
 
   &--open {
-    height: 700px;
+    height: 630px;
+
+    @media (min-width: 666px) {
+      height: 730px;
+    }
   }
+
   &--open &__content {
     opacity: 1;
     filter: blur(0);
   }
+
   &__header {
     margin-bottom: gap(4);
     display: flex;
@@ -152,10 +170,12 @@ const buttons = computed(() => [
     gap: gap(4);
     cursor: pointer;
   }
+
   &__title {
     font-weight: 600;
     font-family: $secondary-font;
   }
+
   &__toggle {
     height: 20px;
     width: 20px;
@@ -167,14 +187,19 @@ const buttons = computed(() => [
     background: linear-gradient(315deg, #2c7292, #3488ad);
     box-shadow: -20px -20px 60px #2a6c8a, 20px 20px 60px #3892ba;
   }
+
   &__content {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: gap(4);
+    gap: gap(3);
     opacity: 0;
     filter: blur(5px);
     backdrop-filter: blur(5px);
     transition: opacity ease-in-out 300ms, filter ease-in-out 300ms;
+
+    @media (min-width: 666px) {
+      gap: gap(4);
+    }
   }
 
   &__legend {
@@ -186,6 +211,11 @@ const buttons = computed(() => [
     background: linear-gradient(40deg, rgba($pokemon-ice, 0.4) 30%, rgba($pokemon-ice, 0.1) 100%);
     border-radius: $rounded-1;
     text-transform: capitalize;
+    font-size: $font-size-1;
+
+    @media (min-width: 666px) {
+      font-size: unset;
+    }
   }
 
   &__button {
@@ -193,6 +223,16 @@ const buttons = computed(() => [
     width: 30px;
     height: 30px;
     font-size: $font-size-3;
+  }
+
+  :deep(.volume-btn) {
+    width: 30px;
+    height: 8px;
+  }
+
+  :deep(.volume-btn--plus:before) {
+    height: 30px;
+    width: 8px;
   }
 }
 </style>
