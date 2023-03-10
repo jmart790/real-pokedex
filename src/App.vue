@@ -65,6 +65,7 @@ onBeforeUnmount(() => {
   background-size: cover;
   font-family: $main-font;
   font-size: $font-size-3;
+  overflow: hidden;
 
   &__keyboard-map-wrapper {
     display: none;
