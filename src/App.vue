@@ -48,6 +48,7 @@ onBeforeUnmount(() => {
 
 <style scoped lang="scss">
 .pokedex-container {
+  max-height: -webkit-fill-available;
   height: 100vh;
   width: 100vw;
   margin: 0;
