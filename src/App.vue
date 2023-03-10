@@ -10,11 +10,13 @@
       class="pokedex-container__pokedex"
       :class="{ 'pokedex-container__pokedex--shift-right': isShiftedRight }"
     />
-    <MobileViewButton
-      class="pokedex-container__mobile-btn"
-      @click="isShiftedRight = !isShiftedRight"
-      :is-shifted-right="isShiftedRight"
-    />
+    <div class="pokedex-container__mobile-btn-wrapper">
+      <MobileViewButton
+        class="pokedex-container__mobile-btn"
+        @click="isShiftedRight = !isShiftedRight"
+        :is-shifted-right="isShiftedRight"
+      />
+    </div>
   </div>
 </template>
 
@@ -115,16 +117,26 @@ onBeforeUnmount(() => {
     @media screen and (max-height: 500px) and (orientation: landscape) {
       transform: translate(-50%, -50%) scale(0.55);
     }
-
   }
 
-  &__mobile-btn {
+  &__mobile-btn-wrapper {
     position: fixed;
-    bottom: 2.5%;
-    left: 50%;
-    transform: translateX(-50%);
+    bottom: 2.1%;
+    left: 0;
+    width: 100%;
+    @media (min-width: 400px) {
+      bottom: 2.5%;
+    }
     @media (min-width: 666px) {
       display: none;
+    }
+  }
+  &__mobile-btn {
+    display: block;
+    margin-inline: auto;
+    transform: scale(0.8);
+    @media (min-width: 400px) {
+      transform: unset;
     }
   }
 }
