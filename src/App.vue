@@ -74,9 +74,9 @@ onBeforeUnmount(() => {
     @media screen and (max-height: 500px) and (orientation: landscape) {
       display: none;
     }
-    position: fixed;
-    top: rem(16);
-    left: rem(16);
+    position: absolute;
+    top: 16px;
+    left: 16px;
     width: 256px;
     max-height: 95vh;
     z-index: 100;
@@ -85,7 +85,7 @@ onBeforeUnmount(() => {
   &__btn-map-wrapper {
     right: 50%;
     transform: translateX(50%);
-    position: fixed;
+    position: absolute;
     top: rem(16);
     width: 350px;
     max-height: 95vh;
@@ -97,7 +97,7 @@ onBeforeUnmount(() => {
   }
 
   &__pokedex {
-    position: fixed;
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-32.5%, -50%) scale(0.7);
@@ -120,7 +120,7 @@ onBeforeUnmount(() => {
   }
 
   &__mobile-btn-wrapper {
-    position: fixed;
+    position: absolute;
     bottom: 2.1%;
     left: 0;
     width: 100%;
