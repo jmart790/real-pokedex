@@ -1,7 +1,7 @@
 <template>
   <main class="pokedex">
     <PokedexLeft>
-      <Window class="pokedex__left-window">
+      <Window class="pokedex__left-window" @click="handleOpenHelper">
         <Toast v-if="isToastVisible" v-bind="toastProps.header" />
         <KeepAlive>
           <component :is="mainViewComponent" />
@@ -11,7 +11,7 @@
       <LeftControls />
     </PokedexLeft>
     <PokedexRight>
-      <Window variant="md" class="pokedex__right-window">
+      <Window variant="md" class="pokedex__right-window" @click="handleOpenHelper">
         <KeepAlive>
           <component :is="secondaryViewComponent" v-bind="secondaryViewProps" />
         </KeepAlive>
@@ -30,6 +30,7 @@ import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
 import useAnalytics from '@/composables/useSegment';
 
+const emit = defineEmits(['open']);
 const pokeStore = usePokeStore();
 const controlsStore = useControlsStore();
 const { trackNewUser } = useAnalytics();
@@ -134,6 +135,10 @@ const toastProps = computed(() => {
   };
   return options[mainView.value] || null;
 });
+
+function handleOpenHelper() {
+  emit('open');
+}
 
 async function initPokedex() {
   await pokeStore.getGeneration();

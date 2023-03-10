@@ -9,6 +9,7 @@
     <ThePokedex
       class="pokedex-container__pokedex"
       :class="{ 'pokedex-container__pokedex--shift-right': isShiftedRight }"
+      @open="handleOpenHelper"
     />
     <div class="pokedex-container__mobile-btn-wrapper">
       <MobileViewButton
@@ -16,6 +17,9 @@
         @click="isShiftedRight = !isShiftedRight"
         :is-shifted-right="isShiftedRight"
       />
+    </div>
+    <div v-if="isHelperOpen" class="pokedex-container__helper-wrapper">
+      <PikachuHelper class="pokedex-container__helper" @close="handleCloseHelper" />
     </div>
   </div>
 </template>
@@ -28,6 +32,7 @@ const { handleMainControl } = useControls();
 const keysToListenTo = ['down', 'up', 'left', 'right', 'x', 'z', 'a', 's', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'p'];
 const keysToBtnMap = { a: 'y', s: 'x', z: 'b', x: 'a', p: 'power', 0: '10' };
 const isShiftedRight = ref(false);
+const isHelperOpen = ref(false);
 
 function handleKeyUp(event: KeyboardEvent) {
   event.preventDefault();
@@ -35,6 +40,14 @@ function handleKeyUp(event: KeyboardEvent) {
   if (keysToListenTo.includes(command)) {
     handleMainControl(keysToBtnMap[command] || command);
   }
+}
+
+function handleCloseHelper() {
+  isHelperOpen.value = false;
+}
+
+function handleOpenHelper() {
+  isHelperOpen.value = true;
 }
 
 onMounted(() => {
@@ -139,6 +152,21 @@ onBeforeUnmount(() => {
     @media (min-width: 400px) {
       transform: unset;
     }
+  }
+
+  &__helper-wrapper {
+    position: fixed;
+    z-index: 100;
+    inset: 0 0 0 0;
+    height: 100%;
+    width: 100%;
+    padding: gap(2);
+    background-color: rgba(black, 0.5);
+    @include flex-center;
+  }
+
+  &__helper {
+    margin: auto;
   }
 }
 </style>
