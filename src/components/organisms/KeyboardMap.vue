@@ -121,7 +121,7 @@ const buttons = [
 
 <style scoped lang="scss">
 // overwrite frostcard
-:deep(.frost-card__ui::before) {
+:deep(.frost-card__ui:before) {
   background: linear-gradient(40deg, rgba($primary, 0.6) 30%, rgba($primary, 0.2) 100%);
   filter: none;
   -webkit-backdrop-filter: blur(8px);
@@ -134,6 +134,7 @@ const buttons = [
   color: rgba(black, 0.6);
   border-radius: $rounded-1;
   box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.4), inset 2px 4px 8px rgba(0, 0, 0, 0.4);
+  will-change: height;
   transition: height ease-in-out 300ms;
 
   &--open {
