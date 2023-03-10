@@ -2,11 +2,8 @@ import { ref } from 'vue';
 
 type AsyncFunction = (...args: any[]) => Promise<any>;
 
-export function useLoading<T>(
-  asyncFunction: AsyncFunction,
-  minDuration = 1200
-) {
-  const isLoading = ref(true);
+export function useLoading<T>(asyncFunction: AsyncFunction, minDuration = 1200) {
+  const isLoading = ref(false);
 
   const executeFn = async (...args: any[]) => {
     isLoading.value = true;
