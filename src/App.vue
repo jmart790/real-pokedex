@@ -48,7 +48,6 @@ onBeforeUnmount(() => {
 
 <style scoped lang="scss">
 .pokedex-container {
-  max-height: -webkit-fill-available;
   height: 100vh;
   width: 100vw;
   margin: 0;
@@ -76,7 +75,7 @@ onBeforeUnmount(() => {
     @media screen and (max-height: 500px) and (orientation: landscape) {
       display: none;
     }
-    position: absolute;
+    position: fixed;
     top: 16px;
     left: 16px;
     width: 256px;
@@ -87,7 +86,7 @@ onBeforeUnmount(() => {
   &__btn-map-wrapper {
     right: 50%;
     transform: translateX(50%);
-    position: absolute;
+    position: fixed;
     top: rem(16);
     width: 350px;
     max-height: 95vh;
@@ -99,7 +98,7 @@ onBeforeUnmount(() => {
   }
 
   &__pokedex {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-32.5%, -50%) scale(0.7);
@@ -122,7 +121,7 @@ onBeforeUnmount(() => {
   }
 
   &__mobile-btn-wrapper {
-    position: absolute;
+    position: fixed;
     bottom: 2.1%;
     left: 0;
     width: 100%;
