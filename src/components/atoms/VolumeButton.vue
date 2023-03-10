@@ -45,8 +45,8 @@ withDefaults(defineProps<{ isPlus?: boolean }>(), {
       left: 50%;
       top: 0;
       transform: translateX(-50%);
-      width: 10px;
-      height: 5px;
+      width: 48%;
+      height: 90%;
       border-radius: 4px;
     }
 
