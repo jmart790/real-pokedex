@@ -2,7 +2,7 @@
   <button class="mobile-btn" v-bind="$attrs" @click="handleInternalClick">
     <p class="mobile-btn__pokeball">
       <span class="mobile-btn__pokeball-center" :class="{ 'mobile-btn__pokeball-center--right': isShiftedRight }" />
-      <span class="mobile-btn__copy">click me</span>
+      <span class="mobile-btn__copy">shift {{ isShiftedRight ? 'left' : 'right' }}</span>
     </p>
     <img src="https://svgshare.com/i/aat.svg" alt="pikachu" class="pikachu" :class="{ 'pikachu--show': hasClicked }" />
   </button>
