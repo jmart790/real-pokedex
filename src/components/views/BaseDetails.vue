@@ -16,7 +16,7 @@
         <span v-if="!hasData">
           <br />
           <br />
-          We apologize, as some of {{ name }} details are missing 😞
+          We apologize, as some of {{ name }} details are missing 😞. Evolutions, moves, etc are still available.
         </span>
         <template v-if="description"> {{ description.toLowerCase() }}. </template>
         {{ flavorText }}
@@ -90,7 +90,9 @@ async function getSpecies(payload: number) {
       flavorText.value = getFlavortText(res);
       genus.value = getGenus(res);
     })
-    .catch((e) => console.log({ e }));
+    .catch((_e) => {
+      flavorText.value = '';
+    });
 }
 
 async function getDescription(payload: number) {
@@ -98,7 +100,9 @@ async function getDescription(payload: number) {
     .then((res: any) => {
       description.value = res?.descriptions.find(({ language }) => language.name === 'en')?.description;
     })
-    .catch(async (e) => console.log({ e }));
+    .catch(async (_e) => {
+      description.value = '';
+    });
 }
 
 async function getLocation(payload: number) {
@@ -106,7 +110,9 @@ async function getLocation(payload: number) {
     .then((res) => {
       location.value = res.location.name.replace('-', ' ');
     })
-    .catch((e) => console.log({ e }));
+    .catch((_e) => {
+      location.value = '';
+    });
 }
 
 async function getEncounter(payload: number) {
@@ -115,7 +121,9 @@ async function getEncounter(payload: number) {
       const data = names?.find(({ language }) => language.name == 'en');
       encounter.value = data?.name || '';
     })
-    .catch((e) => console.log({ e }));
+    .catch((_e) => {
+      encounter.value = '';
+    });
 }
 
 function getYoshData() {
