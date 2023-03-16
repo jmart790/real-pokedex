@@ -54,7 +54,9 @@ const isLoading = ref(false);
 const isGifVisible = computed(() => {
   return props.isActive && gifImage.value;
 });
-const spriteImage = computed(() => pokemon?.value?.sprites?.front_default);
+const spriteImage = computed(
+  () => pokemon?.value?.sprites?.front_default || pokemon?.value?.sprites.other['official-artwork']?.front_default
+);
 const gifImage = computed(
   () => pokemon?.value?.sprites?.versions['generation-v']['black-white']?.animated?.front_default
 );
