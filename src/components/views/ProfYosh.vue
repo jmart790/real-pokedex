@@ -35,7 +35,9 @@
     left: -20px;
     height: 400px;
     transform: scaleX(-1);
-    filter: drop-shadow(4px 4px 8px rgba(black, 0.7));
+    @include larger-than-mobile-safari {
+      filter: drop-shadow(4px 4px 8px rgba(black, 0.7));
+    }
   }
 }
 </style>

@@ -154,7 +154,9 @@ watchEffect(async () => {
     color: $off-white;
     img {
       width: 115px;
-      filter: drop-shadow(4px 4px 8px rgba(black, 0.7));
+      @include larger-than-mobile-safari {
+        filter: drop-shadow(4px 4px 8px rgba(black, 0.7));
+      }
     }
     p {
       font-size: $font-size-1;

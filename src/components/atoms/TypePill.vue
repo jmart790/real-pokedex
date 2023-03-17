@@ -24,7 +24,9 @@ defineProps<{ type: string }>();
     width: 25px;
     height: 25px;
     fill: rgba(white, 0.85);
-    filter: drop-shadow(1px 1px 4px rgba(black, 0.3));
+    @include larger-than-mobile-safari {
+      filter: drop-shadow(1px 1px 4px rgba(black, 0.3));
+    }
   }
   &__copy {
     line-height: 1;

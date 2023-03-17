@@ -97,7 +97,9 @@ const trigger = computed(() => {
   img {
     width: 100%;
     max-height: inherit;
-    filter: drop-shadow(4px 4px 8px rgba(black, 0.7));
+    @include larger-than-mobile-safari {
+      filter: drop-shadow(4px 4px 8px rgba(black, 0.7));
+    }
   }
 
   h4 {

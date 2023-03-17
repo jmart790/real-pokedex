@@ -27,7 +27,9 @@
     z-index: 5;
     height: 82.8%;
     width: 100%;
-    filter: drop-shadow(10px 4px 6px rgba(0, 0, 0, 0.3));
+    @include larger-than-mobile-safari {
+      filter: drop-shadow(10px 4px 6px rgba(0, 0, 0, 0.3));
+    }
   }
 
   &__top {

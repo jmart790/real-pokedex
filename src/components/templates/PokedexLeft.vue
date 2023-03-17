@@ -60,7 +60,9 @@
     border-bottom-left-radius: $outside-corner;
     box-shadow: 2px -10px 10px 0px $dark-red inset, 10px -2px 10px 0px $dark-red inset,
       10px 10px 10px 0px $light-red inset;
-    filter: drop-shadow(2px 4px 12px rgba(black, 0.7));
+    @include larger-than-mobile-safari {
+      filter: drop-shadow(2px 4px 12px rgba(black, 0.7));
+    }
   }
 
   &__depth-seperation {
