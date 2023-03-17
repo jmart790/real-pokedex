@@ -12,9 +12,7 @@
     </PokedexLeft>
     <PokedexRight>
       <Window variant="md" class="pokedex__right-window" @click="handleOpenHelper">
-        <KeepAlive>
-          <component :is="secondaryViewComponent" v-bind="secondaryViewProps" />
-        </KeepAlive>
+        <component :is="secondaryViewComponent" v-bind="secondaryViewProps" />
       </Window>
       <RightControls />
       <MiniViews />
