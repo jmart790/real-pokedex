@@ -91,11 +91,12 @@ const trigger = computed(() => {
   color: $off-white;
   &__img-wrapper {
     position: relative;
-    max-height: 100%;
+    max-height: 170px;
     width: 100%;
   }
   img {
     width: 100%;
+    max-height: inherit;
     filter: drop-shadow(4px 4px 8px rgba(black, 0.7));
   }
 
@@ -136,12 +137,6 @@ const trigger = computed(() => {
       width: 100%;
       font-size: $font-size-1;
       text-align: center;
-    }
-  }
-
-  &--1 {
-    #{$self}__trigger {
-      top: -2%;
     }
   }
 
