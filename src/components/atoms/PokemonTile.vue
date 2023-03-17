@@ -8,7 +8,13 @@
       `pokemon-tile--${pokemonType}`
     ]"
   >
-    <div class="pokemon-tile__image-container" :class="{ 'pokemon-tile__image-container--loading': isLoading }">
+    <div
+      class="pokemon-tile__image-container"
+      :class="{
+        'pokemon-tile__image-container--loading': isLoading,
+        'pokemon-tile__image-container--shrink': isPokemonTooBig
+      }"
+    >
       <img
         v-show="isGifVisible"
         :src="gifImage"
@@ -22,9 +28,7 @@
         :src="spriteImage"
         alt="pokemon sprite"
         class="pokemon-tile__sprite"
-        :class="{
-          'pokemon-tile__sprite--backup-active': isActive && !gifImage
-        }"
+        :class="{ 'pokemon-tile__sprite--backup-active': isActive && !gifImage }"
         height="64px"
         width="64px"
         @load="handleLoadedImage"
@@ -60,7 +64,10 @@ const spriteImage = computed(
 const gifImage = computed(
   () => pokemon?.value?.sprites?.versions['generation-v']['black-white']?.animated?.front_default
 );
+
 const pokemonType = computed(() => pokemon?.value?.types[0].type.name);
+
+const isPokemonTooBig = computed(() => (pokemon.value?.height || 0) > 11);
 
 const handleLoadedImage = () => {
   isLoading.value = false;
@@ -76,6 +83,7 @@ onMounted(async () => {
 
 <style scoped lang="scss">
 .pokemon-tile {
+  $self: &;
   position: relative;
   @mixin active($color) {
     letter-spacing: 1px;
@@ -108,6 +116,16 @@ onMounted(async () => {
       overflow: hidden;
       img {
         opacity: 0;
+      }
+    }
+    &--shrink {
+      #{$self}__sprite {
+        height: 130%;
+        width: 130%;
+      }
+      #{$self}__gif {
+        height: 130%;
+        width: 130%;
       }
     }
   }
