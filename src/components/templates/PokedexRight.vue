@@ -27,6 +27,7 @@
     z-index: 5;
     height: 82.8%;
     width: 100%;
+    filter: drop-shadow(10px 4px 6px rgba(0, 0, 0, 0.3));
   }
 
   &__top {
@@ -93,7 +94,6 @@
     bottom: 0;
     width: 100%;
     padding: 25px;
-    box-shadow: 0px 20px 16px rgba(0, 0, 0, 0.4);
   }
 }
 </style>
