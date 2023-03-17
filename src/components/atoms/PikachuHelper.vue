@@ -1,5 +1,5 @@
 <template>
-  <div class="p-helper">
+  <div class="p-helper" v-on-click-outside="handleClose">
     <div class="p-helper__copy">
       <button class="p-helper__close" @click.stop="handleClose">
         <span>+</span>
@@ -21,6 +21,9 @@
 </template>
 
 <script setup lang="ts">
+// @ts-ignore
+import { vOnClickOutside } from '@vueuse/components';
+
 const emit = defineEmits(['close']);
 
 function handleClose() {

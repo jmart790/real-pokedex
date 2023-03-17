@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@segment/analytics-next": "^1.51.0",
+    "@vueuse/components": "^9.13.0",
+    "@vueuse/core": "^9.13.0",
     "logrocket": "^3.0.1",
     "vite-svg-loader": "^3.6.0",
     "vue": "^3.2.41"
