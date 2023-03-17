@@ -87,7 +87,7 @@ watchEffect(async () => {
     max-height: 65%;
     height: v-bind(pokemonHeight);
     width: auto;
-    @include larger-than-mobile-safari {
+    @include larger-than-mobile {
       filter: drop-shadow(0px 4px 4px rgba(black, 0.7));
     }
     &--small {

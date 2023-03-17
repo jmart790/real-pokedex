@@ -27,7 +27,7 @@
     z-index: 5;
     height: 82.8%;
     width: 100%;
-    @include larger-than-mobile-safari {
+    @include larger-than-mobile {
       filter: drop-shadow(10px 4px 6px rgba(0, 0, 0, 0.3));
     }
   }

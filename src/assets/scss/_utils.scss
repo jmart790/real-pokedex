@@ -45,8 +45,8 @@ $gap: 4px;
   }
 }
 
-@mixin larger-than-mobile-safari {
-  @media not all and (min-width: 480px) and (-webkit-min-device-pixel-ratio:0) {
+@mixin larger-than-mobile {
+  @media (min-width: 480px) {
     @content;
   }
 }
