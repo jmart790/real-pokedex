@@ -91,13 +91,23 @@ function extractSprites(sprites: IPokemonSpritesUpdated, spritesArray: string[])
   }
 }
 
+function duplicateSprites(sprites: string[]) {
+  const originalLength = sprites.length;
+  const minimumSpritesNeeded = 50;
+  while (sprites.length < minimumSpritesNeeded) {
+    sprites.push(...sprites.slice(0, originalLength));
+  }
+  return sprites;
+}
+
 watch(
   activePokemon,
   (pokemon) => {
     if (!pokemon?.sprites) return;
     const spritesArray = [];
     extractSprites(pokemon.sprites as IPokemonSpritesUpdated, spritesArray);
-    sprites.value = shuffleSprites(spritesArray);
+    const spritesToShuffle = duplicateSprites(spritesArray);
+    sprites.value = shuffleSprites(spritesToShuffle);
   },
   { immediate: true }
 );
