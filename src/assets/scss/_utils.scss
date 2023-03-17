@@ -44,3 +44,9 @@ $gap: 4px;
     opacity: 0.15;
   }
 }
+
+@mixin larger-than-mobile-safari {
+  @media not all and (pointer: coarse) and (max-width: 767px) and (min-width: 768px) and (-webkit-min-device-pixel-ratio:0) {
+    @content;
+  }
+}
