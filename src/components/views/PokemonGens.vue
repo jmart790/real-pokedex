@@ -1,21 +1,11 @@
 <template>
   <section class="gens">
     <div class="gens__options">
-      <FrostCard
-        v-for="option in menuOptions"
-        :key="`gen-option__${option.region}`"
-      >
-        <div
-          class="gens__option"
-          :class="{ 'gens__option--active': option.id === gensPosition + 1 }"
-        >
+      <FrostCard v-for="option in menuOptions" :key="`gen-option__${option.region}`">
+        <div class="gens__option" :class="{ 'gens__option--active': option.id === gensPosition + 1 }">
           <p class="gens__gen-num">{{ option.id }}</p>
           <p class="gens__region">{{ option.region }}</p>
-          <div
-            v-if="option.sprites.length"
-            class="gens__sprites"
-            :class="`gens__sprites--${option.id}`"
-          >
+          <div v-if="option.sprites.length" class="gens__sprites" :class="`gens__sprites--${option.id}`">
             <img
               v-for="{ src, alt } in option.sprites"
               :key="`menu-sprite__${alt}`"
@@ -239,6 +229,7 @@ const menuOptions = [
       }
 
       #{$self}__sprites {
+        opacity: 1;
         transform: translateX(-100px);
       }
       #{$self}__gen-num {
@@ -272,8 +263,8 @@ const menuOptions = [
     top: 0px;
     width: 52%;
     height: 100%;
-    transition: transform 300ms ease-in-out;
-    // filter: grayscale(1);
+    opacity: 0;
+    transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
 
     img {
       position: absolute;
