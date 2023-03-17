@@ -137,6 +137,7 @@ const menuOptions = [
         letter-spacing: 2px;
       }
       #{$self}__sprites {
+        opacity: 1;
         transform: translateX(-70px);
       }
       #{$self}__sprites--3 {
@@ -150,7 +151,8 @@ const menuOptions = [
     top: 0px;
     width: 70px;
     height: 100%;
-    transition: transform 300ms ease-in-out;
+    opacity: 0;
+    transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
     img {
       position: absolute;
       height: 50px;
