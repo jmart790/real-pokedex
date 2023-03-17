@@ -22,6 +22,7 @@ withDefaults(defineProps<Props>(), {
   background: $off-black;
   padding: gap(4);
   border-radius: 15px;
+  overflow: hidden;
 
   &--md {
     height: 285px;
