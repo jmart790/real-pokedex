@@ -65,8 +65,7 @@ onBeforeUnmount(() => {
   width: 100vw;
   margin: 0;
   background-color: $lightest-blue;
-  // background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1068161816674451528/BonzaiYosh_beautiful_wide_shot_landscape_with_a_lot_of_wild_pok_a82d51e9-7b84-44b2-8da1-46af65ca794d.png');
-  background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1086368422650187909/BonzaiYosh_landscape_of_the_beatiful_world_of_pokemon_with_wild_8d5421e6-faef-45c9-b828-0a5b87aed1dd.png');
+  background-image: url('https://cdn.midjourney.com/d0490271-55cb-440d-93a4-7553025d9821/0_0.png');
   background-position: left;
   background-repeat: no-repeat;
   background-size: cover;
