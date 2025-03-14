@@ -111,89 +111,89 @@ watchEffect(async () => {
     content: '';
     background-position: right bottom;
     background-size: cover;
-    background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1064387454741790781/BonzaiYosh_in-game_forest_background_landscape_in_the_style_of__12a91c82-c63a-4349-8a95-827ddf720f5e.png');
+    background-image: url('https://cdn.midjourney.com/620a8115-2f53-4bac-99a7-89f46cb90864/0_0.png');
     opacity: 0.85;
 
-    &--fire {
-      background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1064393756616445952/BonzaiYosh_in-game_non-active_volcano_background_landscape_in_t_78fe356a-06e2-42a5-a9e1-16b0f3329239.png');
-      transform: scaleX(-1);
-    }
-
     &--grass {
-      background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1064387454741790781/BonzaiYosh_in-game_forest_background_landscape_in_the_style_of__12a91c82-c63a-4349-8a95-827ddf720f5e.png');
+      background-image: url('https://cdn.midjourney.com/620a8115-2f53-4bac-99a7-89f46cb90864/0_0.png');
       transform: translateX(20px);
     }
 
+    &--fire {
+      background-image: url('https://cdn.midjourney.com/78fe356a-06e2-42a5-a9e1-16b0f3329239/0_0.png');
+      transform: scaleX(-1);
+    }
+
     &--water {
-      background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1064385414586175548/BonzaiYosh_in-game_beach_background_landscape_in_the_style_of_p_24cc6554-928c-490f-9a14-8c7ab7bbb499.png');
+      background-image: url('https://cdn.midjourney.com/24cc6554-928c-490f-9a14-8c7ab7bbb499/0_0.png');
     }
 
     &--normal {
-      background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1064380641770229820/BonzaiYosh_in-game_grassy_fields_background_landscape_in_the_st_05fad0d0-0bfa-4c93-a07e-6fe62df900c7.png');
+      background-image: url('https://cdn.midjourney.com/935c7eb5-c7ef-48f4-b19f-2c25e3c0da5e/0_0.png');
     }
 
     &--poison {
-      background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1064382992325300284/BonzaiYosh_in-game_grassy_fields_background_landscape_durring_s_935c7eb5-c7ef-48f4-b19f-2c25e3c0da5e.png');
+      background-image: url('https://cdn.midjourney.com/625297cd-261a-429b-bd4b-b833d643231d/0_0.png');
     }
 
     &--bug {
-      background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1064396496113508392/BonzaiYosh_in-game_forests_background_landscape_in_the_style_of_620a8115-2f53-4bac-99a7-89f46cb90864.png');
+      background-image: url('https://cdn.midjourney.com/620a8115-2f53-4bac-99a7-89f46cb90864/0_0.png');
       transform: scaleX(-1) translateX(-20px);
     }
 
     &--ground {
-      background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1064756522720174170/BonzaiYosh_in-game_pathway_to_cave_background_landscape_in_the__dccef69c-4a92-472f-9f72-b9ff306a141c.png');
+      background-image: url('https://cdn.midjourney.com/dccef69c-4a92-472f-9f72-b9ff306a141c/0_0.png');
       transform: translateX(70px);
     }
 
     &--fighting {
-      background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1064533387538341898/BonzaiYosh_in-game_path_leading_to_dojo_surounded_by_mountains__736edb0a-913a-4614-a2d7-ac06a84e26c4.png');
+      background-image: url('https://cdn.midjourney.com/736edb0a-913a-4614-a2d7-ac06a84e26c4/0_0.png');
     }
 
     &--rock {
-      background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1064404167940124682/BonzaiYosh_in-game_rocky_terrain_background_landscape_in_the_st_3253cfc9-3cf9-4068-85c1-634ad3b1fe56.png');
+      background-image: url('https://cdn.midjourney.com/3253cfc9-3cf9-4068-85c1-634ad3b1fe56/0_0.png');
       transform: scaleX(-1) translateX(-40px);
     }
 
     &--electric {
-      background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1064373519309361283/BonzaiYosh_in-game_street_background_landscape_in_the_style_of__2c568057-8088-4617-92e8-2dd8a4e5a258.png');
+      background-image: url('https://cdn.midjourney.com/2c568057-8088-4617-92e8-2dd8a4e5a258/0_0.png');
     }
 
     &--fairy {
-      background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1064904348771033208/BonzaiYosh_in-game_quiet_mountain_area_covered_with_flowers_bac_5988f45b-6f09-46ae-91d8-f5182d3a401c.png');
+      background-image: url('https://cdn.midjourney.com/5988f45b-6f09-46ae-91d8-f5182d3a401c/0_0.png');
       transform: scaleX(-1) translate(-45px, 20px);
     }
 
     &--psychic {
-      background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1064750024870854736/BonzaiYosh_in-game_abandoned_temple_background_landscape_in_the_06ccd0c1-d880-40ef-ad95-55a97551ad47.png');
+      background-image: url('https://cdn.midjourney.com/06ccd0c1-d880-40ef-ad95-55a97551ad47/0_0.png');
       transform: translateX(20px);
     }
 
     &--ghost {
-      background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1064753182527475783/BonzaiYosh_in-game_pathway_to_haunted_cementry_background_lands_476513f2-3637-4f6a-8eef-1225d1d9ca26.png');
+      background-image: url('https://cdn.midjourney.com/476513f2-3637-4f6a-8eef-1225d1d9ca26/0_0.png');
     }
 
     &--ice {
-      background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1064898348198400071/BonzaiYosh_in-game_icy_area_near_surounded_by_mountains_backgro_e2f15cbe-0235-4777-b311-fd9f361ddc4c.png');
+      background-image: url('https://cdn.midjourney.com/e2f15cbe-0235-4777-b311-fd9f361ddc4c/0_0.png');
     }
 
     &--dragon {
-      background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1064746570886696970/BonzaiYosh_in-game_secret_Lake_background_landscape_with_an_anc_3f3b8d49-c008-4048-a2af-fcf63a014df9.png');
+      background-image: url('https://cdn.midjourney.com/3f3b8d49-c008-4048-a2af-fcf63a014df9/0_0.png');
       transform: scaleX(-1) translateX(-50px);
     }
 
     &--steel {
-      background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1065384940256120842/BonzaiYosh_in-game_underground_full_of_crystals_background_land_bdecff41-1e84-4355-8713-c8c07a498c97.png');
+      background-image: url('https://cdn.midjourney.com/bdecff41-1e84-4355-8713-c8c07a498c97/0_0.png');
       transform: scaleX(-1) translateX(-60px);
     }
 
     &--flying {
-      background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1065443033291706418/BonzaiYosh_in-game_a_mile_high_surrounded_by_clouds_background__d343e3da-d21d-4bd6-84f1-2a2083f3ef97.png');
+      background-image: url('https://cdn.midjourney.com/d343e3da-d21d-4bd6-84f1-2a2083f3ef97/0_0.png');
       transform: scaleX(-1) translateX(-20px);
     }
 
     &--dark {
-      background-image: url('https://media.discordapp.net/attachments/1057467541062168586/1065090328807350300/BonzaiYosh_ask_in-game_pathway_to_a_lost_tower_during_a_full_mo_4042451b-56d4-46a4-b9d9-29f4c9fd308f.png');
+      background-image: url('https://cdn.midjourney.com/4042451b-56d4-46a4-b9d9-29f4c9fd308f/0_0.png');
       transform: scaleX(-1) translateX(-80px);
     }
   }
