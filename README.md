@@ -2,6 +2,8 @@
 
 Real Pokedex madw with Vue 3, Typescript, Pinia, and the PokeAPI
 
+Live [DEMO](https://aprettydecentpokedex.netlify.app/)
+
 ## Project Setup
 
 ```sh
