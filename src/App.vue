@@ -1,5 +1,5 @@
 <template>
-  <div class="pokedex-container" @keyup="handleKeyUp">
+  <div class="pokedex-container">
     <div class="pokedex-container__keyboard-map-wrapper">
       <KeyboardMap />
     </div>
