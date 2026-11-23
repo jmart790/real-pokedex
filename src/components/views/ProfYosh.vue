@@ -21,7 +21,7 @@
     content: '';
     background-position: left bottom;
     background-size: cover;
-    background-image: url('https://cdn.midjourney.com/77285c68-abc5-4c91-adf1-e23f3d231a2e/0_0.png');
+    background-image: url('@/assets/images/bg-prof-yosh.webp');
     opacity: 0.9;
   }
 
