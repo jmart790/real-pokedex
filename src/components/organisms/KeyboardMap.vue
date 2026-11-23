@@ -112,6 +112,16 @@ const buttons = [
     correspondingKey: 0
   },
   {
+    component: 'VolumeButton',
+    props: { isPlus: false },
+    correspondingKey: '−'
+  },
+  {
+    component: 'VolumeButton',
+    props: { isPlus: true },
+    correspondingKey: '+'
+  },
+  {
     component: 'PowerButton',
     props: null,
     correspondingKey: 'p'
@@ -139,7 +149,7 @@ const buttons = [
 
   &--open {
     width: 100%;
-    height: 720px;
+    height: 760px; // fits the volume row added above power
   }
   &--open &__content {
     opacity: 1;
@@ -192,6 +202,17 @@ const buttons = [
     width: 30px;
     height: 30px;
     font-size: $font-size-3;
+  }
+
+  // same volume icon sizing as ButtonMap, otherwise __button turns it into a 30px square
+  :deep(.volume-btn) {
+    width: 30px;
+    height: 8px;
+  }
+
+  :deep(.volume-btn--plus:before) {
+    height: 30px;
+    width: 8px;
   }
 
   &__key {

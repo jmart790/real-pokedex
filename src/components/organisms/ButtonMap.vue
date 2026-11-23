@@ -115,12 +115,12 @@ const buttons = computed(() => [
   {
     component: 'VolumeButton',
     props: { isPlus: true },
-    correspondingAction: 'N/A'
+    correspondingAction: 'volume up'
   },
   {
     component: 'VolumeButton',
     props: { isPlus: false },
-    correspondingAction: 'N/A'
+    correspondingAction: 'volume down'
   },
   {
     component: 'PowerButton',

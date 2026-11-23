@@ -29,8 +29,19 @@ import { onBeforeUnmount, onMounted, ref } from 'vue';
 import useControls from '@/composables/useControls';
 const { handleMainControl } = useControls();
 // eslint-disable-next-line prettier/prettier
-const keysToListenTo = ['down', 'up', 'left', 'right', 'x', 'z', 'a', 's', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'p'];
-const keysToBtnMap = { a: 'y', s: 'x', z: 'b', x: 'a', p: 'power', 0: '10' };
+const keysToListenTo = ['down', 'up', 'left', 'right', 'x', 'z', 'a', 's', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'p', '-', '=', '+'];
+// '=' and '+' share a key, so either works for volume up (no Shift needed)
+const keysToBtnMap = {
+  a: 'y',
+  s: 'x',
+  z: 'b',
+  x: 'a',
+  p: 'power',
+  0: '10',
+  '-': 'volume-down',
+  '=': 'volume-up',
+  '+': 'volume-up'
+};
 const isShiftedRight = ref(false);
 const isHelperOpen = ref(false);
 
