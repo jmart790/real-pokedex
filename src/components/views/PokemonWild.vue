@@ -23,6 +23,7 @@ import { computed, ref, watchEffect } from 'vue';
 import { storeToRefs } from 'pinia';
 import { usePokeStore } from '@/store/pokemon';
 import { useControlsStore } from '@/store/controls';
+import { playCry } from '@/composables/useSound';
 
 const pokeStore = usePokeStore();
 const controlStore = useControlsStore();
@@ -65,8 +66,10 @@ function handleImgLoaded() {
 }
 
 watchEffect(async () => {
+  const payload = activePokemonPayload.value;
   isImgLoading.value = true;
-  await getActivePokemon(activePokemonPayload.value);
+  playCry(payload); // on open and on every Pokemon change while this view is shown
+  await getActivePokemon(payload);
 });
 </script>
 

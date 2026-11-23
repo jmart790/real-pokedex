@@ -2,6 +2,7 @@ import { useControlsStore } from '@/store/controls';
 import { usePokeStore } from '@/store/pokemon';
 import type { TMainView } from '@/types';
 import { storeToRefs } from 'pinia';
+import { changeVolume, playSound } from '@/composables/useSound';
 
 export default function useControls() {
   const pokeStore = usePokeStore();
@@ -25,6 +26,7 @@ export default function useControls() {
 
   function handleMainControl(command: string) {
     handleActiveBtn(command);
+    handleSound(command);
     if (mainView.value === 'OFF' && command === 'power') togglePower();
     else if (mainView.value === 'MENU') MenuViewControls(command);
     else if (mainView.value === 'LIST') listViewControls(command);
@@ -32,6 +34,27 @@ export default function useControls() {
     else if (mainView.value === 'GENERATIONS') gensViewControls(command);
     else if (mainView.value === 'YOSH') profYoshControls(command);
     else if (mainView.value === 'CREDITS') creditsControls(command);
+  }
+
+  // Every button (keyboard or on-screen) routes through here, so sounds live in one place.
+  function handleSound(command: string) {
+    if (command === 'volume-up' || command === 'volume-down') {
+      changeVolume(command === 'volume-up' ? 1 : -1);
+    } else if (command === 'power') {
+      playSound(mainView.value === 'OFF' ? 'powerOn' : 'powerOff');
+    } else if (mainView.value === 'OFF') {
+      return; // screen off: only power and volume make sound
+    } else if (['up', 'down', 'left', 'right'].includes(command)) {
+      playSound('move');
+    } else if (command === 'a') {
+      playSound('select');
+    } else if (command === 'b') {
+      playSound('back');
+    } else if (command === 'x' || command === 'y') {
+      playSound('toggle');
+    } else {
+      playSound('tab'); // number buttons 1-10
+    }
   }
 
   function MenuViewControls(command: string) {
