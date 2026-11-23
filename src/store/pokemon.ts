@@ -8,7 +8,41 @@ import { useLoading } from '@/composables/useLoading';
 interface IPokemonListItem {
   name: string;
   id: number;
-  isLoaded: boolean;
+  type?: string;
+  height?: number;
+}
+
+type TTileInfo = Map<number, { type?: string; height: number }>;
+
+const GRAPHQL_URL = 'https://graphql.pokeapi.co/v1beta2';
+const TILE_INFO_QUERY = `query ($gen: Int!) {
+  pokemon(where: { pokemonspecy: { generation_id: { _eq: $gen } }, is_default: { _eq: true } }) {
+    id
+    height
+    pokemontypes(where: { slot: { _eq: 1 } }) { type { name } }
+  }
+}`;
+
+// One ~10KB request for the whole generation, instead of a ~400KB /pokemon/{id} request per tile.
+// ponytail: GraphQL API is beta; if it fails, tiles still render (sprite + name) without type color.
+async function getGenTileInfo(gen: number): Promise<TTileInfo> {
+  try {
+    const res = await fetch(GRAPHQL_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: TILE_INFO_QUERY, variables: { gen } })
+    });
+    const { data } = await res.json();
+    return new Map(
+      data.pokemon.map((p: { id: number; height: number; pokemontypes: { type: { name: string } }[] }) => [
+        p.id,
+        { type: p.pokemontypes[0]?.type.name, height: p.height }
+      ])
+    );
+  } catch (e) {
+    console.log({ e });
+    return new Map();
+  }
 }
 
 function transformSprites(sprites: IPokemonSpritesUpdated) {
@@ -43,23 +77,20 @@ export const usePokeStore = defineStore('pokemon', () => {
   const pokemonListLength = computed(() => generation.value?.pokemon_species.length);
   const hasError = ref(false);
 
-  function createPokemonList(generation: IGeneration) {
-    const preSortedList = generation?.pokemon_species.map(({ name, url }) => {
-      const id = Number(url.split('/')[6]);
-      return { name, id, isLoaded: false };
-    });
-    const sortedList = preSortedList.sort((a, b) => a.id - b.id);
-    return sortedList.map((pokemon, index) => ({
-      ...pokemon,
-      isLoaded: index < 20
-    }));
+  function createPokemonList(generation: IGeneration, tileInfo: TTileInfo) {
+    return generation.pokemon_species
+      .map(({ name, url }) => {
+        const id = Number(url.split('/')[6]);
+        return { name, id, ...tileInfo.get(id) };
+      })
+      .sort((a, b) => a.id - b.id);
   }
 
   async function getGen(genNum = 1) {
-    await PokeAPI.Generaition.resolve(genNum)
-      .then((res) => {
+    await Promise.all([PokeAPI.Generaition.resolve(genNum), getGenTileInfo(genNum)])
+      .then(([res, tileInfo]) => {
         generation.value = res;
-        pokemonList.value = createPokemonList(res);
+        pokemonList.value = createPokemonList(res, tileInfo);
       })
       .catch((e) => console.log({ e }));
   }
@@ -67,7 +98,8 @@ export const usePokeStore = defineStore('pokemon', () => {
   async function getPokemon(payload: string) {
     hasError.value = false;
     if (!payload) return;
-    await PokeAPI.Pokemon.resolve(payload)
+    // Library caches by numeric id, so a string id ("6") would always miss the cache and refetch
+    await PokeAPI.Pokemon.resolve(Number(payload) || payload)
       .then((res) => setActivePokemon(res))
       .catch((e) => {
         console.log({ e });
@@ -95,11 +127,6 @@ export const usePokeStore = defineStore('pokemon', () => {
     activePokemonPayload.value = payload;
   }
 
-  function setPokemonLoaded(index: number) {
-    if (!pokemonList.value?.length || index >= pokemonList.value?.length) return;
-    pokemonList.value[index].isLoaded = true;
-  }
-
   return {
     isGenLoading,
     getGeneration,
@@ -117,7 +144,6 @@ export const usePokeStore = defineStore('pokemon', () => {
     activePokemonPayload,
     activePokemonType,
     activePokemonId,
-    setPokemonLoaded,
     activePokemonMoves,
     activePokemonSprites,
     activePokemonHeight

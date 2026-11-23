@@ -5,16 +5,17 @@
     </div>
     <ul v-else ref="listElement" @wheel.prevent>
       <li
-        v-for="({ name, isLoaded, id }, index) in pokemonList"
+        v-for="({ name, id, type, height }, index) in pokemonList"
         :key="`pokemon-${name}`"
         :class="{ 'pokemon-list__active-tile': listPosition === index }"
       >
-        <FrostCard v-if="isLoaded">
+        <FrostCard>
           <PokemonTile
             v-bind="{
               name,
-              genNum,
               id,
+              type,
+              height,
               isActive: listPosition === index
             }"
           />
@@ -32,46 +33,25 @@ import { storeToRefs } from 'pinia';
 
 const pokeStore = usePokeStore();
 const controlsStore = useControlsStore();
-const { setPokemonLoaded, setActivePokemonPayload } = pokeStore;
+const { setActivePokemonPayload } = pokeStore;
 const { pokemonList, isGenLoading, genNum } = storeToRefs(pokeStore);
-const { listPosition, lastDirection } = storeToRefs(controlsStore);
+const { listPosition } = storeToRefs(controlsStore);
 const { resetListPosition } = controlsStore;
 const listElement = ref<HTMLUListElement | null>(null);
 
-function handleScrollInto(parent: HTMLUListElement | null, lastDirection: string) {
-  if (!parent || !pokemonList?.value?.length) return;
+// Keeps the active tile at least `threshold` px from the top/bottom edge, whatever the direction.
+function handleScrollInto(parent: HTMLUListElement | null, pos: number) {
+  const activeChild = parent?.children[pos] as HTMLElement | undefined;
+  if (!parent || !activeChild) return;
 
-  const activeChild = parent.getElementsByClassName('pokemon-list__active-tile')[0] as HTMLElement;
-  if (!activeChild) return;
-
-  // Define threshold value (in pixels)
   const threshold = 100;
+  const top = activeChild.offsetTop;
+  const bottom = top + activeChild.offsetHeight;
 
-  // Left/right can wrap onto the previous/next row, so they scroll like up/down
-  const isBackward = lastDirection === 'up' || lastDirection === 'left';
-  const isForward = lastDirection === 'down' || lastDirection === 'right';
-
-  // Check if active child is within threshold distance of top or bottom
-  if (activeChild.offsetTop < parent.scrollTop + threshold && isBackward) {
-    parent.scrollTop = activeChild.offsetTop - threshold;
-  } else if (
-    activeChild.offsetTop + activeChild.offsetHeight > parent.scrollTop + parent.offsetHeight - threshold &&
-    isForward
-  ) {
-    parent.scrollTop = activeChild.offsetTop + activeChild.offsetHeight - parent.offsetHeight + threshold;
-  }
-}
-
-function lazyLoadPokemon(pos: number) {
-  if (!pokemonList.value?.length) return;
-
-  const loadBuffer = 20;
-  const posToLoad = pos + loadBuffer;
-
-  if (posToLoad < pokemonList.value.length) {
-    setPokemonLoaded(posToLoad - 1);
-    setPokemonLoaded(posToLoad);
-    setPokemonLoaded(posToLoad + 1);
+  if (top < parent.scrollTop + threshold) {
+    parent.scrollTop = top - threshold;
+  } else if (bottom > parent.scrollTop + parent.clientHeight - threshold) {
+    parent.scrollTop = bottom - parent.clientHeight + threshold;
   }
 }
 
@@ -81,19 +61,17 @@ function handlePokemonHighlighted(pos = 0) {
   setActivePokemonPayload(id);
 }
 
-function resetList() {
-  resetListPosition();
-  handleScrollInto(listElement.value, lastDirection.value);
-}
-
 watch(genNum, (newVal, oldVal) => {
-  if (newVal !== oldVal) resetList();
+  if (newVal !== oldVal) resetListPosition();
 });
 
-watchEffect(() => {
-  lazyLoadPokemon(listPosition.value);
-  handleScrollInto(listElement.value, lastDirection.value);
-  handlePokemonHighlighted(listPosition.value);
+// Images load themselves via loading="lazy" as tiles scroll into view.
+watchEffect(() => handlePokemonHighlighted(listPosition.value));
+
+// flush: 'post' measures after Vue re-renders, otherwise the scroll uses the previous tile's position
+watch([listPosition, listElement], () => handleScrollInto(listElement.value, listPosition.value), {
+  flush: 'post',
+  immediate: true
 });
 </script>
 
@@ -111,6 +89,11 @@ watchEffect(() => {
     grid-template-columns: 1fr 1fr;
     gap: gap(3) gap(4);
     overflow: hidden;
+  }
+  li {
+    // Browser skips layout/paint for off-screen tiles but keeps them in the DOM (no flicker, scroll math intact)
+    content-visibility: auto;
+    contain-intrinsic-size: auto 50px;
   }
 }
 </style>

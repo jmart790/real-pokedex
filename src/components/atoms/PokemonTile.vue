@@ -32,6 +32,7 @@
         height="64px"
         width="64px"
         @load="handleLoadedImage"
+        @error="handleSpriteError"
         loading="lazy"
       />
     </div>
@@ -40,45 +41,40 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
-import PokeAPI from 'pokeapi-typescript';
-import type { IPokemonUpdated } from '@/types';
+import { computed, ref } from 'vue';
 
 interface IPokemonTile {
   name: string;
   isActive: boolean;
-  genNum: number;
   id: number;
+  type?: string;
+  height?: number;
 }
 
 const props = defineProps<IPokemonTile>();
-const pokemon = ref<IPokemonUpdated>();
-const isLoading = ref(false);
+const isLoading = ref(true);
 
-const isGifVisible = computed(() => {
-  return props.isActive && gifImage.value;
-});
-const spriteImage = computed(
-  () => pokemon?.value?.sprites?.front_default || pokemon?.value?.sprites.other['official-artwork']?.front_default
-);
-const gifImage = computed(
-  () => pokemon?.value?.sprites?.versions['generation-v']['black-white']?.animated?.front_default
-);
+// Sprite URLs follow a fixed pattern, so tiles need no API request.
+const SPRITES = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon';
+const LAST_ANIMATED_ID = 649; // black-white animated GIFs stop after gen 5
 
-const pokemonType = computed(() => pokemon?.value?.types[0].type.name);
+const spriteImage = ref(`${SPRITES}/${props.id}.png`);
+const gifImage =
+  props.id <= LAST_ANIMATED_ID ? `${SPRITES}/versions/generation-v/black-white/animated/${props.id}.gif` : '';
 
-const isPokemonTooBig = computed(() => (pokemon.value?.height || 0) > 11);
+const isGifVisible = computed(() => props.isActive && !!gifImage);
+const pokemonType = computed(() => props.type);
+const isPokemonTooBig = computed(() => (props.height || 0) > 11);
 
 const handleLoadedImage = () => {
   isLoading.value = false;
 };
 
-onMounted(async () => {
-  isLoading.value = true;
-  await PokeAPI.Pokemon.resolve(props.id).then((res) => {
-    pokemon.value = res as IPokemonUpdated;
-  });
-});
+// Some newer Pokemon have no small sprite; fall back to official artwork like before.
+const handleSpriteError = () => {
+  const artwork = `${SPRITES}/other/official-artwork/${props.id}.png`;
+  if (spriteImage.value !== artwork) spriteImage.value = artwork;
+};
 </script>
 
 <style scoped lang="scss">
