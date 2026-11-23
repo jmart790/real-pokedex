@@ -90,10 +90,5 @@ watch([listPosition, listElement], () => handleScrollInto(listElement.value, lis
     gap: gap(3) gap(4);
     overflow: hidden;
   }
-  li {
-    // Browser skips layout/paint for off-screen tiles but keeps them in the DOM (no flicker, scroll math intact)
-    content-visibility: auto;
-    contain-intrinsic-size: auto 50px;
-  }
 }
 </style>
