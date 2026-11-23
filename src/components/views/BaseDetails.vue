@@ -1,34 +1,36 @@
 <template>
   <section class="base-details" :class="`base-details--${pokemonTypes[0]}`">
-    <PikachuLoader v-if="isLoading && !isYoshView" />
-    <div v-else class="base-details__card">
-      <section class="base-details__species-num">
-        <p>{{ genus }}</p>
-        <FrostCard>
-          <p class="base-details__national-num"><span>#</span>{{ entryNumber }}</p>
-        </FrostCard>
-      </section>
+    <Transition name="screen-fade" mode="out-in">
+      <PikachuLoader v-if="isLoading && !isYoshView" />
+      <div v-else class="base-details__card">
+        <section class="base-details__species-num">
+          <p>{{ genus }}</p>
+          <FrostCard>
+            <p class="base-details__national-num"><span>#</span>{{ entryNumber }}</p>
+          </FrostCard>
+        </section>
 
-      <section class="base-details__copy">
-        <span class="base-details__copy-name">
-          {{ name }}
-        </span>
-        <span v-if="!hasData">
-          <br />
-          <br />
-          We apologize, as some of {{ name }} details are missing 😞. Evolutions, moves, etc are still available.
-        </span>
-        <template v-if="description"> {{ description.toLowerCase() }}. </template>
-        {{ flavorText }}
-      </section>
-      <p class="base-details__location">
-        <span v-if="encounter && location"> Located {{ encounter?.toLowerCase() }} near {{ location }}. </span>
-      </p>
+        <section class="base-details__copy">
+          <span class="base-details__copy-name">
+            {{ name }}
+          </span>
+          <span v-if="!hasData">
+            <br />
+            <br />
+            We apologize, as some of {{ name }} details are missing 😞. Evolutions, moves, etc are still available.
+          </span>
+          <template v-if="description"> {{ description.toLowerCase() }}. </template>
+          {{ flavorText }}
+        </section>
+        <p class="base-details__location">
+          <span v-if="encounter && location"> Located {{ encounter?.toLowerCase() }} near {{ location }}. </span>
+        </p>
 
-      <div class="base-details__types">
-        <TypePill v-for="pokemonType in pokemonTypes" :key="pokemonType" :type="pokemonType" />
+        <div class="base-details__types">
+          <TypePill v-for="pokemonType in pokemonTypes" :key="pokemonType" :type="pokemonType" />
+        </div>
       </div>
-    </div>
+    </Transition>
   </section>
 </template>
 

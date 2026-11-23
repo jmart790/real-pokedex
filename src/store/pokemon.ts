@@ -5,7 +5,7 @@ import type { IGeneration, IPokemon } from 'pokeapi-typescript';
 import type { IPokemonSpritesUpdated } from '@/types/index';
 import { useLoading } from '@/composables/useLoading';
 
-interface IPokemonListItem {
+export interface IPokemonListItem {
   name: string;
   id: number;
   type?: string;
@@ -43,6 +43,38 @@ async function getGenTileInfo(gen: number): Promise<TTileInfo> {
     console.log({ e });
     return new Map();
   }
+}
+
+interface ISearchItem extends IPokemonListItem {
+  gen: number;
+}
+
+const SEARCH_QUERY = `{
+  pokemon(where: { is_default: { _eq: true } }, order_by: { id: asc }) {
+    id
+    height
+    pokemonspecy { name generation_id }
+    pokemontypes(where: { slot: { _eq: 1 } }) { type { name } }
+  }
+}`;
+// ponytail: cap keeps a one-letter query from rendering ~700 tiles; nobody scrolls past 50 matches.
+const MAX_SEARCH_RESULTS = 50;
+
+// Every Pokemon across all generations (~120KB), fetched once the first time search opens.
+async function fetchAllPokemon(): Promise<ISearchItem[]> {
+  const res = await fetch(GRAPHQL_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ query: SEARCH_QUERY })
+  });
+  const { data } = await res.json();
+  return data.pokemon.map((p) => ({
+    id: p.id,
+    name: p.pokemonspecy.name,
+    gen: p.pokemonspecy.generation_id,
+    height: p.height,
+    type: p.pokemontypes[0]?.type.name
+  }));
 }
 
 function transformSprites(sprites: IPokemonSpritesUpdated) {
@@ -107,6 +139,33 @@ export const usePokeStore = defineStore('pokemon', () => {
       });
   }
 
+  const allPokemon = ref<ISearchItem[]>([]);
+  const searchQuery = ref('');
+  // Name matches that start with the query rank first; a number matches the Pokedex id.
+  const searchResults = computed(() => {
+    const query = searchQuery.value.trim().toLowerCase().replace(/\s+/g, '-');
+    if (!query) return [];
+    if (/^\d+$/.test(query))
+      return allPokemon.value.filter(({ id }) => String(id).startsWith(query)).slice(0, MAX_SEARCH_RESULTS);
+    const matches = allPokemon.value.filter(({ name }) => name.includes(query));
+    const starts = matches.filter(({ name }) => name.startsWith(query));
+    const rest = matches.filter(({ name }) => !name.startsWith(query));
+    return [...starts, ...rest].slice(0, MAX_SEARCH_RESULTS);
+  });
+
+  async function loadAllPokemon() {
+    if (allPokemon.value.length) return;
+    try {
+      allPokemon.value = await fetchAllPokemon();
+    } catch (e) {
+      console.log({ e });
+    }
+  }
+
+  function setSearchQuery(query: string) {
+    searchQuery.value = query;
+  }
+
   const { isLoading, executeFn: getActivePokemon } = useLoading(getPokemon);
   const { isLoading: isGenLoading, executeFn: getGeneration } = useLoading(getGen);
 
@@ -128,6 +187,11 @@ export const usePokeStore = defineStore('pokemon', () => {
   }
 
   return {
+    allPokemon,
+    searchQuery,
+    searchResults,
+    loadAllPokemon,
+    setSearchQuery,
     isGenLoading,
     getGeneration,
     pokemonList,

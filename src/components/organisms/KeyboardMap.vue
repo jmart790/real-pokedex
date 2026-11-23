@@ -108,8 +108,8 @@ const buttons = [
   },
   {
     component: 'BlueButton',
-    props: { copy: 10 },
-    correspondingKey: 0
+    props: { copy: 'search' },
+    correspondingKey: '/'
   },
   {
     component: 'VolumeButton',

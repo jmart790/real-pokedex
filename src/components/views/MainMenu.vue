@@ -18,6 +18,29 @@
         </div>
       </FrostCard>
     </div>
+    <!-- Menu position 4: top-left, reached with up from the top row -->
+    <!-- size lives on a wrapper: FrostCard's frost layer inherits width/height from the card -->
+    <div class="main-menu__search">
+      <FrostCard>
+        <div
+          class="main-menu__option main-menu__option--search"
+          :class="{ 'main-menu__option--active': menuPosition === 4 }"
+          aria-label="Search"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="3"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <circle cx="10" cy="10" r="6.5" />
+            <path d="M15 15l6 6" />
+          </svg>
+        </div>
+      </FrostCard>
+    </div>
   </section>
 </template>
 
@@ -105,18 +128,33 @@ const menuOptions = [
 .main-menu {
   $self: &;
   @include cool-bg;
-  padding: gap(9) gap(5);
+  padding: gap(9) gap(5) gap(2);
+  display: flex;
+  flex-direction: column;
   &__logo {
     height: 110px;
     width: 330px;
     display: block;
     margin-inline: auto;
-    margin-block: gap(6) gap(10);
+    margin-top: gap(4);
   }
   &__options {
+    margin-top: auto; // options sit low, just above the bottom edge
+    margin-bottom: gap(4);
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: gap(4);
+  }
+  // small round button in the top-left corner, above the logo
+  &__search {
+    position: absolute;
+    top: gap(3);
+    left: gap(4);
+    width: 40px;
+    height: 40px;
+    .frost-card {
+      border-radius: 50%; // frost layer and option inherit it
+    }
   }
   &__option {
     position: relative;
@@ -129,6 +167,18 @@ const menuOptions = [
     p {
       font-weight: 600;
       transition: letter-spacing 300ms ease-in-out;
+    }
+    // same option, scaled down
+    &--search {
+      height: 100%;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      svg {
+        width: 18px;
+        height: 18px;
+      }
     }
     &--active {
       color: $primary;

@@ -60,7 +60,7 @@ const buttons = computed(() => [
   {
     component: 'DpadButton',
     props: { variant: 'b' },
-    correspondingAction: ['POKEMON', 'YOSH'].includes(mainView.value) ? 'back' : 'N/A'
+    correspondingAction: ['POKEMON', 'YOSH', 'SEARCH'].includes(mainView.value) ? 'back' : 'N/A'
   },
   {
     component: 'DpadButton',
@@ -70,47 +70,61 @@ const buttons = computed(() => [
   {
     component: 'BlueButton',
     props: { copy: 1 },
-    correspondingAction: ['POKEMON', 'YOSH'].includes(mainView.value) ? 'details' : 'gen 1'
+    correspondingAction:
+      mainView.value === 'SEARCH' ? 'N/A' : ['POKEMON', 'YOSH'].includes(mainView.value) ? 'details' : 'gen 1'
   },
   {
     component: 'BlueButton',
     props: { copy: 2 },
-    correspondingAction: ['POKEMON', 'YOSH'].includes(mainView.value) ? 'stats' : 'gen 2'
+    correspondingAction:
+      mainView.value === 'SEARCH' ? 'N/A' : ['POKEMON', 'YOSH'].includes(mainView.value) ? 'stats' : 'gen 2'
   },
   {
     component: 'BlueButton',
     props: { copy: 3 },
-    correspondingAction: ['POKEMON', 'YOSH'].includes(mainView.value) ? 'damage from' : 'gen 3'
+    correspondingAction:
+      mainView.value === 'SEARCH' ? 'N/A' : ['POKEMON', 'YOSH'].includes(mainView.value) ? 'damage from' : 'gen 3'
   },
   {
     component: 'BlueButton',
     props: { copy: 4 },
-    correspondingAction: ['POKEMON', 'YOSH'].includes(mainView.value) ? 'damage to' : 'gen 4'
+    correspondingAction:
+      mainView.value === 'SEARCH' ? 'N/A' : ['POKEMON', 'YOSH'].includes(mainView.value) ? 'damage to' : 'gen 4'
   },
   {
     component: 'BlueButton',
     props: { copy: 5 },
-    correspondingAction: ['POKEMON', 'YOSH'].includes(mainView.value) ? 'evolutions' : 'gen 5'
+    correspondingAction:
+      mainView.value === 'SEARCH' ? 'N/A' : ['POKEMON', 'YOSH'].includes(mainView.value) ? 'evolutions' : 'gen 5'
   },
   {
     component: 'BlueButton',
     props: { copy: 6 },
-    correspondingAction: ['POKEMON', 'YOSH'].includes(mainView.value) ? 'learned moves' : 'gen 6'
+    correspondingAction:
+      mainView.value === 'SEARCH' ? 'N/A' : ['POKEMON', 'YOSH'].includes(mainView.value) ? 'learned moves' : 'gen 6'
   },
   {
     component: 'BlueButton',
     props: { copy: 7 },
-    correspondingAction: ['POKEMON', 'YOSH'].includes(mainView.value) ? 'machine moves' : 'gen 7'
+    correspondingAction:
+      mainView.value === 'SEARCH' ? 'N/A' : ['POKEMON', 'YOSH'].includes(mainView.value) ? 'machine moves' : 'gen 7'
   },
   {
     component: 'BlueButton',
     props: { copy: 8 },
-    correspondingAction: ['POKEMON', 'YOSH'].includes(mainView.value) ? 'sprites' : 'gen 8'
+    correspondingAction:
+      mainView.value === 'SEARCH' ? 'N/A' : ['POKEMON', 'YOSH'].includes(mainView.value) ? 'sprites' : 'gen 8'
   },
   {
     component: 'BlueButton',
     props: { copy: 9 },
-    correspondingAction: ['POKEMON', 'YOSH'].includes(mainView.value) ? 'N/A' : 'gen 9'
+    correspondingAction:
+      mainView.value === 'SEARCH' ? 'N/A' : ['POKEMON', 'YOSH'].includes(mainView.value) ? 'N/A' : 'gen 9'
+  },
+  {
+    component: 'BlueButton',
+    props: { copy: 'search' },
+    correspondingAction: 'search'
   },
   {
     component: 'VolumeButton',
@@ -150,10 +164,10 @@ const buttons = computed(() => [
   color: rgba(white, 0.8);
 
   &--open {
-    height: 630px;
+    height: 680px;
 
     @media (min-width: 666px) {
-      height: 730px;
+      height: 780px; // fits the search row
     }
   }
 

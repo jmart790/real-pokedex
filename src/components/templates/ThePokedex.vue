@@ -3,9 +3,11 @@
     <PokedexLeft>
       <Window class="pokedex__left-window" @click="handleOpenHelper">
         <Toast v-if="isToastVisible" v-bind="toastProps.header" />
-        <KeepAlive>
-          <component :is="mainViewComponent" />
-        </KeepAlive>
+        <Transition name="screen-fade" mode="out-in">
+          <KeepAlive>
+            <component :is="mainViewComponent" />
+          </KeepAlive>
+        </Transition>
         <Toast v-if="isToastVisible" v-bind="toastProps.footer" />
         <VolumeIndicator />
       </Window>
@@ -13,7 +15,10 @@
     </PokedexLeft>
     <PokedexRight>
       <Window variant="md" class="pokedex__right-window" @click="handleOpenHelper">
-        <component :is="secondaryViewComponent" v-bind="secondaryViewProps" />
+        <!-- keyed by view so 3/4 (DamageRelations) and 6/7 (PokemonMoves), which reuse a component, also fade -->
+        <Transition name="screen-fade" mode="out-in">
+          <component :is="secondaryViewComponent" v-bind="secondaryViewProps" :key="`${mainView}-${secondaryView}`" />
+        </Transition>
       </Window>
       <RightControls />
       <MiniViews />
@@ -39,7 +44,7 @@ const { mainView, secondaryView } = storeToRefs(controlsStore);
 const { togglePower } = controlsStore;
 
 const isToastVisible = computed(() => {
-  const viewsWithToast = ['LIST', 'POKEMON', 'GENERATIONS', 'YOSH'];
+  const viewsWithToast = ['LIST', 'POKEMON', 'GENERATIONS', 'YOSH', 'SEARCH'];
   return viewsWithToast.includes(mainView.value);
 });
 
@@ -51,7 +56,8 @@ const mainViewComponent = computed(() => {
     POKEMON: 'PokemonWild',
     GENERATIONS: 'PokemonGens',
     YOSH: 'ProfYosh',
-    CREDITS: 'CreditThanks'
+    CREDITS: 'CreditThanks',
+    SEARCH: 'PokemonSearch'
   };
   return options[mainView.value] || null;
 });
@@ -117,6 +123,17 @@ const toastProps = computed(() => {
       footer: {
         isHeader: false,
         copy: `Select`,
+        btnCopy: 'A'
+      }
+    },
+    SEARCH: {
+      header: {
+        isHeader: true,
+        copy: 'Search'
+      },
+      footer: {
+        isHeader: false,
+        copy: 'Select',
         btnCopy: 'A'
       }
     },

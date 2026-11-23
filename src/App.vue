@@ -29,7 +29,7 @@ import { onBeforeUnmount, onMounted, ref } from 'vue';
 import useControls from '@/composables/useControls';
 const { handleMainControl } = useControls();
 // eslint-disable-next-line prettier/prettier
-const keysToListenTo = ['down', 'up', 'left', 'right', 'x', 'z', 'a', 's', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'p', '-', '=', '+'];
+const keysToListenTo = ['down', 'up', 'left', 'right', 'x', 'z', 'a', 's', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'p', '-', '=', '+', '/', 'enter', 'escape'];
 // '=' and '+' share a key, so either works for volume up (no Shift needed)
 const keysToBtnMap = {
   a: 'y',
@@ -37,7 +37,10 @@ const keysToBtnMap = {
   z: 'b',
   x: 'a',
   p: 'power',
-  0: '10',
+  0: 'search',
+  '/': 'search',
+  enter: 'a',
+  escape: 'b',
   '-': 'volume-down',
   '=': 'volume-up',
   '+': 'volume-up'
@@ -46,6 +49,10 @@ const isShiftedRight = ref(false);
 const isHelperOpen = ref(false);
 
 function handleKeyUp(event: KeyboardEvent) {
+  // Typing in a text field (search): letters/numbers stay in the field; only navigation keys reach the Pokedex.
+  const isTyping = (event.target as HTMLElement)?.matches?.('input, textarea');
+  const navigationKeys = ['Enter', 'Escape', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
+  if (isTyping && !navigationKeys.includes(event.key)) return;
   event.preventDefault();
   const command = event.key.toLowerCase().replace('arrow', '');
   if (keysToListenTo.includes(command)) {

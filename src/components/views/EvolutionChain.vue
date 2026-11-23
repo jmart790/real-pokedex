@@ -1,32 +1,34 @@
 <template>
   <article class="evo-chain">
     <div class="evo-chain__card">
-      <PikachuLoader v-if="isLoading && !isYoshView" />
-      <div v-else-if="isYoshView" class="evo-chain__pokemons">
-        <div v-for="(yosh, index) in yoshs" :key="`yosh-evo--${index}`" class="evo-chain__yosh">
-          <p>{{ yosh.level }}</p>
-          <img :src="(yosh.img as unknown as string)" :alt="yosh.name" />
-          <FrostCard>
-            <label>{{ yosh.name }}</label>
-          </FrostCard>
-          <span v-if="index < 2" class="evo-chain__arrow">→</span>
+      <Transition name="screen-fade" mode="out-in">
+        <PikachuLoader v-if="isLoading && !isYoshView" />
+        <div v-else-if="isYoshView" class="evo-chain__pokemons">
+          <div v-for="(yosh, index) in yoshs" :key="`yosh-evo--${index}`" class="evo-chain__yosh">
+            <p>{{ yosh.level }}</p>
+            <img :src="(yosh.img as unknown as string)" :alt="yosh.name" />
+            <FrostCard>
+              <label>{{ yosh.name }}</label>
+            </FrostCard>
+            <span v-if="index < 2" class="evo-chain__arrow">→</span>
+          </div>
         </div>
-      </div>
-      <div
-        v-else-if="evoChain"
-        class="evo-chain__pokemons"
-        :class="{
-          'evo-chain__pokemons--single': totalEvolutions === 1,
-          'evo-chain__pokemons--multiple-rows': totalEvolutions > 4
-        }"
-      >
-        <EvolutionCard
-          v-for="pokemon in evoChain"
-          :key="pokemon.name"
-          v-bind="{ ...pokemon, totalEvolutions }"
-          class="evo-chain__pokemon"
-        />
-      </div>
+        <div
+          v-else-if="evoChain"
+          class="evo-chain__pokemons"
+          :class="{
+            'evo-chain__pokemons--single': totalEvolutions === 1,
+            'evo-chain__pokemons--multiple-rows': totalEvolutions > 4
+          }"
+        >
+          <EvolutionCard
+            v-for="pokemon in evoChain"
+            :key="pokemon.name"
+            v-bind="{ ...pokemon, totalEvolutions }"
+            class="evo-chain__pokemon"
+          />
+        </div>
+      </Transition>
     </div>
   </article>
 </template>

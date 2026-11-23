@@ -1,25 +1,27 @@
 <template>
   <section class="damage-relations">
-    <PikachuLoader v-if="isLoading" />
-    <ErrorCard v-else-if="hasError" />
-    <div v-else class="damage-relations__groups" :class="{ 'damage-relations__groups--loaded': !isLoading }">
-      <DamageGroup
-        class="damage-relations__group"
-        v-bind="{
-          group: 'half',
-          types: damageRelations?.half?.types || [],
-          relation
-        }"
-      />
-      <DamageGroup
-        class="damage-relations__group"
-        v-bind="{
-          group: 'double',
-          types: damageRelations?.double?.types || [],
-          relation
-        }"
-      />
-    </div>
+    <Transition name="screen-fade" mode="out-in">
+      <PikachuLoader v-if="isLoading" />
+      <ErrorCard v-else-if="hasError" />
+      <div v-else class="damage-relations__groups" :class="{ 'damage-relations__groups--loaded': !isLoading }">
+        <DamageGroup
+          class="damage-relations__group"
+          v-bind="{
+            group: 'half',
+            types: damageRelations?.half?.types || [],
+            relation
+          }"
+        />
+        <DamageGroup
+          class="damage-relations__group"
+          v-bind="{
+            group: 'double',
+            types: damageRelations?.double?.types || [],
+            relation
+          }"
+        />
+      </div>
+    </Transition>
   </section>
 </template>
 

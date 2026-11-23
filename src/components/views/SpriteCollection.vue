@@ -1,18 +1,20 @@
 <template>
   <section class="sprite-collection">
-    <PikachuLoader v-if="isLoading && !isYoshView" />
-    <div v-else class="sprite-collection__container">
-      <div class="sprite-collection__sprites">
-        <div class="sprite-collection__sprite" v-for="sprite in spritesSplit.firstHalf" :key="sprite">
-          <img :src="sprite" />
+    <Transition name="screen-fade" mode="out-in">
+      <PikachuLoader v-if="isLoading && !isYoshView" />
+      <div v-else class="sprite-collection__container">
+        <div class="sprite-collection__sprites">
+          <div class="sprite-collection__sprite" v-for="sprite in spritesSplit.firstHalf" :key="sprite">
+            <img :src="sprite" />
+          </div>
+        </div>
+        <div class="sprite-collection__sprites">
+          <div class="sprite-collection__sprite" v-for="sprite in spritesSplit.secondHalf" :key="sprite">
+            <img :src="sprite" />
+          </div>
         </div>
       </div>
-      <div class="sprite-collection__sprites">
-        <div class="sprite-collection__sprite" v-for="sprite in spritesSplit.secondHalf" :key="sprite">
-          <img :src="sprite" />
-        </div>
-      </div>
-    </div>
+    </Transition>
   </section>
 </template>
 

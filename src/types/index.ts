@@ -1,6 +1,6 @@
 import type { IPokemon, IPokemonSprites } from 'pokeapi-typescript/dist/interfaces/Pokemon/Pokemon';
 
-export type TMainView = 'OFF' | 'INTRO' | 'MENU' | 'LIST' | 'POKEMON' | 'YOSH' | 'CREDITS' | 'GENERATIONS';
+export type TMainView = 'OFF' | 'INTRO' | 'MENU' | 'LIST' | 'POKEMON' | 'YOSH' | 'CREDITS' | 'GENERATIONS' | 'SEARCH';
 
 export type TSecondaryView = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 

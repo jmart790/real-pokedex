@@ -1,14 +1,16 @@
 <template>
   <section class="base-stats">
-    <PikachuLoader v-if="isLoading && !isYoshView" />
-    <ErrorCard v-else-if="hasError && !isYoshView" />
-    <div class="base-stats__cards" v-else>
-      <FrostCard v-for="stat in stats" :key="`base-stat-${stat.label}`">
-        <div class="base-stats__card">
-          <CircleRange :label="stat.label" :max="stat.max" :base="stat.base" />
-        </div>
-      </FrostCard>
-    </div>
+    <Transition name="screen-fade" mode="out-in">
+      <PikachuLoader v-if="isLoading && !isYoshView" />
+      <ErrorCard v-else-if="hasError && !isYoshView" />
+      <div class="base-stats__cards" v-else>
+        <FrostCard v-for="stat in stats" :key="`base-stat-${stat.label}`">
+          <div class="base-stats__card">
+            <CircleRange :label="stat.label" :max="stat.max" :base="stat.base" />
+          </div>
+        </FrostCard>
+      </div>
+    </Transition>
   </section>
 </template>
 

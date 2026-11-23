@@ -15,3 +15,15 @@ body {
 #app {
   min-height: 100vh;
 }
+
+/* Screen fade: <Transition name="screen-fade" mode="out-in"> — loader fades out, then the screen fades in */
+.screen-fade-enter-active {
+  transition: opacity 400ms ease-out;
+}
+.screen-fade-leave-active {
+  transition: opacity 200ms ease-in;
+}
+.screen-fade-enter-from,
+.screen-fade-leave-to {
+  opacity: 0;
+}

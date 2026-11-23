@@ -17,6 +17,9 @@ export const useControlsStore = defineStore('controls', () => {
   const menuPosition = ref(0);
   const gensPosition = ref(0);
   const activeBtn = ref('');
+  const searchPosition = ref(0);
+  const viewBeforeSearch = ref<TMainView>('MENU');
+  const isPokemonFromSearch = ref(false); // B on that Pokemon returns to search instead of the list
 
   const activeSpriteSetting = computed(() => {
     return {
@@ -39,71 +42,39 @@ export const useControlsStore = defineStore('controls', () => {
     listPosition.value = 0;
   }
 
-  function navigatePokemonList(command: string) {
-    lastDirection.value = command;
-    const position = listPosition.value;
-    const end = Number(pokemonListLength.value) - 1;
+  // Shared 2-column grid move: up/down jump a row (2), left/right move 1, clamped to 0..end.
+  function getGridMove(position: number, command: string, end: number) {
     const options = { position, end, type: 'ADD', num: 1 };
-    switch (command) {
-      case 'up':
-        listPosition.value = getNextMove({ ...options, type: 'SUB', num: 2 });
-        break;
-      case 'down':
-        listPosition.value = getNextMove({ ...options, num: 2 });
-        break;
-      case 'left':
-        listPosition.value = getNextMove({ ...options, type: 'SUB' });
-        break;
-      case 'right':
-        listPosition.value = getNextMove({ ...options });
-        break;
-      default:
-        break;
-    }
+    if (command === 'up') return getNextMove({ ...options, type: 'SUB', num: 2 });
+    if (command === 'down') return getNextMove({ ...options, num: 2 });
+    if (command === 'left') return getNextMove({ ...options, type: 'SUB' });
+    if (command === 'right') return getNextMove(options);
+    return position;
   }
 
+  function navigatePokemonList(command: string) {
+    lastDirection.value = command;
+    listPosition.value = getGridMove(listPosition.value, command, Number(pokemonListLength.value) - 1);
+  }
+
+  // 0-3 = 2x2 grid; 4 = search button in the top-left corner: up from the top row, down/right back to the grid
   function navigateMainMenu(command: string) {
     const position = menuPosition.value;
-    const end = 3;
-    const options = { position, end, type: 'ADD', num: 1 };
-    switch (command) {
-      case 'up':
-        menuPosition.value = getNextMove({ ...options, type: 'SUB', num: 2 });
-        break;
-      case 'down':
-        menuPosition.value = getNextMove({ ...options, num: 2 });
-        break;
-      case 'left':
-        menuPosition.value = getNextMove({ ...options, type: 'SUB' });
-        break;
-      case 'right':
-        menuPosition.value = getNextMove({ ...options });
-        break;
-      default:
-        break;
+    if (position === 4) {
+      if (command === 'down' || command === 'right') menuPosition.value = 0;
+    } else if (command === 'up' && position < 2) {
+      menuPosition.value = 4;
+    } else {
+      menuPosition.value = getGridMove(position, command, 3);
     }
   }
 
   function navigateGensMenu(command: string) {
-    const position = gensPosition.value;
-    const end = 8;
-    const options = { position, end, type: 'ADD', num: 1 };
-    switch (command) {
-      case 'up':
-        gensPosition.value = getNextMove({ ...options, type: 'SUB', num: 2 });
-        break;
-      case 'down':
-        gensPosition.value = getNextMove({ ...options, num: 2 });
-        break;
-      case 'left':
-        gensPosition.value = getNextMove({ ...options, type: 'SUB' });
-        break;
-      case 'right':
-        gensPosition.value = getNextMove({ ...options });
-        break;
-      default:
-        break;
-    }
+    gensPosition.value = getGridMove(gensPosition.value, command, 8);
+  }
+
+  function navigateSearchResults(command: string, resultsLength: number) {
+    searchPosition.value = getGridMove(searchPosition.value, command, Math.max(resultsLength - 1, 0));
   }
 
   function getNextMove(options: INavigateOptions) {
@@ -112,7 +83,31 @@ export const useControlsStore = defineStore('controls', () => {
     else return position >= end - num ? end : position + num;
   }
 
+  function openSearch() {
+    if (mainView.value === 'SEARCH') return;
+    viewBeforeSearch.value = mainView.value;
+    setMainView('SEARCH');
+  }
+
+  function closeSearch() {
+    setMainView(viewBeforeSearch.value);
+  }
+
+  function openPokemonFromSearch() {
+    setMainView('POKEMON');
+    isPokemonFromSearch.value = true;
+  }
+
+  function setListPosition(position: number) {
+    listPosition.value = position;
+  }
+
+  function setSearchPosition(position: number) {
+    searchPosition.value = position;
+  }
+
   function setMainView(view: TMainView) {
+    isPokemonFromSearch.value = false; // any other route to a Pokemon (e.g. the list) goes back normally
     mainView.value = view;
   }
   function setSecondaryView(view: TSecondaryView) {
@@ -152,6 +147,14 @@ export const useControlsStore = defineStore('controls', () => {
     navigateGensMenu,
     isYoshView,
     activeBtn,
-    setActiveBtn
+    setActiveBtn,
+    searchPosition,
+    navigateSearchResults,
+    openSearch,
+    closeSearch,
+    setListPosition,
+    setSearchPosition,
+    isPokemonFromSearch,
+    openPokemonFromSearch
   };
 });

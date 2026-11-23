@@ -2,14 +2,13 @@
   <section class="right-controls">
     <div class="blue-btns">
       <BlueButton
-        v-for="i in 10"
+        v-for="i in 9"
         :key="`blue-btn-${i}`"
-        @click="handleBtnClick(i)"
+        @click="handleMainControl(String(i))"
         :copy="i"
         :isActive="activeBtn === String(i)"
-      >
-        {{ i }}
-      </BlueButton>
+      />
+      <BlueButton copy="search" @click="handleMainControl('search')" :isActive="activeBtn === 'search'" />
     </div>
   </section>
 </template>
@@ -22,10 +21,6 @@ import { storeToRefs } from 'pinia';
 const { handleMainControl } = useControls();
 const controlsStore = useControlsStore();
 const { activeBtn } = storeToRefs(controlsStore);
-
-function handleBtnClick(command: number) {
-  handleMainControl(String(command));
-}
 </script>
 
 <style scoped lang="scss">

@@ -1,25 +1,27 @@
 <template>
   <article class="poke-moves">
-    <PikachuLoader v-if="isLoading && !isYoshView" />
-    <ul v-else-if="hasMoves">
-      <li v-for="move in movesList" :key="`pokemon-move--${move.name}`">
-        <FrostCard>
-          <div class="poke-moves__move">
-            <Icon class="poke-moves__icon" :name="`type-${move.type}`" :class="`poke-moves__icon--${move.type}`" />
-            <p class="poke-moves__move-name">
-              {{ move.name }}
-            </p>
-            <p v-if="filterBy === 'level-up'">lvl. {{ move.levelLearnedAt }}</p>
-            <p v-else style="text-transform: uppercase">{{ move.machineLearnedBy }}</p>
-            <p>{{ move.damageClass }}</p>
-            <p style="display: flex; alignitems: center; gap: 4px">
-              {{ move.power }}
-              <Icon name="swords-icon" class="poke-moves__sword-icon" />
-            </p>
-          </div>
-        </FrostCard>
-      </li>
-    </ul>
+    <Transition name="screen-fade" mode="out-in">
+      <PikachuLoader v-if="isLoading && !isYoshView" />
+      <ul v-else-if="hasMoves">
+        <li v-for="move in movesList" :key="`pokemon-move--${move.name}`">
+          <FrostCard>
+            <div class="poke-moves__move">
+              <Icon class="poke-moves__icon" :name="`type-${move.type}`" :class="`poke-moves__icon--${move.type}`" />
+              <p class="poke-moves__move-name">
+                {{ move.name }}
+              </p>
+              <p v-if="filterBy === 'level-up'">lvl. {{ move.levelLearnedAt }}</p>
+              <p v-else style="text-transform: uppercase">{{ move.machineLearnedBy }}</p>
+              <p>{{ move.damageClass }}</p>
+              <p style="display: flex; alignitems: center; gap: 4px">
+                {{ move.power }}
+                <Icon name="swords-icon" class="poke-moves__sword-icon" />
+              </p>
+            </div>
+          </FrostCard>
+        </li>
+      </ul>
+    </Transition>
   </article>
 </template>
 
