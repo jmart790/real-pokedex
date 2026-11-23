@@ -20,6 +20,7 @@ import { computed } from 'vue';
 import { usePokeStore } from '@/store/pokemon';
 import { storeToRefs } from 'pinia';
 import { useControlsStore } from '@/store/controls';
+import { version } from '../../../package.json'; // single source: bump with `npm version`
 
 const pokeStore = usePokeStore();
 const controlsStore = useControlsStore();
@@ -57,7 +58,7 @@ const copy = computed(() => {
       right: 'Weight: Nunya'
     }
   };
-  const fallback = { left: 'Version: 1', right: 'Made with Vue 💚' };
+  const fallback = { left: `Version: ${version}`, right: 'Made with Vue 💚' };
   return options[mainView.value] || fallback;
 });
 </script>

@@ -18,6 +18,10 @@
         :is-shifted-right="isShiftedRight"
       />
     </div>
+    <p class="pokedex-container__disclaimer">
+      Fan-made project, not affiliated with or endorsed by Nintendo, Game Freak, Creatures Inc. or The Pokémon Company.
+      Pokémon and all related names and images are trademarks of their respective owners. Data from PokéAPI.
+    </p>
     <div v-if="isHelperOpen" class="pokedex-container__helper-wrapper">
       <PikachuHelper class="pokedex-container__helper" @close="handleCloseHelper" />
     </div>
@@ -146,11 +150,11 @@ onBeforeUnmount(() => {
 
   &__mobile-btn-wrapper {
     position: fixed;
-    bottom: 2.1%;
+    bottom: calc(2.1% + 40px); // + room for the disclaimer below it
     left: 0;
     width: 100%;
     @media (min-width: 400px) {
-      bottom: 2.5%;
+      bottom: calc(2.5% + 40px);
     }
     @media (min-width: 666px) {
       display: none;
@@ -162,6 +166,24 @@ onBeforeUnmount(() => {
     transform: scale(0.8);
     @media (min-width: 400px) {
       transform: unset;
+    }
+  }
+
+  &__disclaimer {
+    position: fixed;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: calc(100% - 32px);
+    font-size: 10px;
+    line-height: 1.3;
+    text-align: center;
+    color: rgba(white, 0.85);
+    text-shadow: 0 1px 2px rgba(black, 0.8);
+    pointer-events: none;
+    @media (max-width: 665px) {
+      font-size: 9px;
     }
   }
 
