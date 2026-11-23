@@ -47,12 +47,16 @@ function handleScrollInto(parent: HTMLUListElement | null, lastDirection: string
   // Define threshold value (in pixels)
   const threshold = 100;
 
+  // Left/right can wrap onto the previous/next row, so they scroll like up/down
+  const isBackward = lastDirection === 'up' || lastDirection === 'left';
+  const isForward = lastDirection === 'down' || lastDirection === 'right';
+
   // Check if active child is within threshold distance of top or bottom
-  if (activeChild.offsetTop < parent.scrollTop + threshold && lastDirection === 'up') {
+  if (activeChild.offsetTop < parent.scrollTop + threshold && isBackward) {
     parent.scrollTop = activeChild.offsetTop - threshold;
   } else if (
     activeChild.offsetTop + activeChild.offsetHeight > parent.scrollTop + parent.offsetHeight - threshold &&
-    lastDirection === 'down'
+    isForward
   ) {
     parent.scrollTop = activeChild.offsetTop + activeChild.offsetHeight - parent.offsetHeight + threshold;
   }
