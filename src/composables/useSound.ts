@@ -2,10 +2,12 @@
 // plus Pokemon cries from PokeAPI's cries repo (same source family as the sprites).
 // Module-level state so every caller shares one AudioContext and one volume level.
 
+import { ref } from 'vue';
+
 type TSound = 'move' | 'select' | 'back' | 'toggle' | 'tab' | 'powerOn' | 'powerOff' | 'volume';
 type TNote = [freq: number, ms: number];
 
-const MAX_VOLUME = 5;
+export const MAX_VOLUME = 5;
 const STORAGE_KEY = 'pokedex-volume';
 const CRY_URL = 'https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest';
 
@@ -49,7 +51,9 @@ function readVolume() {
   }
 }
 
-let volume = readVolume();
+// Refs so the on-screen volume indicator can react; adjustedAt also ticks at the 0/max limits.
+export const volume = ref(readVolume());
+export const volumeAdjustedAt = ref(0);
 let ctx: AudioContext | null = null;
 let cry: HTMLAudioElement | null = null;
 
@@ -61,10 +65,10 @@ function getContext() {
 }
 
 export function playSound(name: TSound) {
-  if (!volume) return;
+  if (!volume.value) return;
   const audio = getContext();
   // Square waves are loud; keep the peak low and scale it by the volume level.
-  const peak = 0.06 * (volume / MAX_VOLUME);
+  const peak = 0.06 * (volume.value / MAX_VOLUME);
   let start = audio.currentTime;
 
   for (const [freq, ms] of SOUNDS[name]) {
@@ -85,19 +89,20 @@ export function playSound(name: TSound) {
 // ponytail: cries are .ogg; Safari can't play Ogg Vorbis, so it silently skips them there.
 export function playCry(id: number | string) {
   cry?.pause(); // one cry at a time when scrolling quickly
-  if (!volume || !id || id === '0') return;
+  if (!volume.value || !id || id === '0') return;
   cry = new Audio(`${CRY_URL}/${id}.ogg`);
-  cry.volume = 0.5 * (volume / MAX_VOLUME);
+  cry.volume = 0.5 * (volume.value / MAX_VOLUME);
   cry.play().catch(() => {});
 }
 
 export function changeVolume(step: 1 | -1) {
-  volume = Math.min(MAX_VOLUME, Math.max(0, volume + step));
+  volume.value = Math.min(MAX_VOLUME, Math.max(0, volume.value + step));
+  volumeAdjustedAt.value = Date.now();
   try {
-    localStorage.setItem(STORAGE_KEY, String(volume));
+    localStorage.setItem(STORAGE_KEY, String(volume.value));
   } catch {
     // storage blocked (private mode); volume still applies for this visit
   }
   playSound('volume');
-  return volume;
+  return volume.value;
 }

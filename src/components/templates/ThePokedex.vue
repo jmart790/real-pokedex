@@ -7,6 +7,7 @@
           <component :is="mainViewComponent" />
         </KeepAlive>
         <Toast v-if="isToastVisible" v-bind="toastProps.footer" />
+        <VolumeIndicator />
       </Window>
       <LeftControls />
     </PokedexLeft>
